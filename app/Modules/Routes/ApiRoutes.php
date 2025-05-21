@@ -31,3 +31,5 @@ include_once base_path("app/Modules/Management/TestModule/TestTwo/Routes/Route.p
 include_once base_path("app/Modules/Management/Blog/Routes/Route.php");
 include_once base_path("app/Modules/Management/test/Routes/Route.php");
 include_once base_path("app/Modules/Management/TestOneThree/Routes/Route.php");
+
+include_once base_path("app/Modules/Management/MealManagement/UserMeal/Routes/Route.php");

@@ -23,17 +23,41 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for=""> name</label>
+                <label for="">Title</label>
                 <div class="mt-1 mb-3">
                   <input
                     class="form-control form-control-square mb-2"
                     type="text"
-                    name="name"
-                    id="name"
-                    v-model="form_fields.name"
+                    name="title"
+                    id="title"
+                    v-model="form_fields.title"
                   />
                 </div>
               </div>
+              <div class="form-group">
+                <label for="">Description</label>
+                <div class="mt-1 mb-3">
+                  <input
+                    class="form-control form-control-square mb-2"
+                    type="text"
+                    name="description"
+                    id="description"
+                    v-model="form_fields.description"
+                  />
+                </div>
+              </div>
+              <!-- <div class="form-group">
+                <label for="date">Date</label>
+                <div class="mt-1 mb-3">
+                  <input
+                    type="date"
+                    class="form-control form-control-square mb-2"
+                    name="date"
+                    id="date"
+                    v-model="form_fields.date"
+                  />
+                </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -57,7 +81,8 @@ export default {
     setup,
     param_id: null,
     form_fields: {
-      name: "",
+      title: "",
+      description: "",
     },
   }),
   created: async function () {

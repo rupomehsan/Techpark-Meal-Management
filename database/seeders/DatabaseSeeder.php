@@ -17,7 +17,7 @@ use App\Modules\Management\SettingManagement\WebsiteSettings\Seeder\Seeder as We
 /**
  * Suppliyer seeder management.
  */
-use App\Modules\Management\BlogCategory\Seeder\Seeder as BlogCategorySeeder;
+use App\Modules\Management\Blog\Seeder\Seeder as BlogCategorySeeder;
 
 class DatabaseSeeder extends Seeder
 {

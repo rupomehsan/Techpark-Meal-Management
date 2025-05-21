@@ -8,7 +8,7 @@ const setup: setup_type = {
   permission: ["admin", "super_admin"],
   api_host: app_config.api_host,
   api_version: app_config.api_version,
-  api_end_point: "blog-categories",
+  api_end_point: "blogs",
 
 
   store_prefix: "blog_category",
@@ -17,14 +17,16 @@ const setup: setup_type = {
 
   select_fields: [
     "id",
-    "name",
+    "title",
+    "description",
     "slug",
     "created_at",
   ],
 
   sort_by_cols: [
      "id",
-    "name",
+    "title",
+    "description",
     "slug",
     "created_at",
   ],

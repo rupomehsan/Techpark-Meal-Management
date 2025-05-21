@@ -53,7 +53,8 @@
                       />
                     </th>
                     <th class="w-10">ID</th>
-                    <th>name</th>
+                    <th>title</th>
+                    <th>Description</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -159,7 +160,8 @@
                       />
                     </td>
                     <td>{{ index + 1 }}</td>
-                    <td>{{ item.name }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.description }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -302,7 +304,7 @@
                 >
                   <option disabled selected>Select action</option>
                   <option value="inactive">Inactive</option>
-                  <option value="active">Action</option>
+                  <option value="active">Active</option>
                   <option value="soft_delete">Soft Delete</option>
                   <option value="restore">Restore</option>
                   <option value="destroy">Destroy</option>
