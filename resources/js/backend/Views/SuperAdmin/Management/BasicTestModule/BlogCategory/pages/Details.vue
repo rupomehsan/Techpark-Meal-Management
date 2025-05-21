@@ -21,9 +21,14 @@
               <table class="table quick_modal_table table-bordered">
                 <tbody>
                   <tr>
-                    <th>name</th>
+                    <th>Title</th>
                     <th class="text-center">:</th>
-                    <th>{{ item.name }}</th>
+                    <th>{{ item.title }}</th>
+                  </tr>
+                  <tr>
+                    <th>Description</th>
+                    <th class="text-center">:</th>
+                    <th>{{ item.description }}</th>
                   </tr>
                 </tbody>
               </table>

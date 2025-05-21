@@ -53,7 +53,8 @@
                       />
                     </th>
                     <th class="w-10">ID</th>
-                    <th>name</th>
+                    <th>Title</th>
+                    <th>Description</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -159,7 +160,8 @@
                       />
                     </td>
                     <td>{{ index + 1 }}</td>
-                    <td>{{ item.name }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.description }}</td>
                   </tr>
                 </tbody>
               </table>

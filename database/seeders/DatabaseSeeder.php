@@ -17,7 +17,7 @@ use App\Modules\Management\SettingManagement\WebsiteSettings\Seeder\Seeder as We
 /**
  * Suppliyer seeder management.
  */
-use App\Modules\Management\BlogCategory\Seeder\Seeder as BlogCategorySeeder;
+use App\Modules\Management\Blog\Seeder\Seeder as BlogSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -36,7 +36,8 @@ class DatabaseSeeder extends Seeder
             /**
              * Suppliyer seeder management.
              */
-            BlogCategorySeeder::class
+            // BlogCategorySeeder::class
+            BlogSeeder::class
 
         ]);
     }

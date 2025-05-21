@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\Management\Blog\Actions;
+namespace App\Modules\Management\UserManagement\UserPayment\Actions;
 
 class GetAllData
 {
-    static $model = \App\Modules\Management\Blog\Models\Model::class;
+    static $model = \App\Modules\Management\UserManagement\UserPayment\Models\Model::class;
 
     public static function execute()
     {
@@ -21,13 +21,12 @@ class GetAllData
             $condition = [];
 
             $data = self::$model::query();
-            // dd($data);
 
             if (request()->has('search') && request()->input('search')) {
                 $searchKey = request()->input('search');
                 $data = $data->where(function ($q) use ($searchKey) {
-                $q->where('title', 'like', '%' . $searchKey . '%')   
-                  ->orWhere('description', 'like', '%' . $searchKey . '%');              
+                $q->where('month', 'like', '%' . $searchKey . '%')   
+                  ->orWhere('amount', 'like', '%' . $searchKey . '%');              
 
                 });
             }

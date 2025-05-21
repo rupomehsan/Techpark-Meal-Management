@@ -18,7 +18,8 @@ class Seeder extends SeederClass
         self::$model::truncate();
 
         for ($i = 1; $i <= 100; $i++) {
-            self::$model::create([                'title' => $faker->sentence,
+            self::$model::create([                
+                'title' => $faker->sentence,
                 'description' => $faker->paragraph,
             ]);
         }
