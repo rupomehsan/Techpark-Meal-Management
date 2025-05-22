@@ -34,3 +34,4 @@ include_once base_path("app/Modules/Management/TestOneThree/Routes/Route.php");
 
 
 include_once base_path("app/Modules/Management/UserManagement/UserPayment/Routes/Route.php");
+include_once base_path("app/Modules/Management/BatchManagement/Routes/Route.php");
