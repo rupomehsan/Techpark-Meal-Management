@@ -21,73 +21,26 @@
               <table class="table quick_modal_table table-bordered">
                 <tbody>
                   <tr>
-                    <th>name</th>
+                    <th>User ID</th>
                     <th class="text-center">:</th>
-                    <th>{{ item.name }}</th>
+                    <th>{{ item.user_id }}</th>
                   </tr>
                   <tr>
-                    <th>email</th>
+                    <th>Month</th>
                     <th class="text-center">:</th>
-                    <th>{{ item.email }}</th>
+                    <th>{{ item.month }}</th>
                   </tr>
                   <tr>
-                    <th>phone number</th>
+                    <th>Payment Date</th>
                     <th class="text-center">:</th>
-                    <th>{{ item.phone_number }}</th>
+                    <th>{{ item.payment_date }}</th>
                   </tr>
                   <tr>
-                    <th>password</th>
+                    <th>Amount</th>
                     <th class="text-center">:</th>
-                    <th>{{ item.password_in_text }}</th>
+                    <th>{{ item.amount }}</th>
                   </tr>
-                  <tr>
-                    <th>Salary</th>
-                    <th class="text-center">:</th>
-                    <th>{{ item.salery }}</th>
-                  </tr>
-                  <tr>
-                    <th>Joining date</th>
-                    <th class="text-center">:</th>
-                    <th>{{ item.join_date }}</th>
-                  </tr>
-
-                  <tr>
-                    <th>role</th>
-                    <th class="text-center">:</th>
-                    <th>{{ item.role?.name }}</th>
-                  </tr>
-                  <tr>
-                    <th>image</th>
-                    <th class="text-center">:</th>
-                    <th>
-                      <img
-                        height="100px"
-                        width="100px"
-                        :src="item.image"
-                        alt=""
-                      />
-                    </th>
-                  </tr>
-                  <tr>
-                    <th>nid</th>
-                    <th class="text-center">:</th>
-                    <th>{{ item.nid }}</th>
-                  </tr>
-                  <tr>
-                    <th>permanent address</th>
-                    <th class="text-center">:</th>
-                    <th>{{ item.permanent_address }}</th>
-                  </tr>
-                  <tr>
-                    <th>present address</th>
-                    <th class="text-center">:</th>
-                    <th>{{ item.present_address }}</th>
-                  </tr>
-                  <tr>
-                    <th>commment</th>
-                    <th class="text-center">:</th>
-                    <th>{{ item.comment }}</th>
-                  </tr>
+                
                 </tbody>
               </table>
             </div>

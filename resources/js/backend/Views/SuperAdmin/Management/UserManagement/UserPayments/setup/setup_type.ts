@@ -2,7 +2,7 @@
     permission: string[];
 
     prefix: string;
-    module_name: string;
+    // module_name: string;
     route_prefix: string;
     store_prefix: string;
     route_path: string;

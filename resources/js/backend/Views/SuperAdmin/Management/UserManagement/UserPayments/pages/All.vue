@@ -55,11 +55,10 @@
                       />
                     </th>
                     <th class="w-10">ID</th>
-                    <th>name</th>
-                    <th>designation</th>
-                    <th>email</th>
-                    <th>Phone</th>
-                    <th>image</th>
+                    <th>User Name</th>
+                    <th>Month</th>
+                    <th>Payment Date</th>
+                    <th>Amount</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -165,14 +164,10 @@
                       />
                     </td>
                     <td>{{ index + 1 }}</td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.role?.name }}</td>
-                    <td>{{ item.email }}</td>
-                    <td>{{ item.phone_number ?? "N/A " }}</td>
-
-                    <td>
-                      <img :src="item.image" alt="" height="50" width="50" />
-                    </td>
+                    <td>{{ item.user_id ?? "N/A " }}</td>
+                    <td>{{ item.month ?? "N/A " }}</td>
+                    <td>{{ item.payment_date ?? "N/A " }}</td>
+                    <td>{{ item.amount ?? "N/A " }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -514,6 +509,7 @@ export default {
   created: async function () {
     await this.get_all();
   },
+
   methods: {
     export_all_csv,
     export_selected_csv,
@@ -577,10 +573,14 @@ export default {
         }
       }
     },
+
     restore_data: async function (item) {
+      
       let con = await window.s_confirm("Restore");
       if (con) {
         this.set_item(item);
+        console.log(this.item);
+        
         this.set_only_latest_data(true);
         let response = await this.restore();
         if (response.data.status === "success") {
@@ -712,7 +712,9 @@ export default {
       "end_date",
       "search_key",
       "page",
+      'item'
     ]),
+
     isAllSelected() {
       return (
         this.all?.data?.length > 0 &&

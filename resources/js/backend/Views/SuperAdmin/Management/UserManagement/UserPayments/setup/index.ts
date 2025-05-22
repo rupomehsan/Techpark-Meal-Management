@@ -1,7 +1,7 @@
 import app_config from "../../../../../../Config/app_config";
 import setup_type from "./setup_type";
 
-const prefix: string = "Employee";
+const prefix: string = "User Payment";
 
 const setup: setup_type = {
   prefix,
@@ -9,31 +9,30 @@ const setup: setup_type = {
 
   api_host: app_config.api_host,
   api_version: app_config.api_version,
-  api_end_point: "users",
+  api_end_point: "user-payments",
 
-  module_name: "user",
-  store_prefix: "user",
-  route_prefix: "User",
-  route_path: "user",
+  // module_name: "user",
+  store_prefix: "userpayment",
+  route_prefix: "UserPayment",
+  route_path: "userpayment",
 
   select_fields: [
     "id",
-    "name",
-    "email",
-    "phone_number",
-    "image",
-    "role_id",
+    "user_id",
+    "month",
+    "payment_date",
+    "amount",
     "slug",
     "created_at",
   ],
 
   sort_by_cols: [
     "id",
-    "name",
-    "email",
-    "phone_number",
-    "image",
-    "role_id",
+    "user_id",
+    "month",
+    "payment_date",
+    "amount",
+     "slug",
     "created_at",
   ],
 

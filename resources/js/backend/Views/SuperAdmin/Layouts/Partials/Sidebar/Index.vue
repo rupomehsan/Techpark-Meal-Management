@@ -67,6 +67,18 @@
           },
         ]"
       />
+      <!-- user payment -->
+      <side-bar-drop-down-menus
+        :icon="`fa fa-plus`"
+        :menu_title="`User Payment`"
+        :menus="[
+          {
+            route_name: `AllUserPayment`,
+            title: `User Payment`,
+            icon: `zmdi zmdi-dot-circle-alt`,
+          },
+        ]"
+      />
 
       <!-- Management end -->
     </ul>

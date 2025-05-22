@@ -4,9 +4,11 @@ import { store } from "..";
 import fetchDataAndUpdateCache from "../helpers/http";
 
 import setup from "../../setup";
+
 const { api_host, api_version, api_end_point } = setup;
 
 let execute = async () => {
+
   let state = mapWritableState(store, [
     "url",
     "page",
@@ -53,6 +55,9 @@ let execute = async () => {
   let fetch_only_latest: boolean = true;
 
   for (let param in qparams.params) {
+
+    // console.log("najmul", qparams.params[param]);
+    
     full_url.searchParams.set(param, qparams.params[param]);
   }
 

@@ -7,6 +7,7 @@ import SettingsRoutes from "../Management/Settings/setup/routes.js";
 //routes
 
 import UserRoutes from '../Management/UserManagement/User/setup/routes.js';
+import UserPaymentsRoutes from '../Management/UserManagement/UserPayments/setup/routes.js';
 import BlogCategroy from '../Management/BasicTestModule/BlogCategory/setup/routes.js';
 
 
@@ -24,6 +25,7 @@ const routes = {
         //management routes
         UserRoutes,
         BlogCategroy,
+        UserPaymentsRoutes,
         //settings
         SettingsRoutes,
     ],

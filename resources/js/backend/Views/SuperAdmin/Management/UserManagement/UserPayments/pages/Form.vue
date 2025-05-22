@@ -31,22 +31,32 @@
         </div>
         <div class="card-body card_body_fixed_height">
           <div class="row">
-            <template
-              v-for="(form_field, index) in form_fields"
-              v-bind:key="index"
-            >
-              <common-input
-                :label="form_field.label"
-                :type="form_field.type"
-                :name="form_field.name"
-                :multiple="form_field.multiple"
-                :value="form_field.value"
-                :data_list="form_field.data_list"
-                :is_visible="form_field.is_visible"
-                :row_col_class="form_field.row_col_class"
-                :onchange="changeAction"
-              />
-            </template>
+
+            <div class="col-md-12">
+              <div class="col-md-6 pull-left">
+                  <div class="mb-3">
+                    <label for="user_id" class="form-label">User Id</label>
+                    <input type="text" v-model="form_fields.user_id" name="user_id" class="form-control" id="user_id" >
+                  </div>
+
+                <div class="mb-3">
+                  <label for="month" class="form-label">Month</label>
+                  <input type="month" v-model="form_fields.month" name="month" class="form-control" id="month" >
+                </div>
+              </div>
+              <div class="col-md-6 pull-right">
+                <div class="mb-3">
+                  <label for="payment_date" class="form-label">Payment Date</label>
+                  <input type="date" v-model="form_fields.payment_date" name="payment_date" class="form-control" id="payment_date" >
+                </div>
+
+                <div class="mb-3">
+                  <label for="amount" class="form-label">Amount</label>
+                  <input type="number" v-model="form_fields.amount" name="amount" class="form-control" id="amount" >
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
         <div class="card-footer">
@@ -72,15 +82,22 @@ export default {
     setup,
     form_fields,
     param_id: null,
+
+    form_fields: {
+      user_id: '',
+      month: '',
+      payment_date: '',
+      amount: ''
+    }
   }),
+
   created: async function () {
     let id = (this.param_id = this.$route.params.id);
-    this.reset_fields();
     if (id) {
       this.set_fields(id);
     }
-    this.get_all_role();
   },
+
   methods: {
     ...mapActions(store, {
       create: "create",
@@ -89,42 +106,16 @@ export default {
       get_all: "get_all",
       set_only_latest_data: "set_only_latest_data",
     }),
-    reset_fields: function () {
-      this.form_fields.forEach((item) => {
-        item.value = "";
-      });
-    },
+
     set_fields: async function (id) {
       this.param_id = id;
       await this.details(id);
       if (this.item) {
-        this.form_fields.forEach((field, index) => {
-          Object.entries(this.item).forEach((value) => {
-            if (field.name == value[0]) {
-              this.form_fields[index].value = value[1];
-            }
-          });
-        });
-
-        if (this.item.role_id == 2) {
-          this.form_fields[9].is_visible = true;
-          this.form_fields[10].is_visible = true;
-          this.form_fields[11].is_visible = true;
+          this.form_fields.user_id = this.item.user_id;
+          this.form_fields.month = this.item.month;
+          this.form_fields.payment_date = this.item.payment_date;
+          this.form_fields.amount = this.item.amount;
         }
-      }
-    },
-
-    get_all_role: async function () {
-      let response = await axios.get("roles");
-      if (response.data.status == "success") {
-        const roles = response.data?.data?.data || [];
-        console.log(roles);
-
-        this.form_fields[8].data_list = roles.map((role) => ({
-          label: role.name,
-          value: role.id,
-        }));
-      }
     },
 
     submitHandler: async function ($event) {
@@ -135,7 +126,7 @@ export default {
         if ([200, 201].includes(response.status)) {
           window.s_alert("Data successfully updated");
           this.$router.push({
-            name: `Details${this.setup.route_prefix}`,
+            name: `All${this.setup.route_prefix}`,
           });
         }
       } else {
