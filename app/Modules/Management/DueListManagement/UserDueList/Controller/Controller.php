@@ -1,23 +1,23 @@
 <?php 
-namespace App\Modules\Management\BatchManagement\Controller;
-
-use \App\Modules\Management\BatchManagement\Actions\StoreData;
-use App\Modules\Management\BatchManagement\Actions\SoftDelete;
-use \App\Modules\Management\BatchManagement\Actions\GetAllData;
-use \App\Modules\Management\BatchManagement\Actions\UpdateData;
-use App\Modules\Management\BatchManagement\Actions\DestroyData;
-use App\Modules\Management\BatchManagement\Actions\RestoreData;
-
-use App\Modules\Management\BatchManagement\Actions\UpdateStatus;
-use \App\Modules\Management\BatchManagement\Actions\GetSingleData;
-use App\Modules\Management\BatchManagement\Validations\DataStoreValidation;
+namespace App\Modules\Management\DueListManagement\UserDueList\Controller;
 
 use App\Http\Controllers\Controller as ControllersController;
+use App\Modules\Management\DueListManagement\UserDueList\Actions\StoreData;
+use App\Modules\Management\DueListManagement\UserDueList\Actions\GetAllData;
+use App\Modules\Management\DueListManagement\UserDueList\Actions\SoftDelete;
+use App\Modules\Management\DueListManagement\UserDueList\Actions\UpdateData;
+use App\Modules\Management\DueListManagement\UserDueList\Actions\DestroyData;
+use App\Modules\Management\DueListManagement\UserDueList\Actions\RestoreData;
+
+
+
+use App\Modules\Management\DueListManagement\UserDueList\Actions\UpdateStatus;
+use App\Modules\Management\DueListManagement\UserDueList\Actions\GetSingleData;
+use App\Modules\Management\DueListManagement\UserDueList\Validations\DataStoreValidation;
 
 class Controller extends ControllersController{
     public function index(){
         $data = GetAllData::execute();
-        // dd($data);
         return $data;
     }
 
@@ -26,10 +26,11 @@ class Controller extends ControllersController{
         return $data;
     }
 
-    public function store(DataStoreValidation $request){
-        $data = StoreData::execute($request);
+    public function store(DataStoreValidation $resquest){
+        $data = StoreData::execute($resquest);
         return $data;
     }
+
     public function update(DataStoreValidation $request, $slug){
         $data = UpdateData::execute($request, $slug);
         return $data;
@@ -55,4 +56,6 @@ class Controller extends ControllersController{
         $data = DestroyData::execute($slug);
         return $data;
     }
+
+
 }

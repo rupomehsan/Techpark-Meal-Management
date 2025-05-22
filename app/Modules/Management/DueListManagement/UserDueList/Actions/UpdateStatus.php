@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\Management\UserManagement\UserPayment\Actions;
+namespace App\Modules\Management\DueListManagement\UserDueList\Actions;
 
 class UpdateStatus
 {
-    static $model = \App\Modules\Management\UserManagement\UserPayment\Models\Model::class;
+    static $model = \App\Modules\Management\DueListManagement\UserDueList\Models\Model::class;
 
     public static function execute()
     {

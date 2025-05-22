@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\Management\BatchManagement\Actions;
+namespace App\Modules\Management\DueListManagement\UserDueList\Actions;
 
 class GetAllData
 {
-    static $model = \App\Modules\Management\BatchManagement\Models\Model::class;
+    static $model = \App\Modules\Management\DueListManagement\UserDueList\Models\Model::class;
 
     public static function execute()
     {
@@ -22,11 +22,10 @@ class GetAllData
 
             $data = self::$model::query();
 
-            if (request()->has('search') && request()->input('search')) {
-                $searchKey = request()->input('search');
-                $data = $data->where(function ($q) use ($searchKey) {
-                $q->where('batch_name', 'like', '%' . $searchKey . '%');              
-
+            if(request()->has('search') && request()->input('search')){
+                $searchkey = request()->input('search');
+                $data = $data->where(function ($q) use ($searchkey){
+                    $q->where('batch_name', 'like', '%' . $searchkey . '%');
                 });
             }
 
@@ -51,7 +50,6 @@ class GetAllData
                     ->limit($pageLimit)
                     ->orderBy($orderByColumn, $orderByType)
                     ->get();
-                     return entityResponse($data);
             } else if ($status == 'trased') {
                 $data = $data
                     ->with($with)
@@ -80,4 +78,5 @@ class GetAllData
             return messageResponse($e->getMessage(), [], 500, 'server_error');
         }
     }
+
 }

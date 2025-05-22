@@ -1,10 +1,10 @@
-<?php 
+<?php
 
-use App\Modules\Management\BatchManagement\Controller\Controller;
+use App\Modules\Management\DueListManagement\UserDueList\Controller\Controller;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group(function(){
-    Route::prefix('batches')->group(function(){
+Route::prefix( 'v1')->group(function () {
+    Route::prefix('duelist')->group(function () {
         Route::get('', [Controller::class, 'index']);
         Route::get('{slug}', [Controller::class, 'show']);
         Route::post('store', [Controller::class, 'store']);
