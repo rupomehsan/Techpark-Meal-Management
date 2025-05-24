@@ -49,10 +49,6 @@
                 </div>
               </div>
               <div class="col-md-6 pull-right">
-                <div class="mb-3">
-                  <label for="payment_date" class="form-label">Payment Date</label>
-                  <input type="date" v-model="form_fields.payment_date" name="payment_date" class="form-control" id="payment_date" >
-                </div>
 
                 <div class="mb-3">
                   <label for="amount" class="form-label">Amount</label>
@@ -90,14 +86,12 @@ export default {
     setup,
     form_fields,
     param_id: null,
-    all_users: [],
-
     form_fields: {
-      user_id: '',
-      month: '',
-      payment_date: '',
-      amount: ''
+        user_id: '',
+        month: '',
+        amount: ''
     }
+    
   }),
 
   created: async function () {
@@ -120,12 +114,13 @@ export default {
 
     set_fields: async function (id) {
       this.param_id = id;
+    //   console.log('nahid', this.param_id);
+      
       await this.details(id);
       if (this.item) {
-          this.form_fields.user_id = this.item.user_id;
-          this.form_fields.month = this.item.month;
-          this.form_fields.payment_date = this.item.payment_date;
-          this.form_fields.amount = this.item.amount;
+            this.form_fields.user_id = this.item.user_id
+            this.form_fields.month = this.item.month
+            this.form_fields.amount = this.item.amount
         }
     },
 
@@ -133,7 +128,7 @@ export default {
       this.set_only_latest_data(true);
       if (this.param_id) {
         let response = await this.update($event);
-        // await this.get_all();
+        await this.get_all();
         if ([200, 201].includes(response.status)) {
           window.s_alert("Data successfully updated");
           this.$router.push({
@@ -142,7 +137,7 @@ export default {
         }
       } else {
         let response = await this.create($event);
-        // await this.get_all();
+        await this.get_all();
         if ([200, 201].includes(response.status)) {
           window.s_alert("Data Successfully Created");
           this.$router.push({
@@ -154,24 +149,25 @@ export default {
 
     get_all_user: async function(){
       let response = await axios.get('users');
+      
       this.all_users = response.data.data.data;
 
     },
 
-    changeAction: function ($event) {
-      if (event.target.name == "role_id") {
-        let role_id = event.target.value;
-        if (role_id == 2) {
-          this.form_fields[9].is_visible = true;
-          this.form_fields[10].is_visible = true;
-          this.form_fields[11].is_visible = true;
-        } else {
-          this.form_fields[9].is_visible = false;
-          this.form_fields[10].is_visible = false;
-          this.form_fields[11].is_visible = false;
-        }
-      }
-    },
+    // changeAction: function ($event) {
+    //   if (event.target.name == "role_id") {
+    //     let role_id = event.target.value;
+    //     if (role_id == 2) {
+    //       this.form_fields[9].is_visible = true;
+    //       this.form_fields[10].is_visible = true;
+    //       this.form_fields[11].is_visible = true;
+    //     } else {
+    //       this.form_fields[9].is_visible = false;
+    //       this.form_fields[10].is_visible = false;
+    //       this.form_fields[11].is_visible = false;
+    //     }
+    //   }
+    // },
   },
 
   computed: {

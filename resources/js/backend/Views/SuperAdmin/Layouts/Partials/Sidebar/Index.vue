@@ -50,7 +50,7 @@
         :menus="[
           {
             route_name: `AllUser`,
-            title: `User`,
+            title: `All User`,
             icon: `zmdi zmdi-dot-circle-alt`,
           },
         ]"
@@ -67,14 +67,28 @@
           },
         ]"
       />
+      
       <!-- user payment -->
       <side-bar-drop-down-menus
         :icon="`fa fa-plus`"
-        :menu_title="`User Payment`"
+        :menu_title="`User Payment Management`"
         :menus="[
           {
             route_name: `AllUserPayment`,
-            title: `User Payment`,
+            title: `All Users Payment`,
+            icon: `zmdi zmdi-dot-circle-alt`,
+          },
+        ]"
+      />
+      
+      <!-- due list -->
+      <side-bar-drop-down-menus
+        :icon="`fa fa-plus`"
+        :menu_title="`DueList Management`"
+        :menus="[
+          {
+            route_name: `AllDuelist`,
+            title: `All Due List`,
             icon: `zmdi zmdi-dot-circle-alt`,
           },
         ]"

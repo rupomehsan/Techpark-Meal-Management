@@ -17,7 +17,7 @@ class GetAllData
             $fields = request()->input('fields') ?? '*';
             $start_date = request()->input('start_date');
             $end_date = request()->input('end_date');
-            $with = [];
+            $with = ['user'];
             $condition = [];
 
             $data = self::$model::query();
@@ -25,7 +25,8 @@ class GetAllData
             if(request()->has('search') && request()->input('search')){
                 $searchkey = request()->input('search');
                 $data = $data->where(function ($q) use ($searchkey){
-                    $q->where('batch_name', 'like', '%' . $searchkey . '%');
+                    $q->where('amount', 'like', '%' . $searchkey . '%');
+                    // ->orWhere('amount', 'like', '%' . $searchkey . '%');
                 });
             }
 

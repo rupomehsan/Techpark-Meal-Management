@@ -57,7 +57,6 @@
                     <th class="w-10">ID</th>
                     <th>User Name</th>
                     <th>Month</th>
-                    <th>Payment Date</th>
                     <th>Amount</th>
                   </tr>
                 </thead>
@@ -164,9 +163,9 @@
                       />
                     </td>
                     <td>{{ index + 1 }}</td>
+                    <!-- <td>{{ item?.user_id ?? "N/A " }}</td> -->
                     <td>{{ item?.user?.name ?? "N/A " }}</td>
                     <td>{{ item.month ?? "N/A " }}</td>
-                    <td>{{ item.payment_date ?? "N/A " }}</td>
                     <td>{{ item.amount ?? "N/A " }}</td>
                   </tr>
                 </tbody>
@@ -557,6 +556,7 @@ export default {
         }
       }
     },
+
     softDelete: async function (item) {
       let con = await window.s_confirm("Are you sure want to delete ?");
       if (con) {
@@ -608,7 +608,6 @@ export default {
         }
       }
     },
-
     change_status: function (status = "active") {
       if (status == "trased") {
         this.is_trashed_data = true;
@@ -621,7 +620,6 @@ export default {
       this.get_all();
       this.set_only_latest_data(true);
     },
-
     set_page_data: function (link) {
       try {
         let url = new URL(link.url);

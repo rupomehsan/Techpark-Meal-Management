@@ -15,7 +15,7 @@ class Model extends EloquentModel
     protected $guarded = [];
 
 
-    public static $userModel = \App\Modules\Management\DueListManagement\UserDueList\Models\Model::class;
+    public static $userModel = \App\Modules\Management\UserManagement\User\Models\Model::class;
 
     protected static function booted()
     {
@@ -49,8 +49,9 @@ class Model extends EloquentModel
 
     public function user()
     {
-        return $this->belongsTo(self::$userModel);
+        return $this->belongsTo(self::$userModel,   'user_id');
     }
 
+    
     
 }

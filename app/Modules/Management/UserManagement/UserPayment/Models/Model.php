@@ -46,7 +46,9 @@ class Model extends EloquentModel
 
     public function user()
     {
-        return $this->belongsTo(self::$user);
+        return $this->belongsTo(self::$user,   'user_id');
     }
     
+
+
 }
