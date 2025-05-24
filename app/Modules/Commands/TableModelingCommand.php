@@ -11,8 +11,8 @@ use Illuminate\Support\Str;
 class TableModelingCommand extends Command
 {
 
-    // protected $signature = 'make:table {module_name} {[field]?} {--model}';
-    // protected $description = 'Create a folder and files in the app directory';
+    protected $signature = 'make:table {module_name} {[field]?} {--model}';
+    protected $description = 'Create a folder and files in the app directory';
 
 
     public function __construct()
@@ -23,8 +23,8 @@ class TableModelingCommand extends Command
     public function handle()
     {
 
-        // $moduleName = $this->argument('module_name');
-        // $ViewModuleName = $this->argument('module_name');
+        $moduleName = $this->argument('module_name');
+        $ViewModuleName = $this->argument('module_name');
         // $migration = $this->option('m');
         // $seed = $this->option('seed');
         $fields = [];

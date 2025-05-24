@@ -21,7 +21,7 @@ class Seeder extends SeederClass
 
         for ($i = 1; $i <= 100; $i++) {
             self::$model::create([
-                 'user_id' => $faker->numberBetween(1, 3),
+                'user_id' => $faker->numberBetween(1, 3),
                 'quantity' => $faker->numberBetween(1, 5),
                 'date' => $faker->date(),
                 'meal_rate_id' => $faker->numberBetween(1, 3),

@@ -33,5 +33,20 @@ class Seeder extends SeederClass
             'image' => 'avatar.png',
             'role_id' => 2,
         ]);
+
+        self::$model::create([
+            'name' => "user",
+            'email' => "user@gmail.com",
+            'password' => Hash::make('@12345678'),
+            'image' => 'avatar.png',
+            'role_id' => 3,
+        ]);
+        self::$model::create([
+            'name' => "rahat",
+            'email' => "rahat@gmail.com",
+            'password' => Hash::make('@12345678'),
+            'image' => 'avatar.png',
+            'role_id' => 3,
+        ]);
     }
 }

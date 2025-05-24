@@ -11,8 +11,8 @@ use Illuminate\Support\Str;
 class ModelingDirectory extends Command
 {
     // protected $signature = 'make:module {module_name} {[field]?} {--vue} {--m} {--seed}';
-    // protected $signature = 'make:module {module_name} {[field]?} {--vue}';
-    // protected $description = 'Create a folder and files in the app directory';
+    protected $signature = 'make:module {module_name} {[field]?} {--vue}';
+    protected $description = 'Create a folder and files in the app directory';
 
 
     public function __construct()

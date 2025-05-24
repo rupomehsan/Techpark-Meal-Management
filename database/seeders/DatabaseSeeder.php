@@ -19,6 +19,13 @@ use App\Modules\Management\SettingManagement\WebsiteSettings\Seeder\Seeder as We
  */
 use App\Modules\Management\Blog\Seeder\Seeder as BlogCategorySeeder;
 
+/**
+ * Meal seeder management.
+ */
+use App\Modules\Management\MealManagement\UserMeal\Seeder\Seeder as UserMealsSeeder;
+use App\Modules\Management\MealManagement\MealMenuse\Seeder\Seeder as MealMenusesSeeder;
+use App\Modules\Management\MealManagement\MonthlyMealRates\Seeder\Seeder as MonthlyMealRatesSeeder;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -36,7 +43,15 @@ class DatabaseSeeder extends Seeder
             /**
              * Suppliyer seeder management.
              */
-            BlogCategorySeeder::class
+            BlogCategorySeeder::class,
+
+            /**
+             * Meal seeder management.
+             */
+
+            UserMealsSeeder::class,
+            MealMenusesSeeder::class,
+            MonthlyMealRatesSeeder::class,
 
         ]);
     }

@@ -68,6 +68,18 @@
         ]"
       />
 
+       <side-bar-drop-down-menus
+        :icon="`fa fa-plus`"
+        :menu_title="`Meal Management`"
+        :menus="[
+          {
+            route_name: `AllUserMeal`,
+            title: `User Meal`,
+            icon: `zmdi zmdi-dot-circle-alt`,
+          },
+        ]"
+      />
+
       <!-- Management end -->
     </ul>
   </div>

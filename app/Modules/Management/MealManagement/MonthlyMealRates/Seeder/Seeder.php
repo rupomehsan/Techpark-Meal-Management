@@ -21,12 +21,12 @@ class Seeder extends SeederClass
 
         for ($i = 1; $i <= 100; $i++) {
             self::$model::create([
-                'month' => $faker->toDateString(),
+                'month' => $faker->date(),
                 'meal_rate' => $faker->randomFloat(2, 35, 70),
                 'is_visible' => $faker->boolean,
-                'month_start_date' => $faker->toDateString(),
-                'month_end_date' => $faker->toDateString(),
-                'status' => $faker->numberBetween(0, 1),
+                'month_start_date' => $faker->date(),
+                'month_end_date' => $faker->date(),
+            
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

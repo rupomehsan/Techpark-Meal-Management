@@ -11,6 +11,9 @@ class Model extends EloquentModel
     protected $table = "user_meals";
     protected $guarded = [];
 
+
+    public static $roleModel = \App\Modules\Management\UserManagement\User\Models\Model::class;
+
     protected static function booted()
     {
         static::created(function ($data) {
@@ -32,12 +35,17 @@ class Model extends EloquentModel
         return $q->where('status', 'active');
     }
 
-     public function scopeInactive($q)
+    public function scopeInactive($q)
     {
         return $q->where('status', 'inactive');
     }
-     public function scopeTrased($q)
+    public function scopeTrased($q)
     {
         return $q->onlyTrashed();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(self::$roleModel);
     }
 }

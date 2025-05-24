@@ -26,5 +26,9 @@ class Seeder extends SeederClass
             'name' => "admin",
             'serial_no' => 2,
         ]);
+        self::$model::create([
+            'name' => "user",
+            'serial_no' => 3,
+        ]);
     }
 }

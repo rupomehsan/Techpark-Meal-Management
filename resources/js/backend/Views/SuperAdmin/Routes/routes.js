@@ -8,6 +8,8 @@ import SettingsRoutes from "../Management/Settings/setup/routes.js";
 
 import UserRoutes from '../Management/UserManagement/User/setup/routes.js';
 import BlogCategroy from '../Management/BasicTestModule/BlogCategory/setup/routes.js';
+// Meal management
+import UserMeal from '../Management/MealManagement/UserMeal/setup/routes.js';
 
 
 
@@ -24,6 +26,8 @@ const routes = {
         //management routes
         UserRoutes,
         BlogCategroy,
+        // Meal Management
+        UserMeal,
         //settings
         SettingsRoutes,
     ],
