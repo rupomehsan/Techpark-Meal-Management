@@ -66,7 +66,11 @@
         <div class="card-footer">
           <button type="submit" class="btn btn-light btn-square px-5">
             <i class="icon-lock"></i>
-            Submit
+            {{
+              param_id
+                ? `Update`
+                : `Submit`
+            }}
           </button>
         </div>
       </div>
