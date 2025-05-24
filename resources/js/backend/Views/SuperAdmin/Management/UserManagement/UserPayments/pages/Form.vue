@@ -36,7 +36,11 @@
               <div class="col-md-6 pull-left">
                   <div class="mb-3">
                     <label for="user_id" class="form-label">User Id</label>
-                    <input type="text" v-model="form_fields.user_id" name="user_id" class="form-control" id="user_id" >
+                    <select v-model="form_fields.user_id" name="user_id" class="form-control" id="user_id">
+                      <option v-for="all_user in all_users" :key="all_user.id" :value="all_user.id">
+                        {{ all_user.name }}
+                      </option>
+                    </select>
                   </div>
 
                 <div class="mb-3">
@@ -82,6 +86,7 @@ export default {
     setup,
     form_fields,
     param_id: null,
+    all_users: [],
 
     form_fields: {
       user_id: '',
@@ -92,6 +97,8 @@ export default {
   }),
 
   created: async function () {
+    await this.get_all_user();
+    
     let id = (this.param_id = this.$route.params.id);
     if (id) {
       this.set_fields(id);
@@ -139,6 +146,13 @@ export default {
           });
         }
       }
+    },
+
+    get_all_user: async function(){
+      let response = await axios.get('users');
+      
+      this.all_users = response.data.data.data;
+
     },
 
     changeAction: function ($event) {

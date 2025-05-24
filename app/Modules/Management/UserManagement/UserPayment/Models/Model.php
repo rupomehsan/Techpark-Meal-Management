@@ -11,7 +11,9 @@ class Model extends EloquentModel
     protected $table = "user_payments";
     protected $guarded = [];
     
-    public static $userModel = \App\Modules\Management\UserManagement\UserPayment\Models\Model::class;
+    // public static $Model = \App\Modules\Management\UserManagement\UserPayment\Models\Model::class;
+    public static $user = \App\Modules\Management\UserManagement\User\Models\Model::class;
+
     protected static function booted()
     {
         static::created(function ($data) {
@@ -42,9 +44,9 @@ class Model extends EloquentModel
         return $q->onlyTrashed();
     }
 
-    public function role()
+    public function user()
     {
-        return $this->belongsTo(self::$userModel);
+        return $this->belongsTo(self::$user);
     }
     
 }

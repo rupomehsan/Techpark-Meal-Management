@@ -164,7 +164,7 @@
                       />
                     </td>
                     <td>{{ index + 1 }}</td>
-                    <td>{{ item.user_id ?? "N/A " }}</td>
+                    <td>{{ item?.user?.name ?? "N/A " }}</td>
                     <td>{{ item.month ?? "N/A " }}</td>
                     <td>{{ item.payment_date ?? "N/A " }}</td>
                     <td>{{ item.amount ?? "N/A " }}</td>
@@ -712,7 +712,7 @@ export default {
       "end_date",
       "search_key",
       "page",
-      'item'
+      "item"
     ]),
 
     isAllSelected() {

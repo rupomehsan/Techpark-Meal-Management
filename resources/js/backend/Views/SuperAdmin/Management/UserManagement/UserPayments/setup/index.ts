@@ -32,7 +32,7 @@ const setup: setup_type = {
     "month",
     "payment_date",
     "amount",
-     "slug",
+    "slug",
     "created_at",
   ],
 
