@@ -6,14 +6,17 @@ use App\Modules\Management\DueListManagement\UserDueList\Actions\StoreData;
 use App\Modules\Management\DueListManagement\UserDueList\Actions\GetAllData;
 use App\Modules\Management\DueListManagement\UserDueList\Actions\SoftDelete;
 use App\Modules\Management\DueListManagement\UserDueList\Actions\UpdateData;
+use App\Modules\Management\DueListManagement\UserDueList\Actions\BulkActions;
 use App\Modules\Management\DueListManagement\UserDueList\Actions\DestroyData;
+
+
+
 use App\Modules\Management\DueListManagement\UserDueList\Actions\RestoreData;
-
-
-
 use App\Modules\Management\DueListManagement\UserDueList\Actions\UpdateStatus;
 use App\Modules\Management\DueListManagement\UserDueList\Actions\GetSingleData;
+
 use App\Modules\Management\DueListManagement\UserDueList\Validations\DataStoreValidation;
+use App\Modules\Management\DueListManagement\UserDueList\Validations\BulkActionsValidation;
 
 class Controller extends ControllersController{
     public function index(){
@@ -57,5 +60,10 @@ class Controller extends ControllersController{
         return $data;
     }
 
+    public function bulkAction(BulkActionsValidation $request)
+    {
+        $data = BulkActions::execute($request);
+        return $data;
+    }
 
 }

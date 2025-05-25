@@ -163,7 +163,6 @@
                       />
                     </td>
                     <td>{{ index + 1 }}</td>
-                    <!-- <td>{{ item?.user_id ?? "N/A " }}</td> -->
                     <td>{{ item?.user?.name ?? "N/A " }}</td>
                     <td>{{ item.month ?? "N/A " }}</td>
                     <td>{{ item.amount ?? "N/A " }}</td>
@@ -695,6 +694,7 @@ export default {
       this.only_latest_data = false;
     }, 500),
   },
+  
   computed: {
     ...mapWritableState(data_store, [
       "all",
