@@ -21,19 +21,34 @@
               <table class="table quick_modal_table table-bordered">
                 <tbody>
                   <tr>
-                    <th>User Name</th>
+                    <th>Title</th>
                     <th class="text-center">:</th>
-                    <th>{{ item?.user?.name }}</th>
+                    <th>{{ item.title }}</th>
                   </tr>
                   <tr>
-                    <th>Month</th>
+                    <th>Quantity</th>
                     <th class="text-center">:</th>
-                    <th>{{ item.month }}</th>
+                    <th>{{ item.quantity }}</th>
                   </tr>
                   <tr>
-                    <th>Amount</th>
+                    <th>Unit</th>
                     <th class="text-center">:</th>
-                    <th>{{ item.amount }}</th>
+                    <th>{{ item.unit }}</th>
+                  </tr>
+                  <tr>
+                    <th>Price</th>
+                    <th class="text-center">:</th>
+                    <th>{{ item.price }}</th>
+                  </tr>
+                  <tr>
+                    <th>Total</th>
+                    <th class="text-center">:</th>
+                    <th>{{ item.total }}</th>
+                  </tr>
+                  <tr>
+                    <th>Bajar Date</th>
+                    <th class="text-center">:</th>
+                    <th>{{ item.bajar_date }}</th>
                   </tr>
                 
                 </tbody>

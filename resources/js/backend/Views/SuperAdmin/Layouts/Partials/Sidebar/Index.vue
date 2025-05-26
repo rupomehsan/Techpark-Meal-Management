@@ -93,6 +93,18 @@
           },
         ]"
       />
+      <!-- daily bajar -->
+      <side-bar-drop-down-menus
+        :icon="`fa fa-plus`"
+        :menu_title="`Expense Management`"
+        :menus="[
+          {
+            route_name: `AlldailyBajar`,
+            title: `All Daily Bajar`,
+            icon: `zmdi zmdi-dot-circle-alt`,
+          },
+        ]"
+      />
 
       <!-- Management end -->
     </ul>

@@ -5,11 +5,11 @@ namespace App\Modules\Management\UserManagement\UserPayment\Actions;
 class GetSingleData
 {
     static $model = \App\Modules\Management\UserManagement\UserPayment\Models\Model::class;
-
+    static $userModel = \App\Modules\Management\UserManagement\User\Models\Model::class;
     public static function execute($slug)
     {
         try {
-            $with = [];
+            $with = ['user'];
             $fields = request()->input('fields') ?? ['*'];
             if (!$data = self::$model::query()->with($with)->select($fields)->where('slug', $slug)->first()) {
                 return messageResponse('Data not found...',$data, 404, 'error');
@@ -18,5 +18,10 @@ class GetSingleData
         } catch (\Exception $e) {
             return messageResponse($e->getMessage(),[], 500, 'server_error');
         }
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(self::$userModel);
     }
 }

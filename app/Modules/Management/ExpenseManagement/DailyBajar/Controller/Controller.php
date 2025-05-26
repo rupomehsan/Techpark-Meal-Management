@@ -2,21 +2,21 @@
 
 namespace App\Modules\Management\ExpenseManagement\DailyBajar\Controller;
 
-use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\GetAllData;
-use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\GetSingleData;
+use App\Http\Controllers\Controller as ControllersController;
 use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\StoreData;
-use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\UpdateData;
-use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\UpdateStatus;
+use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\GetAllData;
 use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\SoftDelete;
-use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\RestoreData;
+use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\UpdateData;
+use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\BulkActions;
 use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\DestroyData;
+use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\RestoreData;
 
-
-
+use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\UpdateStatus;
+use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\GetSingleData;
 
 use App\Modules\Management\ExpenseManagement\DailyBajar\Validations\DataStoreValidation;
+use App\Modules\Management\ExpenseManagement\DailyBajar\Validations\BulkActionsValidation;
 
-use App\Http\Controllers\Controller as ControllersController;
 class Controller extends ControllersController{
     public function index(){
         $data = GetAllData::execute();
@@ -54,6 +54,12 @@ class Controller extends ControllersController{
     }
     public function destroy($slug){
         $data = DestroyData::execute($slug);
+        return $data;
+    }
+
+     public function bulkAction(BulkActionsValidation $request)
+    {
+        $data = BulkActions::execute($request);
         return $data;
     }
 }

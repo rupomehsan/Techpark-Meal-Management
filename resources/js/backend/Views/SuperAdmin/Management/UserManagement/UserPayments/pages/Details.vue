@@ -23,7 +23,7 @@
                   <tr>
                     <th>User ID</th>
                     <th class="text-center">:</th>
-                    <th>{{ item.user_id }}</th>
+                    <th>{{ item?.user?.name }}</th>
                   </tr>
                   <tr>
                     <th>Month</th>
