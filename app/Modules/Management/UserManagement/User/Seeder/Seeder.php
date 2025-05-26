@@ -22,13 +22,29 @@ class Seeder extends SeederClass
         self::$model::create([
             'name' => "super admin",
             'email' => "superadmin@gmail.com",
+            'phone_number' => '01793790428',
+            'whatsapp' => '01793790428',
+            'telegram' => '01793790428',
+            // 'department' => ['IT', 'IELTS', 'Spoken', 'Employee'], 
+            'department' => 'IT', 
+            'batch_id' => 1,
+            'address' => 'Mirpur, Dhaka',
             'password' => Hash::make('@12345678'),
             'image' => 'avatar.png',
             'role_id' => 1,
         ]);
+
+        
         self::$model::create([
             'name' => "admin",
             'email' => "admin@gmail.com",
+            'phone_number' => '01793790420',
+            'whatsapp' => '01793790420',
+            'telegram' => '01793790420',
+            // 'department' => ['IT', 'IELTS', 'Spoken', 'Employee'], 
+            'department' => 'IELTS', 
+            'batch_id' => 2,
+            'address' => 'Mirpur, Dhaka',
             'password' => Hash::make('@12345678'),
             'image' => 'avatar.png',
             'role_id' => 2,

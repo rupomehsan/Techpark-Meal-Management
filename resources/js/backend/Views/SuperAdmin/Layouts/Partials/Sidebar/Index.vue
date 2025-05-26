@@ -80,6 +80,18 @@
           },
         ]"
       />
+      <!-- user payment -->
+      <side-bar-drop-down-menus
+        :icon="`fa fa-plus`"
+        :menu_title="`Batch Management`"
+        :menus="[
+          {
+            route_name: `AllBatches`,
+            title: `All Batch`,
+            icon: `zmdi zmdi-dot-circle-alt`,
+          },
+        ]"
+      />
       
       <!-- due list -->
       <side-bar-drop-down-menus

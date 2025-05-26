@@ -16,6 +16,8 @@ class Model extends EloquentModel
 
 
     public static $Model = \App\Modules\Management\BatchManagement\Models\Model::class;
+    public static $userModel = \App\Modules\Management\UserManagement\User\Models\Model::class;
+
 
     protected static function booted()
     {
@@ -46,6 +48,11 @@ class Model extends EloquentModel
     {
         return $q->onlyTrashed();
     }
+
+    public function user (){
+        return $this->belongsTo(self::$userModel, 'department_id', 'id');
+    }
+
 
   
 }

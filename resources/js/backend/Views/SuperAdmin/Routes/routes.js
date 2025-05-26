@@ -10,6 +10,7 @@ import UserRoutes from '../Management/UserManagement/User/setup/routes.js';
 import UserPaymentsRoutes from '../Management/UserManagement/UserPayments/setup/routes.js';
 import DueListRoutes from '../Management/DueListManagement/DueList/setup/routes.js';
 import DailyBajarRoutes from '../Management/DailyBajarManagement/DailyBajar/setup/routes.js';
+import BatchRoutes from '../Management/BatchManagement/Batch/setup/routes.js';
 
 
 import BlogCategroy from '../Management/BasicTestModule/BlogCategory/setup/routes.js';
@@ -32,6 +33,7 @@ const routes = {
         UserPaymentsRoutes,
         DueListRoutes,
         DailyBajarRoutes,
+        BatchRoutes,
         //settings
         SettingsRoutes,
     ],

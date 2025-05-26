@@ -17,7 +17,7 @@ class GetAllData
             $fields = request()->input('fields') ?? '*';
             $start_date = request()->input('start_date');
             $end_date = request()->input('end_date');
-            $with = [];
+            $with = ['user'];
             $condition = [];
 
             $data = self::$model::query();

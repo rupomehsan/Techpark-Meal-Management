@@ -5,7 +5,6 @@ namespace App\Modules\Management\UserManagement\UserPayment\Actions;
 class GetSingleData
 {
     static $model = \App\Modules\Management\UserManagement\UserPayment\Models\Model::class;
-    static $userModel = \App\Modules\Management\UserManagement\User\Models\Model::class;
     public static function execute($slug)
     {
         try {
@@ -20,8 +19,4 @@ class GetSingleData
         }
     }
 
-    public function user()
-    {
-        return $this->belongsTo(self::$userModel);
-    }
 }
