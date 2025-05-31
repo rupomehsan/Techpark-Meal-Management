@@ -53,10 +53,15 @@
             title: `All User`,
             icon: `zmdi zmdi-dot-circle-alt`,
           },
+          {
+            route_name: `AllUserPayment`,
+            title: `All Users Payment`,
+            icon: `zmdi zmdi-dot-circle-alt`,
+          }
         ]"
       />
 
-      <side-bar-drop-down-menus
+      <!-- <side-bar-drop-down-menus
         :icon="`fa fa-plus`"
         :menu_title="`Blog Management`"
         :menus="[
@@ -66,20 +71,9 @@
             icon: `zmdi zmdi-dot-circle-alt`,
           },
         ]"
-      />
+      /> -->
       
-      <!-- user payment -->
-      <side-bar-drop-down-menus
-        :icon="`fa fa-plus`"
-        :menu_title="`User Payment Management`"
-        :menus="[
-          {
-            route_name: `AllUserPayment`,
-            title: `All Users Payment`,
-            icon: `zmdi zmdi-dot-circle-alt`,
-          },
-        ]"
-      />
+     
       <!-- user payment -->
       <side-bar-drop-down-menus
         :icon="`fa fa-plus`"
