@@ -43,8 +43,8 @@ class DataStoreValidation extends FormRequest
     {
         return [
             'meal_date' => 'required | sometimes',
-            'description' => 'required | sometimes',
             'receipy' => 'required | sometimes',
+            'description' => 'required | sometimes',
             'status' => ['sometimes', Rule::in(['active', 'inactive'])],
         ];
 

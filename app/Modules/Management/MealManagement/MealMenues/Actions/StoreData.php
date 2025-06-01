@@ -7,6 +7,8 @@ class StoreData
     static $model = \App\Modules\Management\MealManagement\MealMenues\Models\Model::class;
 
     public static function execute($request){
+        // dd($request->all());
+        
         try {
             $requestData = $request->validated();
             if($data = self::$model::query()->create($requestData)){

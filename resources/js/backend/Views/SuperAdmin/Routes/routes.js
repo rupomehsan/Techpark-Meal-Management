@@ -13,8 +13,8 @@ import DailyBajarRoutes from '../Management/DailyBajarManagement/DailyBajar/setu
 import BatchRoutes from '../Management/BatchManagement/Batch/setup/routes.js';
 
 
-import MonthlyMealRate from '../Management/MealManagement/MonthlyMealRate/setup/routes.js';
-
+import MonthlyMealRateRoutes from '../Management/MealManagement/MonthlyMealRate/setup/routes.js';
+import MealMenusRoutes from '../Management/MealManagement/MealMenu/setup/routes.js';
 
 
 
@@ -34,7 +34,8 @@ const routes = {
         DailyBajarRoutes,
         BatchRoutes,
         
-        MonthlyMealRate,
+        MonthlyMealRateRoutes,
+        MealMenusRoutes,
         //settings
         SettingsRoutes,
     ],

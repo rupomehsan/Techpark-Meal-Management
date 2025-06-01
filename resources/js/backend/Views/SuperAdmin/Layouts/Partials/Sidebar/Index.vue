@@ -70,11 +70,17 @@
             title: `Monthly Meal Rate`,
             icon: `zmdi zmdi-dot-circle-alt`,
           },
+          {
+            route_name: `AllMealMenus`,
+            title: `Meal Menus`,
+            icon: `zmdi zmdi-dot-circle-alt`,
+          },
+
         ]"
       />
       
      
-      <!-- user payment -->
+      <!-- Batch Management -->
       <side-bar-drop-down-menus
         :icon="`fa fa-plus`"
         :menu_title="`Batch Management`"
