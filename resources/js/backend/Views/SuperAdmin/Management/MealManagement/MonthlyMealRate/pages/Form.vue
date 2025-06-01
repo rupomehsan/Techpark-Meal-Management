@@ -96,7 +96,6 @@ export default {
     setup,
     form_fields,
     param_id: null,
-    all_users: [],
 
     form_fields: {
       month: '',
@@ -108,7 +107,6 @@ export default {
   }),
 
   created: async function () {
-    // await this.get_all_user();
     
     let id = (this.param_id = this.$route.params.id);
     if (id) {
@@ -160,22 +158,7 @@ export default {
       }
     },
 
-   
-
-    // changeAction: function ($event) {
-    //   if (event.target.name == "role_id") {
-    //     let role_id = event.target.value;
-    //     if (role_id == 2) {
-    //       this.form_fields[9].is_visible = true;
-    //       this.form_fields[10].is_visible = true;
-    //       this.form_fields[11].is_visible = true;
-    //     } else {
-    //       this.form_fields[9].is_visible = false;
-    //       this.form_fields[10].is_visible = false;
-    //       this.form_fields[11].is_visible = false;
-    //     }
-    //   }
-    // },
+  
 
   },
 
