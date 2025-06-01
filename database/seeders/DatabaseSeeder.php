@@ -15,9 +15,9 @@ use App\Modules\Management\UserManagement\User\Seeder\Seeder as UserSeeder;
 use App\Modules\Management\SettingManagement\WebsiteSettings\Seeder\Seeder as WebsiteSettingsSeeder;
 
 /**
- * Suppliyer seeder management.
+ * MealManagement seeder management.
  */
-use App\Modules\Management\Blog\Seeder\Seeder as BlogSeeder;
+use App\Modules\Management\MealManagement\MonthlyMealRates\Seeder\Seeder as MonthlyMealRateSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
              * Suppliyer seeder management.
              */
             // BlogCategorySeeder::class
-            BlogSeeder::class
+            MonthlyMealRateSeeder::class
 
         ]);
     }

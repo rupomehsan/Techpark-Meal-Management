@@ -38,4 +38,5 @@ include_once base_path("app/Modules/Management/BatchManagement/Routes/Route.php"
 include_once base_path("app/Modules/Management/DueListManagement/UserDueList/Routes/Route.php");
 include_once base_path("app/Modules/Management/ExpenseManagement/DailyBajar/Routes/Route.php");
 
+include_once base_path("app/Modules/Management/MealManagement/MonthlyMealRates/Routes/Route.php");
 include_once base_path("app/Modules/Management/MealManagement/MealMenues/Routes/Route.php");
