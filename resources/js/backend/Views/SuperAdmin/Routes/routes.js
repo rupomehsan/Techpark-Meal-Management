@@ -13,7 +13,7 @@ import DailyBajarRoutes from '../Management/DailyBajarManagement/DailyBajar/setu
 import BatchRoutes from '../Management/BatchManagement/Batch/setup/routes.js';
 
 
-import BlogCategroy from '../Management/BasicTestModule/BlogCategory/setup/routes.js';
+import MonthlyMealRate from '../Management/MealManagement/MonthlyMealRate/setup/routes.js';
 
 
 
@@ -29,11 +29,12 @@ const routes = {
         },
         //management routes
         UserRoutes,
-        BlogCategroy,
         UserPaymentsRoutes,
         DueListRoutes,
         DailyBajarRoutes,
         BatchRoutes,
+        
+        MonthlyMealRate,
         //settings
         SettingsRoutes,
     ],

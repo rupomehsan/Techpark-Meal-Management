@@ -61,17 +61,17 @@
         ]"
       />
 
-      <!-- <side-bar-drop-down-menus
+      <side-bar-drop-down-menus
         :icon="`fa fa-plus`"
-        :menu_title="`Blog Management`"
+        :menu_title="`Meal Management`"
         :menus="[
           {
-            route_name: `AllBlogCategory`,
-            title: `Blog Category`,
+            route_name: `AllMonthlyMealRate`,
+            title: `Monthly Meal Rate`,
             icon: `zmdi zmdi-dot-circle-alt`,
           },
         ]"
-      /> -->
+      />
       
      
       <!-- user payment -->
