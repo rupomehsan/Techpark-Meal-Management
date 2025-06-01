@@ -18,6 +18,7 @@ use App\Modules\Management\SettingManagement\WebsiteSettings\Seeder\Seeder as We
  * MealManagement seeder management.
  */
 use App\Modules\Management\MealManagement\UsersMeal\Seeder\Seeder as UsersMealSeeder;
+use App\Modules\Management\MealManagement\MealMenues\Seeder\Seeder as MealMenuSeeder;
 use App\Modules\Management\MealManagement\MonthlyMealRates\Seeder\Seeder as MonthlyMealRateSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -39,6 +40,7 @@ class DatabaseSeeder extends Seeder
              */
             
             UsersMealSeeder::class,
+            MealMenuSeeder::class,
             MonthlyMealRateSeeder::class
 
         ]);
