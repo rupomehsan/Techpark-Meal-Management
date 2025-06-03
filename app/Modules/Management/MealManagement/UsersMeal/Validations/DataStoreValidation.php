@@ -45,7 +45,6 @@ class DataStoreValidation extends FormRequest
             'user_id' => 'required',
             'quantity' => 'required',
             'date' => 'required',
-            'meal_rate_id' => 'required',
             'status' => ['sometimes', Rule::in(['active', 'inactive'])],
         ];
 

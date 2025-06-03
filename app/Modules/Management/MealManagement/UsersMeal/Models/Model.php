@@ -15,7 +15,8 @@ class Model extends EloquentModel
     protected $guarded = [];
 
 
-    public static $userModel = \App\Modules\Management\MealManagement\UsersMeal\Models\Model::class;
+    public static $userModel = \App\Modules\Management\UserManagement\User\Models\Model::class;
+    public static $mealRateModel = \App\Modules\Management\MealManagement\MonthlyMealRates\Models\Model::class;
 
     protected static function booted()
     {
@@ -50,5 +51,9 @@ class Model extends EloquentModel
     public function user()
     {
         return $this->belongsTo(self::$userModel);
+    }
+    public function mealRate()
+    {
+        return $this->belongsTo(self::$mealRateModel);
     }
 }

@@ -19,7 +19,7 @@ class GetAllData
             $start_date = request()->input('start_date');
             $end_date = request()->input('end_date');
 
-            $with = ['user'];
+            $with = ['user', 'mealRate'];
             $condition = [];
 
             $data = self::$model::query();
@@ -27,7 +27,7 @@ class GetAllData
             if (request()->has('search') && request()->input('search')) {
                 $searchKey = request()->input('search');
                 $data = $data->where(function ($q) use ($searchKey) {
-                    $q->where('name', 'like', '%' . $searchKey . '%');    
+                    $q->where('quantity', 'like', '%' . $searchKey . '%');    
   
                 });
             }

@@ -71,10 +71,15 @@
             icon: `zmdi zmdi-dot-circle-alt`,
           },
           {
+            route_name: `AllUserMeal`,
+            title: `User Meal`,
+            icon: `zmdi zmdi-dot-circle-alt`,
+          },
+          {
             route_name: `AllMealMenus`,
             title: `Meal Menus`,
             icon: `zmdi zmdi-dot-circle-alt`,
-          },
+          }
 
         ]"
       />
