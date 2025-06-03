@@ -29,6 +29,8 @@
     <link href="{{ asset('backend/assets/css/custom/custom.css') }}" rel="stylesheet" />
     <link href="{{ asset('backend/assets/css/app-style.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('backend/assets/plugins/summernote/dist/summernote-bs4.css') }}" />
+    <!-- font awesome cdn  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"  />
     <!-- latest jquery-->
     <script src="/plugins/js/sweet_alert.js" defer></script>
     <script src="/backend/assets/js/jquery.min.js"></script>

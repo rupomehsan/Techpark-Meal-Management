@@ -167,14 +167,9 @@
                     </td>
                     <td>{{ index + 1 }}</td>
                     <td>{{ item?.title ?? "N/A " }}</td>
-                    <td>
-                      <input type="number" v-model.number="item.quantity" @input="updateTotal(item)" class="form-control" />
-                    </td>
-
+                    <td>{{ item?.quantity ?? "N/A " }}</td>
                     <td>{{ item.unit ?? "N/A " }}</td>
-                    <td>
-                      <input type="number" v-model.number="item.price" @input="updateTotal(item)" class="form-control" />
-                    </td>
+                    <td>{{ item.price ?? "N/A " }}</td>
                     <td>{{ item.total ?? 0 }}</td>
                     <td>{{ item.bajar_date ?? "N/A " }}</td>
                   </tr>
@@ -511,10 +506,6 @@ import { mapState } from "pinia";
 
 export default {
   data: () => ({
-    items: [
-      { quantity: 0, price: 0, total: 0 }
-    ],
-
     setup,
     is_trashed_data: false,
     import_csv_modal_show: false,
@@ -546,35 +537,6 @@ export default {
       "set_status",
       "set_paginate",
     ]),
-
-    // updateTotal(item) {
-    //   const qty = parseFloat(item.quantity) || 0;
-    //   const price = parseFloat(item.price) || 0;
-
-    //   item.total = qty * price;
-    // },
-
-    updateTotal(item) {
-      const qty = parseFloat(item.quantity) || 0;
-      const price = parseFloat(item.price) || 0;
-      item.total = qty * price;
-
-      this.updateItemInDatabase(item);
-    },
-
-    async updateItemInDatabase(item) {
-      try {
-        const response = await axios.post(`/daily-bajars/update/${item.slug}`, {
-          quantity: item.quantity,
-          price: item.price,
-          total: item.total,
-        });
-
-        console.log("Item updated:", response.data);
-      } catch (error) {
-        console.error("Error updating item:", error);
-      }
-    },
 
     active_row(event) {
       const targetRow = event.target.closest(".table_rows");
