@@ -21,6 +21,7 @@ const setup: setup_type = {
     "name",
     "email",
     "phone_number",
+    "department",
     "image",
     "role_id",
     "slug",
@@ -33,7 +34,7 @@ const setup: setup_type = {
     "email",
     "phone_number",
     "image",
-    "role_id",
+    // "role_id",
     "created_at",
   ],
 

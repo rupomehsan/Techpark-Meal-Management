@@ -23,38 +23,43 @@
                   <tr>
                     <th>name</th>
                     <th class="text-center">:</th>
-                    <th>{{ item.name }}</th>
+                    <th>{{ item?.name ?? "N/A" }}</th>
                   </tr>
                   <tr>
                     <th>email</th>
                     <th class="text-center">:</th>
-                    <th>{{ item.email }}</th>
+                    <th>{{ item?.email ?? "N/A" }}</th>
                   </tr>
                   <tr>
                     <th>phone number</th>
                     <th class="text-center">:</th>
-                    <th>{{ item.phone_number }}</th>
+                    <th>{{ item?.phone_number ?? "N/A" }}</th>
                   </tr>
                   <tr>
-                    <th>password</th>
+                    <th>whatsapp</th>
                     <th class="text-center">:</th>
-                    <th>{{ item.password_in_text }}</th>
+                    <th>{{ item?.whatsapp ?? "N/A" }}</th>
                   </tr>
                   <tr>
-                    <th>Salary</th>
+                    <th>telegram</th>
                     <th class="text-center">:</th>
-                    <th>{{ item.salery }}</th>
+                    <th>{{ item?.telegram ?? "N/A" }}</th>
                   </tr>
                   <tr>
-                    <th>Joining date</th>
+                    <th>Department</th>
                     <th class="text-center">:</th>
-                    <th>{{ item.join_date }}</th>
+                    <th>{{ item?.department ?? "N/A" }}</th>
+                  </tr>
+                  <tr>
+                    <th>Batch Name</th>
+                    <th class="text-center">:</th>
+                    <th>{{ item?.batch?.batch_name ?? "N/A" }}</th>
                   </tr>
 
                   <tr>
                     <th>role</th>
                     <th class="text-center">:</th>
-                    <th>{{ item.role?.name }}</th>
+                    <th>{{ item.role?.name ?? "N/A" }}</th>
                   </tr>
                   <tr>
                     <th>image</th>
@@ -68,25 +73,11 @@
                       />
                     </th>
                   </tr>
-                  <tr>
-                    <th>nid</th>
-                    <th class="text-center">:</th>
-                    <th>{{ item.nid }}</th>
-                  </tr>
-                  <tr>
-                    <th>permanent address</th>
-                    <th class="text-center">:</th>
-                    <th>{{ item.permanent_address }}</th>
-                  </tr>
+
                   <tr>
                     <th>present address</th>
                     <th class="text-center">:</th>
-                    <th>{{ item.present_address }}</th>
-                  </tr>
-                  <tr>
-                    <th>commment</th>
-                    <th class="text-center">:</th>
-                    <th>{{ item.comment }}</th>
+                    <th v-html="item?.address ? item.address : 'N/A'"></th>
                   </tr>
                 </tbody>
               </table>

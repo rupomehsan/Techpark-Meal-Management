@@ -166,6 +166,7 @@
                     </td>
                     <td>{{ index + 1 }}</td>
                     <td>{{ item.name }}</td>
+                    <!-- <td>{{ item.department }}</td> -->
                     <td>{{ item.role?.name }}</td>
                     <td>{{ item.email }}</td>
                     <td>{{ item.phone_number ?? "N/A " }}</td>

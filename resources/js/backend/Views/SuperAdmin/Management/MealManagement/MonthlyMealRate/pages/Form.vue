@@ -43,6 +43,11 @@
                   <label for="mealRate" class="form-label">Meal Rate</label>
                   <input type="number" v-model="form_fields.meal_rate" name="meal_rate" class="form-control" id="mealRate" >
                 </div>
+
+                <div class="mb-3">
+                  <label for="month_end_date" class="form-label">Month End Date</label>
+                  <input type="date" v-model="form_fields.month_end_date" name="month_end_date" class="form-control" id="month_end_date" >
+                </div>
               </div>
 
               <div class="col-md-6 pull-right">
@@ -60,10 +65,7 @@
                   <input type="date" v-model="form_fields.month_start_date"  name="month_start_date" class="form-control" id="month_start_date" >
                 </div>
                 
-                <div class="mb-3">
-                  <label for="month_end_date" class="form-label">Month End Date</label>
-                  <input type="date" v-model="form_fields.month_end_date" name="month_end_date" class="form-control" id="month_end_date" >
-                </div>
+                
               </div>
             </div>
 

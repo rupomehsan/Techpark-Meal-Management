@@ -24,6 +24,8 @@ class Model extends Authenticatable
 
 
     public static $roleModel = \App\Modules\Management\UserManagement\Role\Models\Model::class;
+    public static $batchModel = \App\Modules\Management\BatchManagement\Models\Model::class;
+
 
     protected static function booted()
     {
@@ -58,5 +60,9 @@ class Model extends Authenticatable
     public function role()
     {
         return $this->belongsTo(self::$roleModel);
+    }
+    public function batch()
+    {
+        return $this->belongsTo(self::$batchModel );
     }
 }

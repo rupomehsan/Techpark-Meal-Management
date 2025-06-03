@@ -39,18 +39,44 @@ class DataStoreValidation extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
+
+     
     public function rules(): array
     {
-        return [
-            'name' => 'required | sometimes',
-            'email' => 'required | sometimes',
-            'password' => 'required | sometimes',
-            'image' => 'required | sometimes',
-            'role_id' => 'required | sometimes',
+        $isUpdate = $this->method() === 'PUT' || $this->method() === 'PATCH';
+         
+        // return [
+        //     'name' => 'required | sometimes',
+        //     'email' => 'required | sometimes',
+        //     'password' => $isUpdate ? 'sometimes|nullable' : 'required',
+        //     'image' => 'required | sometimes',
+        //     'phone_number' => 'required | sometimes',
+        //     'whatsapp' => 'required | sometimes',
+        //     'telegram' => 'required | sometimes',
+        //     'batch_id' => 'required | sometimes',
+        //     'address' => 'required | sometimes',
+        //     'role_id' => 'required | sometimes',
+        //     'department' => 'required | sometimes',
+        //     'status' => ['sometimes', Rule::in(['active', 'inactive'])],
+        // ];
+
+         return [
+            'name' => 'sometimes|string',
+            'email' => 'sometimes|email',
+            'password' => 'sometimes|string|min:8', // remove 'required'
+            'image' => 'sometimes|image',
+            'phone_number' => 'sometimes|string',
+            'whatsapp' => 'sometimes|string',
+            'telegram' => 'sometimes|string',
+            'batch_id' => 'sometimes|integer',
+            'address' => 'sometimes|string',
+            'role_id' => 'sometimes|integer',
+            'department' => 'sometimes|string',
             'status' => ['sometimes', Rule::in(['active', 'inactive'])],
         ];
-
-
         
     }
+
+    
+
 }

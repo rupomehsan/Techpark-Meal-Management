@@ -2,12 +2,15 @@
 
 namespace App\Modules\Management\UserManagement\User\Actions;
 
+use Illuminate\Support\Facades\Hash;
+
 class UpdateData
 {
     static $model = \App\Modules\Management\UserManagement\User\Models\Model::class;
 
     public static function execute($request, $slug)
     {
+        // dd($request->all());
         try {
 
             if (!$data = self::$model::query()->where('slug', $slug)->first()) {
@@ -20,7 +23,9 @@ class UpdateData
                 $image = $request->file('image');
                 $requestData['image'] = uploader($image, 'uploads/users');
             }
-
+            
+            $requestData['password'] = Hash::make($requestData['password']);
+            
             $data->update($requestData);
 
             return messageResponse('Item updated successfully', $data, 201);
