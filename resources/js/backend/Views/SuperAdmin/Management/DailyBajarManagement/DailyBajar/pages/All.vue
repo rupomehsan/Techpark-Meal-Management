@@ -90,6 +90,22 @@
                               Show
                             </router-link>
                           </li>
+
+                          <li>
+                            <router-link
+                              :to="{
+                                name: `Show${setup.route_prefix}`,
+                                params: {
+                                  id: item.slug,
+                                },
+                              }"
+                              class="border-secondary"
+                            >
+                              <i class="fa fa-eye text-secondary"></i>
+                              Details
+                            </router-link>
+                          </li>
+
                           <li>
                             <router-link
                               :to="{
@@ -170,7 +186,7 @@
                     <td>{{ item?.quantity ?? "N/A " }}</td>
                     <td>{{ item.unit ?? "N/A " }}</td>
                     <td>{{ item.price ?? "N/A " }}</td>
-                    <td>{{ item.total ?? 0 }}</td>
+                    <td>{{ item.total ?? "N/A"}}</td>
                     <td>{{ item.bajar_date ?? "N/A " }}</td>
                   </tr>
                 </tbody>

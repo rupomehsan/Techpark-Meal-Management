@@ -43,6 +43,18 @@
           <div class="menu-title">Dashboard</div>
         </router-link>
       </li>
+      <!-- Batch Management -->
+      <side-bar-drop-down-menus
+        :icon="`fa fa-plus`"
+        :menu_title="`Batch Management`"
+        :menus="[
+          {
+            route_name: `AllBatches`,
+            title: `All Batch`,
+            icon: `zmdi zmdi-dot-circle-alt`,
+          },
+        ]"
+      />
       <!-- Management start -->
       <side-bar-drop-down-menus
         :icon="`fa fa-plus`"
@@ -84,20 +96,6 @@
         ]"
       />
       
-     
-      <!-- Batch Management -->
-      <side-bar-drop-down-menus
-        :icon="`fa fa-plus`"
-        :menu_title="`Batch Management`"
-        :menus="[
-          {
-            route_name: `AllBatches`,
-            title: `All Batch`,
-            icon: `zmdi zmdi-dot-circle-alt`,
-          },
-        ]"
-      />
-      
       <!-- due list -->
       <side-bar-drop-down-menus
         :icon="`fa fa-plus`"
@@ -111,13 +109,14 @@
         ]"
       />
       <!-- daily bajar -->
+            <!-- route_name: `ExpensedailyBajar`, -->
       <side-bar-drop-down-menus
         :icon="`fa fa-plus`"
         :menu_title="`Expense Management`"
         :menus="[
           {
-            route_name: `AlldailyBajar`,
-            title: `All Daily Bajar`,
+            route_name: `ExpensedailyBajar`,
+            title: `All Expense`,
             icon: `zmdi zmdi-dot-circle-alt`,
           },
         ]"

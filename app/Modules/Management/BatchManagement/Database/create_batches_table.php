@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('batches', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('department_id')->unsigned()->nullable();
+            $table->string('department_id')->nullable();
             $table->string('batch_name')->nullable();
 
             $table->bigInteger('creator')->unsigned()->nullable();

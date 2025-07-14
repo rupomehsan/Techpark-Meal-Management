@@ -2,6 +2,9 @@ import setup from ".";
 import All from "../pages/All.vue";
 import Form from "../pages/Form.vue";
 import Details from "../pages/Details.vue";
+import Expense from "../pages/Expense.vue";
+import Show from "../pages/Show.vue";
+import DateWiseData from "../pages/DateWiseData.vue";
 import Layout from "../pages/Layout.vue";
 
 let route_prefix = setup.route_prefix;
@@ -17,6 +20,16 @@ const routes = {
             component: All,
         },
         {
+            path: "datewisedata/:id",
+            name: "DateWiseData" + route_prefix,
+            component: DateWiseData,
+        },
+        {
+            path: "expense",
+            name: "Expense" + route_prefix,
+            component: Expense,
+        },
+        {
             path: "create",
             name: "Create" + route_prefix,
             component: Form,
@@ -25,6 +38,11 @@ const routes = {
             path: "details/:id",
             name: "Details" + route_prefix,
             component: Details,
+        },
+        {
+            path: "details/:id",
+            name: "Show" + route_prefix,
+            component: Show,
         },
         {
             path: "edit/:id",

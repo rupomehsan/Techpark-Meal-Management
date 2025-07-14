@@ -45,6 +45,7 @@ const setup: setup_type = {
 
   all_page_title: "All " + prefix,
   details_page_title: "Details " + prefix,
+  expense_page_title: "Expense " + prefix,
   create_page_title: "Create " + prefix,
   edit_page_title: "Edit " + prefix,
 };

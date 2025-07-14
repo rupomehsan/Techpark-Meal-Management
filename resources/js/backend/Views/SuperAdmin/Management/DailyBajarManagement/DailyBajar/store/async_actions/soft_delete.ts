@@ -10,6 +10,7 @@ async function execute(){
 
     try {
         let response = await axios.post(url, {slug: state.item().slug});
+        // console.log('OK', response);
         return response;
     } catch (error) {
         return error.response;

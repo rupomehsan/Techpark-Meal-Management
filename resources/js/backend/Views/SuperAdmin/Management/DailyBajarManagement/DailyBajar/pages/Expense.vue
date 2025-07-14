@@ -8,7 +8,8 @@
               <!-- Title Section -->
               <div class="col-12 col-md-3 mb-2 mb-md-0">
                 <h5 class="text-capitalize mb-0">
-                  {{ setup.all_page_title }}
+                  <!-- {{ setup.all_page_title }} -->
+                  <p>Expenses (as per date)</p>
                 </h5>
               </div>
 
@@ -55,159 +56,119 @@
                       />
                     </th>
                     <th class="w-10">ID</th>
-                    <th>name</th>
-                    <th>email</th>
-                    <th>Phone</th>
-                    <th>Batch Name</th>
-                    <th>Balence</th>
-                    <!-- <th>designation</th> -->
-                    <!-- <th>image</th> -->
+                    <th>Total Expense</th>
+                    <th>Bajar Date</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr
-                    v-for="(item, index) in all?.data"
-                    :key="item.id"
-                    :class="`table_rows table_row_${item.id}`"
+                    v-for="(item, index) in expense?.data"
+                    :key="index"
+                    :class="`table_rows table_row_${index}`"
                   >
-                    <td>
-                      <span
-                        class="icon"
-                        @click.prevent="active_row($event)"
-                      ></span>
-                      <div class="table_action_btns">
-                        <ul>
-                          <li>
-                            <router-link
-                              :to="{
-                                name: `Details${setup.route_prefix}`,
-                                params: {
-                                  id: item.slug,
-                                },
-                              }"
-                              class="border-secondary"
-                            >
-                              <i class="fa fa-eye text-secondary"></i>
-                              Show
-                            </router-link>
-                          </li>
-                          <li>
-                            <router-link
-                              :to="{
-                                name: `Edit${setup.route_prefix}`,
-                                params: {
-                                  id: item.slug,
-                                },
-                              }"
-                              class="border-secondary"
-                            >
-                              <i class="fa fa-pencil-square-o text-info"></i>
-                              Edit
-                            </router-link>
-                          </li>
-                          <li>
-                            <a
-                              v-if="item.status == 'active'"
-                              href=""
-                              @click.prevent="updateStatus(item)"
-                              class="border-warning"
-                            >
-                              <i class="fa fa-eye-slash text-warning"></i>
-                              Inactive
-                            </a>
-                            <a
-                              v-if="item.status == 'inactive'"
-                              href=""
-                              @click.prevent="updateStatus(item)"
-                              class="border-warning"
-                            >
-                              <i class="fa fa-eye text-warning"></i>
-                              Active
-                            </a>
-                          </li>
-                          <li v-if="!is_trashed_data">
-                            <a
-                              @click.prevent="softDelete(item)"
-                              href=""
-                              class="border-danger"
-                            >
-                              <i class="fa fa-ban text-warning"></i>
-                              Soft Delete
-                            </a>
-                          </li>
-                          <li v-if="is_trashed_data">
-                            <a
-                              @click.prevent="restore_data(item)"
-                              href=""
-                              class="border-danger"
-                            >
-                              <i class="fa fa-refresh text-warning"></i>
-                              Restore data
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              @click.prevent="destroy_data(item)"
-                              href=""
-                              class="border-danger"
-                            >
-                              <i class="fa fa-trash text-danger"></i>
-                              Destroy
-                            </a>
-                          </li>
+                  <td>
+                    <span
+                      class="icon"
+                      @click.prevent="active_row($event)"
+                    ></span>
+                    <div class="table_action_btns">
+                      <ul>
+                        <li>
+                          <router-link
+                            :to="{
+                              name: `DateWiseData${setup.route_prefix}`,
+                              params: {
+                                id: item.bajar_date,
+                              },
+                            }"
+                            class="border-secondary"
+                          >
+                            <i class="fa fa-eye text-secondary"></i>
+                            Details
+                          </router-link>
+                        </li>
+                        <!-- <li>
+                          <router-link
+                            :to="{
+                              name: `Show${setup.route_prefix}`,
+                              params: {
+                                id: item.slug,
+                              },
+                            }"
+                            class="border-secondary"
+                          >
+                            <i class="fa fa-eye text-secondary"></i>
+                            Details
+                          </router-link>
+                        </li> -->
 
-                          <li>
-                            <!-- <router-link
-                              :to="{
-                                name: `Ce${setup.route_prefix}`,
-                                params: {
-                                  id: item.name,
-                                },
-                              }"
-                              class="border-secondary"
-                            >
-                              <i class="fa fa-pencil-square-o text-info"></i>
-                              Add Payment 
-                            </router-link> -->
-                             <!-- <router-link
-                              class="btn btn-outline-info btn-sm"
-                              :to="`/userpayment/create?id=${item.id}`"
+                        <li>
+                          <a
+                            v-if="item.status == 'active'"
+                            href=""
+                            @click.prevent="updateStatus(item)"
+                            class="border-warning"
+                          >
+                            <i class="fa fa-eye-slash text-warning"></i>
+                            Inactive
+                          </a>
+                          <a
+                            v-if="item.status == 'inactive'"
+                            href=""
+                            @click.prevent="updateStatus(item)"
+                            class="border-warning"
+                          >
+                            <i class="fa fa-eye text-warning"></i>
+                            Active
+                          </a>
+                        </li>
 
-                            >
-                              Add Payment
-                            </router-link> -->
-                             <router-link
-                              class="btn btn-outline-info btn-sm" @click="openPaymentModal(item.id)" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                              :to="`create?id=${item.id}`"
-
-                            >
-                              Add Payment
-                            </router-link>
-                          </li>
-                        </ul>
-                      </div>
-                    </td>
-                    <td>
-                      <input
-                        @change="set_item_selected(item, $event)"
-                        :checked="isSelected(item)"
-                        class="form-check-input ml-0"
-                        type="checkbox"
-                      />
-                    </td>
-                    <td>{{ index + 1 }}</td>
-                    <td>{{ item.name ?? "N/A" }}</td>
-                    <td>{{ item.email ?? "N/A" }}</td>
-                    <td>{{ item.phone_number ?? "N/A" }}</td>
-                    <td>{{ item.batch?.batch_name ?? "N/A" }}</td>
-                    <!-- <td>{{ item.department }}</td> -->
-                    <!-- <td>{{ item.role?.name }}</td> -->
-                    <!-- 
-                    <td>
-                      <img :src="item.image" alt="" height="50" width="50" />
-                    </td> -->
-                  </tr>
-                </tbody>
+                        <li v-if="!is_trashed_data">
+                          <a
+                            @click.prevent="softDelete(item)"
+                            href=""
+                            class="border-danger"
+                          >
+                            <i class="fa fa-ban text-warning"></i>
+                            Soft Delete
+                          </a>
+                        </li>
+                        <li v-if="is_trashed_data">
+                          <a
+                            @click.prevent="restore_data(item)"
+                            href=""
+                            class="border-danger"
+                          >
+                            <i class="fa fa-refresh text-warning"></i>
+                            Restore data
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            @click.prevent="destroy_data(item)"
+                            href=""
+                            class="border-danger"
+                          >
+                            <i class="fa fa-trash text-danger"></i>
+                            Destroy
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                  <td>
+                    <input
+                      @change="set_item_selected(item, $event)"
+                      :checked="isSelected(item)"
+                      class="form-check-input ml-0"
+                      type="checkbox"
+                    />
+                  </td>
+                  <td>{{ index + 1 }}</td>
+                  <td>{{ item.total_sum ?? "N/A" }} &#2547;</td>
+                  <td>{{ item.bajar_date ?? "N/A " }}</td>
+                </tr>
+              </tbody>
               </table>
             </div>
           </div>
@@ -218,13 +179,13 @@
               style="gap: 10px"
             >
               <ul class="pagination my-2" style="font-size: 11px">
-                <template v-for="(link, index) in all?.links" :key="index">
+                <template v-for="(link, index) in expense?.links" :key="index">
                   <li class="page-item" :class="{ active: link.active }">
                     <a
                       class="page-link"
                       :class="
-                        all?.current_page == all?.last_page &&
-                        all?.links.length - 1 == index
+                        expense?.current_page == expense?.last_page &&
+                        expense?.links.length - 1 == index
                           ? 'disabled'
                           : ''
                       "
@@ -238,11 +199,11 @@
               </ul>
               <div class="d-flex" style="gap: 5px">
                 <span></span>
-                <span>{{ all?.from }}</span>
+                <span>{{ expense?.from }}</span>
                 <span>-</span>
-                <span>{{ all?.to }}</span>
+                <span>{{ expense?.to }}</span>
                 <span>of</span>
-                <span>{{ all?.total }}</span>
+                <span>{{ expense?.total }}</span>
               </div>
               <div class="d-flex" style="gap: 5px">
                 <span></span>
@@ -411,7 +372,7 @@
                 name="start_date"
                 class="form-control"
               />
-              <!-- <div class="form-control preview"></div> -->
+              
             </label>
           </div>
           <div class="filter_item">
@@ -458,7 +419,7 @@
           </div>
           <div class="filter_item">
             <button
-              @click.prevent="get_all()"
+              @click.prevent="date_wise_expense()"
               type="button"
               class="btn btn-sm btn-outline-info"
             >
@@ -524,32 +485,6 @@
       </div>
     </div>
   </div>
-
-  <!-- modal srart here  -->
-   <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add Your Payment</h5>
-          </div>
-          <div class="modal-body">
-            <form @submit.prevent="submitHandler">
-              <input type="hidden" name="user_id" :value="user_id">
-              <div class="mb-3">
-                <label for="amount" class="form-label">Amount</label>
-                <input type="number" name="amount" class="form-control" id="amount" >
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  <!-- modal end here  -->
 </template>
 
 <script>
@@ -561,21 +496,18 @@ import export_all_csv from "../helpers/export_all_csv";
 import export_selected_csv from "../helpers/export_selected_csv";
 import export_demo_csv from "../helpers/export_demo_csv";
 import debounce from "../helpers/debounce";
+import { mapState } from "pinia";
 
 export default {
   data: () => ({
-    amount: null,
-    user_id: null,
     setup,
     is_trashed_data: false,
     import_csv_modal_show: false,
     filePath:
       "resources/js/backend/Views/SuperAdmin/Management/TestModule/helpers/demo.csv",
   }),
-  
-
   created: async function () {
-    await this.get_all();
+    await this.date_wise_expense();
   },
 
   methods: {
@@ -583,7 +515,7 @@ export default {
     export_selected_csv,
     export_demo_csv,
     ...mapActions(data_store, [
-      "get_all",
+      // "get_all",
       `restore`,
       `soft_delete`,
       `update_status`,
@@ -598,6 +530,7 @@ export default {
       "set_page",
       "set_status",
       "set_paginate",
+      "date_wise_expense",
     ]),
 
     active_row(event) {
@@ -609,20 +542,6 @@ export default {
       targetRow.classList.toggle("active");
     },
 
-    submitHandler: async function () {
-      try {
-        const formData = new FormData(event.target);
-        const response = await axios.post('user-payments/store', formData);
-        // console.log('modal', response);
-      } catch (error) {
-        console.error('Submission error:', error);
-      }
-    },
-
-    openPaymentModal: function(user_id){
-      this.user_id = user_id
-    },
-
     updateStatus: async function (item) {
       let action = item.status == "active" ? "deactive" : "active";
       let con = await window.s_confirm("Are you sure want to " + action + " ?");
@@ -631,7 +550,8 @@ export default {
         this.set_only_latest_data(true);
         let response = await this.update_status();
         if (response.data.status === "success") {
-          await this.get_all();
+          // await this.get_all();
+          await this.date_wise_expense();
           window.s_alert(response.data?.message);
           this.set_only_latest_data(true);
         } else {
@@ -647,7 +567,8 @@ export default {
 
         let response = await this.soft_delete();
         if (response.data.status === "success") {
-          await this.get_all();
+          // await this.get_all();
+          await this.date_wise_expense();
           window.s_alert(response.data?.message);
           this.set_only_latest_data(true);
         } else {
@@ -655,14 +576,18 @@ export default {
         }
       }
     },
+
     restore_data: async function (item) {
       let con = await window.s_confirm("Restore");
       if (con) {
         this.set_item(item);
+        console.log(this.item);
+
         this.set_only_latest_data(true);
         let response = await this.restore();
         if (response.data.status === "success") {
-          await this.get_all();
+          // await this.get_all();
+          await this.date_wise_expense();
           window.s_alert("Permanently deleted.");
           this.set_only_latest_data(true);
         } else {
@@ -678,7 +603,8 @@ export default {
         this.set_only_latest_data(true);
         let response = await this.destroy();
         if (response.data.status === "success") {
-          await this.get_all();
+          // await this.get_all();
+          await this.date_wise_expense();
           window.s_alert("Permanently deleted.");
           this.set_only_latest_data(true);
         } else {
@@ -686,6 +612,7 @@ export default {
         }
       }
     },
+
     change_status: function (status = "active") {
       if (status == "trased") {
         this.is_trashed_data = true;
@@ -695,20 +622,24 @@ export default {
       this.set_only_latest_data(true);
       this.set_status(status);
       this.set_page(1);
-      this.get_all();
+      // this.get_all();
+      this.date_wise_expense();
       this.set_only_latest_data(true);
     },
+
     set_page_data: function (link) {
       try {
         let url = new URL(link.url);
         let page = url.searchParams.get("page");
         link.url ? this.set_page(parseInt(page)) : "";
-        this.get_all();
+        // this.get_all();
+        this.date_wise_expense();
       } catch (error) {}
     },
     set_per_page_limit: function () {
       this.set_paginate(event.target.value);
-      this.get_all();
+      // this.get_all();
+      this.date_wise_expense();
     },
 
     set_all_item_selected(event) {
@@ -740,7 +671,8 @@ export default {
         this.set_only_latest_data(true);
         let response = await this.bulk_action(action, selected_data);
         if (response.data.status === "success") {
-          await this.get_all();
+          // await this.get_all();
+          await this.date_wise_expense();
           document.querySelector(".select_all_checkbox").checked = false;
           this.clear_selected();
           this.set_only_latest_data(false);
@@ -754,7 +686,8 @@ export default {
     FileUploadHandler: async function ($event) {
       let response = await this.import_data($event);
       if (response.data.status === "success") {
-        await this.get_all();
+        // await this.get_all();
+        await this.date_wise_expense();
         window.s_alert(response.data.message);
         this.set_only_latest_data(true);
         this.import_csv_modal_show = false;
@@ -766,16 +699,18 @@ export default {
     set_search_key: debounce(async function (event) {
       let value = event.target.value;
       this.search_key = value;
+      // console.log(' this.search_key', this.search_key);
       this.page = 1;
 
       this.only_latest_data = true;
-      await this.get_all();
+      // await this.get_all();
+      await this.date_wise_expense();
       this.only_latest_data = false;
     }, 500),
   },
   computed: {
     ...mapWritableState(data_store, [
-      "all",
+      // "all",
       "show_filter_canvas",
       "active_data_count",
       "inactive_data_count",
@@ -790,11 +725,14 @@ export default {
       "end_date",
       "search_key",
       "page",
+      "item",
+      "expense",
     ]),
+
     isAllSelected() {
       return (
-        this.all?.data?.length > 0 &&
-        this.all.data?.every((item) =>
+        this.expense?.data?.length > 0 &&
+        this.expense.data?.every((item) =>
           this.selected.some((s) => s.id === item.id)
         )
       );

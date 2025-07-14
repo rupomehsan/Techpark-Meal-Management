@@ -8,6 +8,7 @@ class SoftDelete
 
     public static function execute(){
         try{
+            // dd('ok');
             if(!$data = self::$model::where('slug', request()->slug)->first()){
                 return messageResponse('Data not found...', $data, 404, 'error');
             }

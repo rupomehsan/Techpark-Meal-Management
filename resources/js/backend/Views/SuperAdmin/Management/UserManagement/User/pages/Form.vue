@@ -38,21 +38,25 @@
                     <label for="name" class="form-label">Name</label>
                     <input type="text"  name="name" v-model="form_fields.name" class="form-control" id="name" >
                   </div>
+
                   <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email"  name="email" v-model="form_fields.email" class="form-control" id="email" >
                   </div>
-                  <div class="mb-3">
-                    <label for="whatsapp" class="form-label">whatsapp number</label>
-                    <input type="number"  name="whatsapp" v-model="form_fields.whatsapp" class="form-control" id="whatsapp" >
+
+                   <div class="mb-3">
+                    <label for="department" class="form-label">Department</label>
+                    <select name="department" v-model="form_fields.department" class="form-control" id="department">
+                      <option>Select a Department</option>
+                      <option value="IT">IT</option>
+                      <option value="IELTS">IELTS</option>
+                      <option value="Spoken">Spoken</option>
+                      <option value="Employee">Employee</option>
+                    </select>
                   </div>
-                  <div class="mb-3">
-                    <label for="telegram" class="form-label">telegram</label>
-                    <input type="number"  name="telegram" v-model="form_fields.telegram" class="form-control" id="telegram" >
-                  </div>
+
                   <div class="mb-3">
                     <label for="batch_id" class="form-label">batch Name</label>
-                    <!-- <input type="text"  name="batch_id" class="form-control" id="batch_id" > -->
                     <select name="batch_id" v-model="form_fields.batch_id" id="batch_id" class="form-control">
                       <option value="">Select a Batch Name</option>
                      <option 
@@ -67,30 +71,6 @@
                 </div>
 
                 <div class="col-md-6 pull-right">
-                  <div class="mb-3">
-                    <label for="department" class="form-label">Department</label>
-                    <select name="department" v-model="form_fields.department" class="form-control" id="department">
-                      <option>Select a Department</option>
-                      <option value="IT">IT</option>
-                      <option value="IELTS">IELTS</option>
-                      <option value="Spoken">Spoken</option>
-                      <option value="Employee">Employee</option>
-                    </select>
-                  </div>
-
-
-                  <!-- <div class="mb-3">
-                    <label for="two_factor_secret" class="form-label">two factor secret</label>
-                    <input type="text"  name="two_factor_secret" class="form-control" id="two_factor_secret" >
-                  </div>
-                  <div class="mb-3">
-                    <label for="two_factor_recovery_codes" class="form-label">two factor recovery codes</label>
-                    <input type="text"  name="two_factor_recovery_codes" class="form-control" id="two_factor_recovery_codes" >
-                  </div>
-                  <div class="mb-3">
-                    <label for="two_factor_confirmed" class="form-label">two factor confirmed</label>
-                    <input type="text"  name="two_factor_confirmed" class="form-control" id="two_factor_confirmed" >
-                  </div> -->
 
                   <div class="mb-3">
                     <label for="phone_number" class="form-label">phone number</label>
@@ -100,11 +80,6 @@
                   <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <input type="password"  name="password" class="form-control" id="password" >
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="image" class="form-label">Image</label>
-                    <input type="file"  name="image" class="form-control" id="image" >
                   </div>
 
                   <div class="mb-3">
@@ -119,6 +94,12 @@
                       </option>
                     </select>
                   </div>
+
+                  <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file"  name="image" class="form-control" id="image" >
+                  </div>
+
               </div>
             </div>
 

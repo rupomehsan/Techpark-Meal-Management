@@ -43,7 +43,7 @@ class DataStoreValidation extends FormRequest
      
     public function rules(): array
     {
-        $isUpdate = $this->method() === 'PUT' || $this->method() === 'PATCH';
+        // $isUpdate = $this->method() === 'PUT' || $this->method() === 'PATCH';
          
         // return [
         //     'name' => 'required | sometimes',
@@ -66,8 +66,6 @@ class DataStoreValidation extends FormRequest
             'password' => 'sometimes|string|min:8', // remove 'required'
             'image' => 'sometimes|image',
             'phone_number' => 'sometimes|string',
-            'whatsapp' => 'sometimes|string',
-            'telegram' => 'sometimes|string',
             'batch_id' => 'sometimes|integer',
             'address' => 'sometimes|string',
             'role_id' => 'sometimes|integer',

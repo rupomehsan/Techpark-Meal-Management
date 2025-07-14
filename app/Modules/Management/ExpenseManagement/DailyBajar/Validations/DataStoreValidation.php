@@ -38,6 +38,7 @@ class DataStoreValidation extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
+    
     public function rules(): array
     {
         return [
@@ -48,9 +49,7 @@ class DataStoreValidation extends FormRequest
             'total' => 'required | sometimes',
             'bajar_date' => 'required | sometimes',
             'status' => ['sometimes', Rule::in(['active', 'inactive'])],
-        ];
-
-
-        
+        ];  
     }
+
 }

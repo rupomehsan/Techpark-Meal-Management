@@ -19,9 +19,9 @@ class Seeder extends SeederClass
         self::$model::truncate();
 
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
             self::$model::create([                
-                'department_id' => 1,
+                'department_id' => "IT",
                 'batch_name' => $faker->name,
             ]);
         }

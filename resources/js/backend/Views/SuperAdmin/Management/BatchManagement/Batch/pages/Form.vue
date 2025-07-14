@@ -35,19 +35,27 @@
             <div class="col-md-12">
               <div class="col-md-6 pull-left">
                   <div class="mb-3">
-                    <label for="department_id" class="form-label">User Id</label>
+                    <label for="department_id" class="form-label">Department Name</label> 
                     <select v-model="form_fields.department_id" name="department_id" class="form-control" id="department_id">
-                      <option v-for="all_user in all_users" :key="all_user.id" :value="all_user.id">
-                        {{ all_user.department }}
-                      </option>
+                      <option value="TI">IT</option>
+                      <option value="IELTS">IELTS</option>
+                      <option value="Employee">Employee</option>
+                      <option value="Spoken">Spoken</option>
                     </select>
                   </div>
 
+                <!-- <div class="mb-3">
+                  <label for="batch" class="form-label">Batch name</label>
+                  <input type="text" name="batch_name" v-model="form_fields.batch_name" class="form-control" id="batch" >
+                </div> -->
+
+              </div>
+
+              <div class="col-md-6 pull-right">
                 <div class="mb-3">
                   <label for="batch" class="form-label">Batch name</label>
                   <input type="text" name="batch_name" v-model="form_fields.batch_name" class="form-control" id="batch" >
                 </div>
-
               </div>
             </div>
 
@@ -141,9 +149,7 @@ export default {
 
     get_all_user: async function(){
       let response = await axios.get('users');
-      
       this.all_users = response.data.data.data;
-
     },
 
   },

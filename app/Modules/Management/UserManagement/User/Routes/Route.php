@@ -14,6 +14,7 @@ Route::prefix('v1')->group(function () {
         Route::post('restore', [Controller::class, 'restore']);
         Route::post('import', [Controller::class, 'import']);
         Route::post('bulk-action', [Controller::class, 'bulkAction']);
+        Route::get('department-by-batchname', [Controller::class, 'departmentBYBatch']);
     });
     //
     Route::middleware('auth:api')->group(function () {

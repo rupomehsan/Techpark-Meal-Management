@@ -1,13 +1,13 @@
-<?php
+<?php 
 
 namespace App\Modules\Management\ExpenseManagement\DailyBajar\Actions;
 
-class GetAllData
-{
+class DateWiseData{
     static $model = \App\Modules\Management\ExpenseManagement\DailyBajar\Models\Model::class;
-    public static function execute()
-    {
-        try {
+
+    public static function execute($date){
+        
+         try {
 
             $pageLimit = request()->input('limit') ?? 10;
             $orderByColumn = request()->input('sort_by_col') ?? 'id';
@@ -25,15 +25,15 @@ class GetAllData
                     ->select($fields)
                     ->whereDate('bajar_date', $date);
                     // ->get(); 
-                // dd($data);
-                
-            if (request()->has('search') && request()->input('search')) {
-                $searchKey = request()->input('search');
-                $data = $data->where(function ($q) use ($searchKey) {
-                $q->where('title', 'like', '%' . $searchKey . '%');              
-
-                });
-            }
+                    // d('OK',$data);
+                    if (request()->has('search') && request()->input('search')) {
+                        $searchKey = request()->input('search');
+                        $data = $data->where(function ($q) use ($searchKey) {
+                            $q->where('title', 'like', '%' . $searchKey . '%');              
+                            
+                        });
+                    }
+                    // dd('OK',$data);
 
             if ($start_date && $end_date) {
                  if ($end_date > $start_date) {
@@ -49,13 +49,13 @@ class GetAllData
 
             if (request()->has('get_all') && (int)request()->input('get_all') === 1) {
                 $data = $data
-                    ->with($with)
-                    ->select($fields)
-                    ->where($condition)
-                    ->where('status', $status)
-                    ->limit($pageLimit)
-                    ->orderBy($orderByColumn, $orderByType)
-                    ->get();
+                ->with($with)
+                ->select($fields)
+                ->where($condition)
+                ->where('status', $status)
+                ->limit($pageLimit)
+                ->orderBy($orderByColumn, $orderByType)
+                ->get();
                 dd('ok', $data);
                      return entityResponse($data);
             } else if ($status == 'trased') {
@@ -85,5 +85,7 @@ class GetAllData
         } catch (\Exception $e) {
             return messageResponse($e->getMessage(), [], 500, 'server_error');
         }
+
+       
     }
 }

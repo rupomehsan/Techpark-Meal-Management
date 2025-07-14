@@ -47,6 +47,7 @@ async function fetch_and_save_to_cache(url, cache, startTime) {
 
     throw new Error(error.response.statusText);
   }
+  
 }
 
 // function bytesToMB(bytes) {

@@ -7,6 +7,7 @@ class UpdateData
     static $model = \App\Modules\Management\ExpenseManagement\DailyBajar\Models\Model::class;
 
     public static function execute($request, $slug){
+        // dd($request);
         try{
             $requestData = $request->validated();
             if(!$data = self::$model::query()->where('slug', $slug)->first()){

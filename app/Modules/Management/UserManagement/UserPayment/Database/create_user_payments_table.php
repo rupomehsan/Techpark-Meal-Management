@@ -15,8 +15,6 @@ return new class extends Migration
         Schema::create('user_payments', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id' )->unsigned()->nullable();
-            $table->string('month')->nullable();
-            $table->date('payment_date')->nullable();
             $table->integer('amount')->nullable();
 
             $table->bigInteger('creator')->unsigned()->nullable();

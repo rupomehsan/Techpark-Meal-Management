@@ -15,18 +15,13 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name', 30)->nullable();
-            $table->integer('role_id')->nullable();
-            $table->string('image', 100)->nullable();
             $table->string('email', 50)->nullable();
-            $table->string('password', 100)->nullable();
-            $table->text('two_factor_secret')->nullable();
-            $table->text('two_factor_recovery_codes')->nullable();
-            $table->timestamp('two_factor_confirmed')->nullable();
+            $table->string('image', 100)->nullable();
             $table->string('phone_number', 15)->nullable();
-            $table->string('whatsapp', 15)->nullable();
-            $table->string('telegram', 15)->nullable();
             $table->enum('department', ['IT', 'IELTS', 'Spoken', 'Employee'])->nullable();
+            $table->string('password', 100)->nullable();
             $table->bigInteger('batch_id')->unsigned()->nullable();
+            $table->integer('role_id')->nullable();
             $table->string('address')->nullable();
             $table->string('remember_token')->nullable();
 

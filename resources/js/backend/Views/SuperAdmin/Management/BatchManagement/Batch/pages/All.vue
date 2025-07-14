@@ -162,7 +162,7 @@
                       />
                     </td>
                     <td>{{ index + 1 }}</td>
-                    <td>{{ item?.user?.department ?? "N/A " }}</td>
+                    <td>{{ item?.department_id ?? "N/A " }}</td>
                     <td>{{ item.batch_name ?? "N/A " }}</td>
                   </tr>
                 </tbody>

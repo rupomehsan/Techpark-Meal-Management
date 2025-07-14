@@ -12,6 +12,10 @@ import restore from "./async_actions/restore";
 import destroy from "./async_actions/destroy";
 import bulk_action from "./async_actions/bulk_action";
 import import_data from "./async_actions/import_data";
+//new function for date wise data
+import date_wise_data from "./async_actions/date_wise_data";
+// a function date wise expense
+import date_wise_expense from "./async_actions/date_wise_expense";
 
 /** actions */
 import set_filter_criteria from "./actions/set_filter_criteria";
@@ -40,6 +44,10 @@ export const store = defineStore(setup.store_prefix, {
         destroy: destroy,
         bulk_action: bulk_action,
         import_data: import_data,
+        // date wise expense
+        date_wise_expense: date_wise_expense,
+        // new function for date wise data
+        date_wise_data: date_wise_data,
 
         /* actions */
         set_page,

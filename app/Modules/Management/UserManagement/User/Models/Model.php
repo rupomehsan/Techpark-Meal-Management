@@ -21,8 +21,6 @@ class Model extends Authenticatable
     protected $hidden = ['password'];
 
 
-
-
     public static $roleModel = \App\Modules\Management\UserManagement\Role\Models\Model::class;
     public static $batchModel = \App\Modules\Management\BatchManagement\Models\Model::class;
 
@@ -61,6 +59,7 @@ class Model extends Authenticatable
     {
         return $this->belongsTo(self::$roleModel);
     }
+    
     public function batch()
     {
         return $this->belongsTo(self::$batchModel );

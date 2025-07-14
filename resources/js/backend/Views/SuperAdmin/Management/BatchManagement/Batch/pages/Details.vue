@@ -23,7 +23,7 @@
                   <tr>
                     <th>Department Name</th>
                     <th class="text-center">:</th>
-                    <th>{{ item?.user?.department }}</th>
+                    <th>{{ item?.department_id }}</th>
                   </tr>
                   <tr>
                     <th>Batch Name</th>

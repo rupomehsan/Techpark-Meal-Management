@@ -34,30 +34,35 @@
 
             <div class="col-md-12">
               <div class="col-md-6 pull-left">
-                  <div class="mb-3">
+                  <!-- <div class="mb-3">
                     <label for="user_id" class="form-label">User Id</label>
                     <select v-model="form_fields.user_id" name="user_id" class="form-control" id="user_id">
                       <option v-for="all_user in all_users" :key="all_user.id" :value="all_user.id">
                         {{ all_user.name }}
                       </option>
                     </select>
+                  </div> -->
+
+                  <div class="mb-3">
+                    <label for="amount" class="form-label">Amount</label>
+                    <input type="number" v-model="form_fields.amount" name="amount" class="form-control" id="amount" >
                   </div>
 
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                   <label for="month" class="form-label">Month</label>
                   <input type="month" v-model="form_fields.month" name="month" class="form-control" id="month" >
-                </div>
+                </div> -->
               </div>
               <div class="col-md-6 pull-right">
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                   <label for="payment_date" class="form-label">Payment Date</label>
                   <input type="date" v-model="form_fields.payment_date" name="payment_date" class="form-control" id="payment_date" >
-                </div>
+                </div> -->
 
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                   <label for="amount" class="form-label">Amount</label>
                   <input type="number" v-model="form_fields.amount" name="amount" class="form-control" id="amount" >
-                </div>
+                </div> -->
               </div>
             </div>
 

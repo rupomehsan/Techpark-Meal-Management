@@ -44,8 +44,8 @@
               <div class="col-md-6 pull-right">
 
                 <div class="mb-3">
-                  <label for="receipy" class="form-label">Month Start Date</label>
-                  <input type="text" v-model="form_fields.receipy" name="receipy" class="form-control" id="receipy">
+                  <label for="receipy" class="form-label">Receipy</label>
+                  <input type="text" v-model="form_fields.receipy" name="receipy" placeholder="receipy" class="form-control" id="receipy">
                 </div>
               </div>
             </div>

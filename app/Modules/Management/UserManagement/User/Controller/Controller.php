@@ -34,7 +34,6 @@ class Controller extends ControllersController
 
     public function store(DataStoreValidation $request)
     {
-        
         $data = StoreData::execute($request);
         return $data;
     }
@@ -85,6 +84,11 @@ class Controller extends ControllersController
     public function bulkAction(BulkActionsValidation $request)
     {
         $data = BulkActions::execute($request);
+        return $data;
+    }
+    public function departmentByBatch()
+    {
+        $data = DepartmentByBatch::execute();
         return $data;
     }
 }
