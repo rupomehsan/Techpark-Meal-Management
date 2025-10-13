@@ -23,12 +23,21 @@ class GetAllData
             $condition = [];
 
             $data = self::$model::query();
-            // dd($data);
+
             if (request()->has('search') && request()->input('search')) {
                 $searchKey = request()->input('search');
-                $data = $data->where(function ($q) use ($searchKey) {
-                    $q->where('quantity', 'like', '%' . $searchKey . '%');    
+                // $data = $data->where(function ($q) use ($searchKey) {
+                //     $q->where('quantity', 'like', '%' . $searchKey . '%')   
+                //       ->orWhere('user_id', 'like', '%' . $searchKey . '%');    
   
+                // });
+
+                $data = $data->where(function ($q) use ($searchKey) {
+                    $q->where('quantity', 'like', '%' . $searchKey . '%')
+                        ->orWhere('meal_status', 'like', '%' . $searchKey . '%')
+                        ->orWhereHas('user', function ($q2) use ($searchKey) {
+                            $q2->where('name', 'like', '%' . $searchKey . '%');
+                        });
                 });
             }
 

@@ -1,0 +1,79 @@
+@protocol = http://
+# @hostname =
+@hostname = 127.0.0.1:8000
+@endpoint = api/v1/users
+@url = {{protocol}}{{hostname}}/{{endpoint}}
+@token = Bearer 
+@createdAt = {{$timestamp}}
+# @modifiedBy = {{$processEnv UserNAME}}
+
+#                                               #
+#------------------ Modules TESTING ----------------#
+#                                               #
+
+### get all data without pagination
+### will return:  {  }
+GET {{url}} HTTP/1.1
+content-type: application/json
+# Authorization: {{token}}
+
+### get single data
+# @prompt slug enter slug
+GET {{url}}/{{slug}} HTTP/1.1
+content-type: application/json
+# Authorization: {{token}}
+
+### store data
+### @prompt name enter name
+### @prompt email enter email
+### @prompt password enter password
+### @prompt role_id enter role_id
+POST {{url}}/store  HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "role_id": "1"
+}
+
+
+### store data canvas
+### @prompt title enter title
+PATCH {{url}}/1 HTTP/1.1
+content-type: application/json
+# Authorization: {{token}}
+
+{
+    "title": "Title update"
+}
+
+
+#### soft delete
+# @prompt slug enter slug
+POST {{url}}/soft-delete HTTP/1.1
+content-type: application/json
+
+{
+    "slug": "{{slug}}" 
+}
+
+#### permenently delete
+# @prompt slug enter slug
+POST {{url}}/destroy/{{slug}}  HTTP/1.1
+content-type: application/json
+
+{
+    "slug": "slug"
+}
+
+### restore
+# @prompt slug enter slug
+POST {{url}}/restore HTTP/1.1
+content-type: application/json
+# Authorization: {{token}}
+
+{
+    "slug": "{{slug}}"
+}

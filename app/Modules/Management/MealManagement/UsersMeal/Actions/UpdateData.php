@@ -9,7 +9,7 @@ class UpdateData{
 
         try{
             $requestData = $request->validated();
-
+            // dd($requestData);
             if (!$data = self::$model::query()->where('slug', $slug)->first()) {
                 return messageResponse('Data not  found...', $data, 404, 'error');
             }

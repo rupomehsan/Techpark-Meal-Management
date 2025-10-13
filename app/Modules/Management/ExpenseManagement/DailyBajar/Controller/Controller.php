@@ -13,6 +13,8 @@ use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\SoftDelete;
 use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\StoreData;
 use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\UpdateData;
 use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\UpdateStatus;
+use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\AddCookSalary;
+
 use App\Modules\Management\ExpenseManagement\DailyBajar\Validations\BulkActionsValidation;
 use App\Modules\Management\ExpenseManagement\DailyBajar\Validations\DataStoreValidation;
 
@@ -83,4 +85,12 @@ class Controller extends ControllersController
         $data = ExpenseData::execute();
         return $data;
     }
+
+    public function cookSalaryStore(DataStoreValidation $request)
+    {
+        $data = AddCookSalary::execute($request);
+        return $data;
+    }
+
+    
 }

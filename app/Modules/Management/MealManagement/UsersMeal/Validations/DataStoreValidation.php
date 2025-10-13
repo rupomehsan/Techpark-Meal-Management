@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Modules\Management\MealManagement\UsersMeal\Validations;
 
 use Illuminate\Contracts\Validation\Validator;
@@ -21,7 +20,7 @@ class DataStoreValidation extends FormRequest
      */
     public function validateError($data)
     {
-        $errorPayload =  $data->getMessages();
+        $errorPayload = $data->getMessages();
         return response(['status' => 'validation_error', 'errors' => $errorPayload], 422);
     }
 
@@ -42,13 +41,22 @@ class DataStoreValidation extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required',
+            'user_id'  => 'required',
             'quantity' => 'required',
-            'date' => 'required',
-            'status' => ['sometimes', Rule::in(['active', 'inactive'])],
+            'date'     => 'required',
+            'status'   => ['sometimes', Rule::in(['active', 'inactive'])],
         ];
 
+    }
 
-        
+    /**
+     * Prepare the data for validation.
+     * If user_id is not provided but the request is authenticated, merge it.
+     */
+    protected function prepareForValidation()
+    {
+        if ($this->user() && ! $this->has('user_id')) {
+            $this->merge(['user_id' => $this->user()->id]);
+        }
     }
 }

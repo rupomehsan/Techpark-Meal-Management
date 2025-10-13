@@ -18,18 +18,16 @@ class Seeder extends SeederClass
         $faker = Faker::create();
         self::$model::truncate();
 
-        self::$model::create([
-            'user_id' => 1,
-            'quantity' => 2,
-            'date' => $faker->date,
-            'meal_rate_id' => 1
-        ]);
-        
-        self::$model::create([
-            'user_id' => 2,
-            'quantity' => 2,
-            'date' => $faker->date,
-            'meal_rate_id' => 2
-        ]);
+        for ($i = 1; $i <= 10; $i++) {
+            self::$model::create([
+                // 'user_id' => 1,
+                // 'quantity' => 2,
+                'user_id' => $faker->numberBetween(1, 5),
+                'quantity' => $faker->numberBetween(1, 3),
+                'date' => $faker->date(),
+                'meal_status' => $faker->randomElement(['on', 'off']),
+                'meal_rate_id' => $faker->numberBetween(1, 3)
+            ]);
+        }
     }
 }

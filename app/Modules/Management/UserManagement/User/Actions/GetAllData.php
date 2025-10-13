@@ -15,11 +15,11 @@ class GetAllData
             $orderByType = request()->input('sort_type') ?? 'desc';
             $status = request()->input('status') ?? 'active';
             $fields = request()->input('fields') ?? '*';
-           
+        //    dd($fields);
             $start_date = request()->input('start_date');
             $end_date = request()->input('end_date');
 
-            $with = ['role'];
+            $with = ['role', 'batch'];
             $condition = [];
 
             $data = self::$model::query();
@@ -80,7 +80,7 @@ class GetAllData
             }
 
 
-
+            // dd($data->toArray());
             return entityResponse([
                 ...$data->toArray(),
                 "active_data_count" => self::$model::active()->count(),

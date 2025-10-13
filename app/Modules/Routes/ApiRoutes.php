@@ -16,16 +16,12 @@ include_once base_path("app/Modules/Management/SettingManagement/WebsiteSettings
 | User Management Module
 |--------------------------------------------------------------------------
 
-
 */
 include_once base_path("app/Modules/Management/UserManagement/User/Routes/Route.php");
 include_once base_path("app/Modules/Management/UserManagement/Role/Routes/Route.php");
 
 
 include_once base_path("app/Modules/Management/Blog/Routes/Route.php");
-
-
-
 
 include_once base_path("app/Modules/Management/TestModule/TestOne/Routes/Route.php");
 include_once base_path("app/Modules/Management/TestModule/TestTwo/Routes/Route.php");
@@ -38,7 +34,21 @@ include_once base_path("app/Modules/Management/UserManagement/UserPayment/Routes
 include_once base_path("app/Modules/Management/BatchManagement/Routes/Route.php");
 include_once base_path("app/Modules/Management/DueListManagement/UserDueList/Routes/Route.php");
 include_once base_path("app/Modules/Management/ExpenseManagement/DailyBajar/Routes/Route.php");
+include_once base_path("app/Modules/Management/ExpenseManagement/CookSalary/Routes/Route.php");
 
 include_once base_path("app/Modules/Management/MealManagement/UsersMeal/Routes/Route.php");
 include_once base_path("app/Modules/Management/MealManagement/MonthlyMealRates/Routes/Route.php");
 include_once base_path("app/Modules/Management/MealManagement/MealMenues/Routes/Route.php");
+include_once base_path("app/Modules/Management/MealManagement/OffMeal/Routes/Route.php");
+
+include_once base_path("app/Modules/Management/ReportManagement/Routes/Route.php");
+
+
+/*
+|--------------------------------------------------------------------------
+| Employee Management Module
+|--------------------------------------------------------------------------
+
+*/
+
+// include_once base_path("app/Modules/EmployeeManagement/MealManagement/UsersMeal/Routes/Route.php");

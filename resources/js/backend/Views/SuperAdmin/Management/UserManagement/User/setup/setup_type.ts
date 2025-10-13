@@ -20,6 +20,7 @@
     page_title: string,
     all_page_title: string;
     details_page_title: string;
+    payment_history_page_title: string;
     create_page_title: string;
     edit_page_title: string;
 }

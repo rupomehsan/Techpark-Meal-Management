@@ -21,7 +21,7 @@ const setup: setup_type = {
     "user_id",
     "quantity",
     "date",
-    "meal_rate_id",
+    "meal_status",
     "slug",
   ],
 
@@ -29,6 +29,7 @@ const setup: setup_type = {
     "id",
     "user_id",
     "quantity",
+    "meal_status",
     "created_at",
   ],
 
@@ -39,6 +40,8 @@ const setup: setup_type = {
   details_page_title: "Details " + prefix,
   create_page_title: "Create " + prefix,
   edit_page_title: "Edit " + prefix,
+  to_day_meal_page_title: "To Day " + prefix,
+
 };
 
 export default setup;

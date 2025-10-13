@@ -1,38 +1,80 @@
 <?php
 
 namespace App\Modules\Management\ExpenseManagement\DailyBajar\Actions;
+use DB;
+
 
 class ExpenseData
     {
         static $model = \App\Modules\Management\ExpenseManagement\DailyBajar\Models\Model::class;
+
         public static function execute()
         {
             
             try {
                 
-                $pageLimit = request()->input('limit') ?? 10;
-                $orderByColumn = request()->input('sort_by_col') ?? 'id';
-                $orderByType = request()->input('sort_type') ?? 'desc';
-                $status = request()->input('status') ?? 'active';
-                $fields = request()->input('fields') ?? '*';
                 $start_date = request()->input('start_date');
                 $end_date = request()->input('end_date');
-                $with = [];
-                $condition = [];
+                // $with = [];
 
-                $data = self::$model::query()
-                    ->selectRaw('bajar_date, SUM(total) as total_sum')
-                    ->groupBy('bajar_date')
-                    ->orderBy('bajar_date', 'desc');
+                // $data = self::$model::query()
+                //     ->selectRaw('bajar_date, SUM(total) as total_sum')
+                //     ->groupBy('bajar_date')
+                //     ->orderBy('bajar_date', 'desc')
+                //     ->get();
+
+                // $data = DB::table('daliy_cook_salary')
+                //     ->selectRaw('salary_date, SUM(cook_salary) as total_sum')
+                //     ->groupBy('salary_date')
+                //     ->orderByDesc('salary_date')
+                //     ->get();
+
+
+                // Fetch bajar data
+                    $bajarData = self::$model::query()
+                        ->selectRaw('bajar_date, SUM(total) as total_sum')
+                        ->groupBy('bajar_date')
+                        ->orderByDesc('bajar_date')
+                        ->get()
+                        ->keyBy('bajar_date');
+
+                    // Fetch cook salary data
+                    $cookSalaryData = DB::table('daliy_cook_salary')
+                        ->selectRaw('salary_date, SUM(cook_salary) as cook_salary')
+                        ->groupBy('salary_date')
+                        ->orderByDesc('salary_date')
+                        ->get()
+                        ->keyBy('salary_date');
+
+                    // Combine them
+                    $data = [];
+
+                    foreach ($bajarData as $date => $bajar) {
+                        $cookSalary = $cookSalaryData[$date]->cook_salary ?? 0;
+
+                        $data[] = [
+                            'bajar_date'   => $date,
+                            'total_sum'    => $bajar->total_sum,
+                            'cook_salary'  => $cookSalary,
+                            'grand_total'  => $bajar->total_sum + $cookSalary,
+                        ];
+                    }
+
+                    // Optional: If you want to show rows that are only in cookSalaryData but not in bajarData
+                    foreach ($cookSalaryData as $date => $cook) {
+                        if (!isset($bajarData[$date])) {
+                            $data[] = [
+                                'bajar_date'   => $date,
+                                'total_sum'    => 0,
+                                'cook_salary'  => $cook->cook_salary,
+                                'grand_total'  => $cook->cook_salary,
+                            ];
+                        }
+                    }
+                    
+                // dd('OK', $data);
+
                 
-                if (request()->has('search') && request()->input('search')) {
-                        $searchKey = request()->input('search');
-                        $data = $data->where(function ($q) use ($searchKey) {
-                        $q->where('total', 'like', '%' . $searchKey . '%');             
-                            // ->OrWhere('bajar_date', 'like', '%' . $searchKey . '%');              
-                    });
-                }
-                // dd('ok');
 
                 if ($start_date && $end_date) {
                     if ($end_date > $start_date) {
@@ -43,118 +85,43 @@ class ExpenseData
                 }
 
                 
-                if ($status == 'trased') {
-                    $data = $data->trased();
-                }
-                // dd('OK', $data);
-                
-                if (request()->has('get_all') && (int)request()->input('get_all') === 1) {
-                    $data = $data
-                        ->with($with)
-                        // ->select($fields)
-                        ->where($condition)
-                        ->where('status', $status)
-                        ->limit($pageLimit)
-                        // ->orderBy($orderByColumn, $orderByType)
-                        ->get();
-                        return entityResponse($data);
-                    } else if ($status == 'trased') {
-                        $data = $data
-                        ->with($with)
-                        // ->select($fields)
-                        ->where($condition)
-                        // ->orderBy($orderByColumn, $orderByType)
-                        ->paginate($pageLimit);
-                    } else {
-                        // dd("inside");
-                        $data = $data
-                        ->with($with)
-                        // ->select($fields)
-                        ->where($condition)
-                        ->where('status', $status)
-                        // ->orderBy($orderByColumn, $orderByType)
-                        ->paginate($pageLimit);
-                        // dd('ok', $data);
-                    }
+            //    if ($data->isEmpty()) {
+            //         return messageResponse('Data not found...', $data, 404, 'error');
+            //     }
 
-                return entityResponse([
-                    ...$data->toArray(),
-                    "active_data_count" => self::$model::active()->count(),
-                    "inactive_data_count" => self::$model::inactive()->count(),
-                    "trased_data_count" => self::$model::trased()->count(),
-                ]);
+                return entityResponse($data);
+
+                // dd('OK', $data);
+
+
+                
+                // if (request()->has('get_all') && (int)request()->input('get_all') === 1) {
+                //     $data = $data
+                //         ->where('status', $status)
+                //         ->limit($pageLimit)
+                //         ->get();
+                //         return entityResponse($data);
+                //     } else if ($status == 'trased') {
+                //         $data = $data
+                //         ->paginate($pageLimit);
+                //     } else {
+                //         $data = $data
+                //         ->where('status', $status)
+                //         ->paginate($pageLimit);
+                //     }
+
+                // return entityResponse([
+                //     ...$data->toArray(),
+                //     "active_data_count" => self::$model::active()->count(),
+                //     "inactive_data_count" => self::$model::inactive()->count(),
+                //     "trased_data_count" => self::$model::trased()->count(),
+                // ]);
 
             } catch (\Exception $e) {
                 return messageResponse($e->getMessage(), [], 500, 'server_error');
             }
 
-          
-          
-            
-            // try {
-            //     $pageLimit = request()->input('limit') ?? 100;
-            //     $orderByColumn = request()->input('sort_by_col') ?? 'id';
-            //     $orderByType = request()->input('sort_type') ?? 'desc';
-            //     $status = request()->input('status') ?? 'active';
-            //     $fields = request()->input('fields') ?? '*';
-            //     $start_date = request()->input('start_date');
-            //     $end_date = request()->input('end_date');
-            //     // $searchKey = request()->input('search');
-            //     $with = [];
-            //     $condition = [];
-
-            //     // $query = self::$model::query();
-            //     $query = self::$model::query()
-            //         ->selectRaw('bajar_date, SUM(total) as total_sum')
-            //         ->groupBy('bajar_date')
-            //         ->orderBy('bajar_date', 'desc');
-            //     // dd($query);
-
-            //     if ($start_date && $end_date) {
-            //         if ($end_date > $start_date) {
-            //             $query->whereBetween('created_at', [$start_date . ' 00:00:00', $end_date . ' 23:59:59']);
-            //         } elseif ($end_date == $start_date) {
-            //             $query->whereDate('created_at', $start_date);
-            //         }
-            //     }
-
-            
-            //     if ($status == 'trased') {
-            //         $query = $query->trased();
-            //     }
-
-            //     if (request()->has('search') && request()->input('search')) {
-            //         $searchKey = request()->input('search');
-            //         $query = $query->where(function ($q) use ($searchKey) {
-            //             $q->where('bajar_date', 'like', '%' . $searchKey . '%')
-            //               ->orWhere('total', 'like', '%' . $searchKey . '%');              
-            //         });
-            //     }
-
-
-            //     // $query = $query->selectRaw('bajar_date, SUM(total) as total_sum')
-            //     //     ->groupBy('bajar_date')
-            //     //     ->orderBy('bajar_date', 'desc');
-                
-            //     if (request()->has('get_all') && (int)request()->input('get_all') === 1) {
-            //         $data = $query->get();
-            //     } else {
-            //         $data = $query->paginate($pageLimit);
-            //     }
-
-            //     return entityResponse([
-            //         ...$data->toArray(),
-            //         "active_data_count" => self::$model::active()->count(),
-            //         "inactive_data_count" => self::$model::inactive()->count(),
-            //         "trased_data_count" => self::$model::trased()->count(),
-            //     ]);
-
-            // } catch (\Exception $e) {
-            //     return messageResponse($e->getMessage(), [], 500, 'server_error');
-            // }
-
 
         }
-
             
     }

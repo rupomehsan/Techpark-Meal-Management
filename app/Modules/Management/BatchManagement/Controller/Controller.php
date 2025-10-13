@@ -10,7 +10,10 @@ use App\Modules\Management\BatchManagement\Actions\RestoreData;
 
 use App\Modules\Management\BatchManagement\Actions\UpdateStatus;
 use \App\Modules\Management\BatchManagement\Actions\GetSingleData;
+use \App\Modules\Management\BatchManagement\Actions\BulkActions;
+use \App\Modules\Management\BatchManagement\Actions\ImportData;
 use App\Modules\Management\BatchManagement\Validations\DataStoreValidation;
+use App\Modules\Management\BatchManagement\Validations\BulkActionsValidation;
 
 use App\Http\Controllers\Controller as ControllersController;
 
@@ -55,4 +58,16 @@ class Controller extends ControllersController{
         $data = DestroyData::execute($slug);
         return $data;
     }
+
+    public function import()
+    {
+        $data = ImportData::execute();
+        return $data;
+    }
+    public function bulkAction(BulkActionsValidation $request)
+    {
+        $data = BulkActions::execute($request);
+        return $data;
+    }
+
 }

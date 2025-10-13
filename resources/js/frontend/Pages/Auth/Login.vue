@@ -97,6 +97,18 @@
                   </button>
                 </td>
               </tr>
+              <tr>
+                <td>Student</td>
+                <!-- <td>@12345678</td> -->
+                <td>
+                  <button
+                    @click="setPassword('student@gmail.com')"
+                    class="btn btn-outline-info"
+                  >
+                    Login
+                  </button>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -125,14 +137,21 @@ export default {
         let response = await axios.post("/login", formData);
         if (response.data?.status === "success") {
           let data = response.data?.data;
+          // console.log('ok',data);
           if (data.access_token) {
             window.s_alert("Login Successfully");
             localStorage.setItem("admin_token", data.access_token);
             localStorage.setItem("admin_role", data.user?.role_id);
             if (data.user?.role_id == 1) {
               window.location.href = "super-admin#/dashboard";
+              // console.log("super admin");
             } else if (data.user?.role_id == 2) {
+              window.location.href = "admin#/dashboard";
+            }else if (data.user?.role_id == 3) {
               window.location.href = "employee#/dashboard";
+              console.log("employee");
+            }else if (data.user?.role_id == 4) {
+              window.location.href = "student#/dashboard";
             }
           }
         }

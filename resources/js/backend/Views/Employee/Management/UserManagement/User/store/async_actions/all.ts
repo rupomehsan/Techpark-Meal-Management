@@ -49,6 +49,7 @@ let execute = async () => {
   let response: anyObject = {};
   let url = `${api_host}/${api_version}/${api_end_point}`;
   let full_url: URL = new URL(url);
+
   let fetch_only_latest: boolean = true;
 
   for (let param in qparams.params) {

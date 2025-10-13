@@ -50,6 +50,12 @@ class DataStoreValidation extends FormRequest
             'bajar_date' => 'required | sometimes',
             'status' => ['sometimes', Rule::in(['active', 'inactive'])],
         ];  
+
+        // return [
+        //     'salary_date' => 'required | sometimes',
+        //     'cook-salary' => 'required | sometimes',
+        //     'status' => ['sometimes', Rule::in(['active', 'inactive'])],
+        // ];  
     }
 
 }

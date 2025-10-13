@@ -59,6 +59,7 @@
                     <th>email</th>
                     <th>Phone</th>
                     <th>Batch Name</th>
+                    <!-- <th>Department Name</th> -->
                     <th>Balence</th>
                     <!-- <th>designation</th> -->
                     <!-- <th>image</th> -->
@@ -157,31 +158,38 @@
                           </li>
 
                           <li>
-                            <!-- <router-link
+                            <router-link
+                              class="btn btn-outline-info btn-sm"
+                              @click="openPaymentModal(item.id)"
+                              data-bs-toggle="modal"
+                              data-bs-target="#myModal"
+                              :to="`create?id=${item.id}`"
+                            >
+                              Add Payment
+                            </router-link>
+
+                            <router-link
+                              class="btn btn-outline-info btn-sm ml-2"
                               :to="{
-                                name: `Ce${setup.route_prefix}`,
+                                name: `PaymentHistory${setup.route_prefix}`,
                                 params: {
-                                  id: item.name,
+                                  id: item.id,
                                 },
                               }"
-                              class="border-secondary"
                             >
-                              <i class="fa fa-pencil-square-o text-info"></i>
-                              Add Payment 
-                            </router-link> -->
-                             <!-- <router-link
-                              class="btn btn-outline-info btn-sm"
-                              :to="`/userpayment/create?id=${item.id}`"
+                              Payment History
+                            </router-link>
 
+                            <router-link
+                              class="btn btn-outline-info btn-sm ml-2"
+                              :to="{
+                                name: `MealHistory${setup.route_prefix}`,
+                                params: {
+                                  id: item.id,
+                                },
+                              }"
                             >
-                              Add Payment
-                            </router-link> -->
-                             <router-link
-                              class="btn btn-outline-info btn-sm" @click="openPaymentModal(item.id)" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                              :to="`create?id=${item.id}`"
-
-                            >
-                              Add Payment
+                              Meal History
                             </router-link>
                           </li>
                         </ul>
@@ -196,13 +204,13 @@
                       />
                     </td>
                     <td>{{ index + 1 }}</td>
-                    <td>{{ item.name ?? "N/A" }}</td>
-                    <td>{{ item.email ?? "N/A" }}</td>
-                    <td>{{ item.phone_number ?? "N/A" }}</td>
-                    <td>{{ item.batch?.batch_name ?? "N/A" }}</td>
-                    <!-- <td>{{ item.department }}</td> -->
-                    <!-- <td>{{ item.role?.name }}</td> -->
-                    <!-- 
+                    <!-- <td>{{ item }}</td> -->
+                    <td>{{ item?.name ?? "N/A" }}</td>
+                    <td>{{ item?.email ?? "N/A" }}</td>
+                    <td>{{ item?.phone_number ?? "N/A" }}</td>
+                    <td>{{ item?.batch?.batch_name ?? "N/A" }}</td>
+                    <td>&#2547; {{ currentBalance(item.id) }}</td>
+                    <!--                     
                     <td>
                       <img :src="item.image" alt="" height="50" width="50" />
                     </td> -->
@@ -525,31 +533,48 @@
     </div>
   </div>
 
-  <!-- modal srart here  -->
-   <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add Your Payment</h5>
-          </div>
-          <div class="modal-body">
-            <form @submit.prevent="submitHandler">
-              <input type="hidden" name="user_id" :value="user_id">
-              <div class="mb-3">
-                <label for="amount" class="form-label">Amount</label>
-                <input type="number" name="amount" class="form-control" id="amount" >
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </form>
-          </div>
+  <!--add payment modal srart here  -->
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="myModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Your Payment</h5>
+        </div>
+        <div class="modal-body">
+          <form @submit.prevent="submitHandler">
+            <input type="hidden" name="user_id" :value="user_id" />
+            <div class="mb-3">
+              <label for="amount" class="form-label">Amount</label>
+              <input
+                type="number"
+                name="amount"
+                class="form-control"
+                id="amount"
+              />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-danger"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-  <!-- modal end here  -->
+  </div>
+  <!-- add payment modal end here  -->
 </template>
 
 <script>
@@ -566,16 +591,24 @@ export default {
   data: () => ({
     amount: null,
     user_id: null,
+    balance: 0,
+    item: [],
+    balanceMap: {},
     setup,
     is_trashed_data: false,
     import_csv_modal_show: false,
     filePath:
       "resources/js/backend/Views/SuperAdmin/Management/TestModule/helpers/demo.csv",
   }),
-  
 
   created: async function () {
     await this.get_all();
+    // await this.userBlance();
+  },
+
+  mounted: async function () {
+    // await this.get_all();
+    await this.userBlance();
   },
 
   methods: {
@@ -609,18 +642,69 @@ export default {
       targetRow.classList.toggle("active");
     },
 
-    submitHandler: async function () {
+    submitHandler: async function (event) {
       try {
         const formData = new FormData(event.target);
-        const response = await axios.post('user-payments/store', formData);
-        // console.log('modal', response);
+        const response = await axios.post("user-payments/store", formData);
+        this.item = response.data;
+
+        window.s_alert("Amount Successfully Created");
+        // this.set_only_latest_data(true);
+
+        const modalElement = document.getElementById("myModal");
+        const modalInstance = bootstrap.Modal.getInstance(modalElement);
+        modalInstance.hide();
       } catch (error) {
-        console.error('Submission error:', error);
+        console.error("Submission error:", error);
       }
     },
 
-    openPaymentModal: function(user_id){
-      this.user_id = user_id
+    openPaymentModal: function (user_id) {
+      this.user_id = user_id;
+    },
+
+    userBlance: async function (month) {
+      try {
+        if (!month) {
+          const now = new Date();
+          const yyyy = now.getFullYear();
+          const mm = String(now.getMonth() + 1).padStart(2, "0");
+          month = `${yyyy}-${mm}`;
+        }
+        const response = await axios.get(
+          `users/user-current-month-blance/${month}`
+        );
+        const balances = response.data?.data || [];
+        this.item = balances;
+
+        this.balanceMap = {};
+        balances.forEach((b) => {
+          const uid = b.user_id ?? b.id ?? (b.user && b.user.id) ?? null;
+          const val = b.current_balance ?? b.balance ?? b.total ?? 0;
+          if (uid !== null && uid !== undefined) this.balanceMap[uid] = val;
+        });
+      } catch (error) {
+        console.error("Error fetching user balance:", error);
+      }
+    },
+
+    currentBalance: function (id) {
+      if (!id) return 0;
+      if (this.balanceMap && this.balanceMap[id] !== undefined)
+        return this.balanceMap[id];
+      if (Array.isArray(this.item)) {
+        const u = this.item.find(
+          (x) => (x.user_id ?? x.id ?? (x.user && x.user.id)) === id
+        );
+        if (u) {
+          const raw = u.current_balance ?? u.balance ?? u.total ?? 0;
+          const num = Number(raw) || 0;
+          return Math.round(num);
+          // const num = Math.round(Number(raw) || 0);
+          // return num;
+        }
+      }
+      return 0;
     },
 
     updateStatus: async function (item) {

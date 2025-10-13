@@ -18,6 +18,113 @@
       <div class="search-bar flex-grow-1"></div>
 
       <ul class="navbar-nav align-items-center right-nav-link ml-auto">
+        <!-- <li
+                    class="nav-item dropdown dropdown-lg"
+                    @click="toggle_notification('show_notification')"
+                >
+                    <a
+                        class="btn nav-link dropdown-toggle dropdown-toggle-nocaret position-relative"
+                        data-toggle="dropdown"
+                        href="javascript:void();"
+                        aria-expanded="false"
+                    >
+                        <i class="zmdi zmdi-comment-outline align-middle"></i
+                        ><span class="bg-danger text-white badge-up"
+                            >12</span
+                        ></a
+                    >
+                    <div
+                        class="dropdown-menu dropdown-menu-right"
+                        :class="{ show: show_notification }"
+                    >
+                        <ul class="list-group list-group-flush">
+                            <li
+                                class="list-group-item d-flex justify-content-between align-items-center"
+                            >
+                                New Messages
+                                <a
+                                    href="javascript:void();"
+                                    class="extra-small-font"
+                                    >Clear All</a
+                                >
+                            </li>
+                            <li class="list-group-item">
+                                <a href="javaScript:void();">
+                                    <div class="media">
+                                        <div class="avatar">
+                                            <img
+                                                class="align-self-start mr-3"
+                                                src="avatar.png"
+                                                alt="user avatar"
+                                            />
+                                        </div>
+                                        <div class="media-body">
+                                            <h6 class="mt-0 msg-title">
+                                                Jhon Deo
+                                            </h6>
+                                            <p class="msg-info">
+                                                Lorem ipsum dolor sit amet...
+                                            </p>
+                                            <small>Today, 4:10 PM</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="list-group-item text-center">
+                                <a href="javaScript:void();"
+                                    >See All Messages</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </li> -->
+
+        <li
+          class="nav-item dropdown dropdown-lg"
+          @click="toggle_notification('show_message')"
+        >
+          <a
+            role="button"
+            class="btn nav-link dropdown-toggle dropdown-toggle-nocaret position-relative"
+          >
+            <i class="zmdi zmdi-notifications-active align-middle"></i>
+            <span class="bg-info text-white badge-up">{{
+              unseen_vouchers.length
+            }}</span>
+          </a>
+          <div
+            class="dropdown-menu dropdown-menu-right"
+            :class="{ show: show_message }"
+          >
+            <ul class="list-group list-group-flush">
+              <!-- <li
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                New Notifications
+                <a href="javascript:void();" class="extra-small-font"
+                  >Clear All</a
+                >
+              </li> -->
+              <li class="list-group-item" v-for="voucher in unseen_vouchers">
+                <a
+                  @click.prevent="mark_as_seen(voucher)"
+                  class="cursor-pointer"
+                >
+                  <div class="media">
+                    <div class="media-body">
+                      <h6 class="mt-0 msg-title">
+                        {{ voucher.title.substring(0, 30) }}
+                      </h6>
+                      <p class="msg-info">Amount : {{ voucher.amount }}</p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
         <li
           class="nav-item dropdown"
           @click="toggle_notification('show_profile')"
@@ -81,6 +188,7 @@
         </li>
       </ul>
     </nav>
+    <link rel="stylesheet" href="">
   </header>
   <!--End topbar header-->
 </template>
@@ -94,7 +202,12 @@ export default {
     show_notification: 0,
     show_message: 0,
     show_profile: 0,
+    unseen_vouchers: [],
   }),
+
+  created: async function () {
+    await this.get_all_pending_expense();
+  },
 
   methods: {
     toggle_menu: function () {
@@ -122,6 +235,19 @@ export default {
         this.show_notification = 0;
         this.show_message = 0;
       }
+    },
+
+    get_all_pending_expense: async function () {
+      let response = await axios.get("account-expenses?is_seen=0&get_all=1");
+      if (response.status == 200) {
+        this.unseen_vouchers = response.data.data;
+      }
+    },
+
+    mark_as_seen: async function (voucher) {
+      axios.post(`account-expenses/update/${voucher.slug}?mark_as_seen=1`);
+      this.get_all_pending_expense();
+      this.$router.push({ name: "AllPendingVoucher" });
     },
   },
 

@@ -21,6 +21,7 @@ const setup: setup_type = {
     "name",
     "email",
     "phone_number",
+    "batch_id",
     "department",
     "image",
     "role_id",
@@ -45,6 +46,8 @@ const setup: setup_type = {
   details_page_title: "Details " + prefix,
   create_page_title: "Create " + prefix,
   edit_page_title: "Edit " + prefix,
+  payment_history_page_title: "Payment History " + prefix,
+  meal_history_page_title: "Meal History " + prefix,
 };
 
 export default setup;

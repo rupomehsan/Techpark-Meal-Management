@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->integer('quantity')->nullable();
             $table->date('date')->nullable();
+            $table->enum('meal_status', ['off', 'on'])->default('on');
             $table->text('meal_rate_id')->nullable();
 
             $table->bigInteger('creator')->unsigned()->nullable();

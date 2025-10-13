@@ -3,21 +3,33 @@
 namespace App\Modules\Management\UserManagement\User\Actions;
 
 
-class GetSingleData
+class DepartmentByBatch
 {
-    static $model = \App\Modules\Management\UserManagement\User\Models\Model::class;
+    static $model = \App\Modules\Management\BatchManagement\Models\Model::class;
 
-    public static function execute($slug)
+    public static function execute($department)
     {
+
         try {
-            $with = [];
-            $fields = request()->input('fields') ?? ['*'];
-            if (!$data = self::$model::query()->with($with)->select($fields)->where('slug', $slug)->first()) {
-                return messageResponse('Data not found...',$data, 404, 'error');
+            $batches = self::$model::where('department_id', $department)->get();
+
+            if ($batches->isEmpty()) {
+                return response()->json([
+                    'message' => 'No batches found',
+                    'data' => []
+                ], 404);
             }
-            return entityResponse($data);
-        } catch (\Exception $e) {
-            return messageResponse($e->getMessage(),[], 500, 'server_error');
+
+            return response()->json([
+                'message' => 'Batches fetched successfully',
+                'data' => $batches
+            ]);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'message' => 'Error fetching batches',
+                    'error' => $e->getMessage()
+                ], 500);
+            }
         }
-    }
+    
 }

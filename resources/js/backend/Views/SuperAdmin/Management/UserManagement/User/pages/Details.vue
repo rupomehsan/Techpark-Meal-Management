@@ -21,29 +21,25 @@
               <table class="table quick_modal_table table-bordered">
                 <tbody>
                   <tr>
-                    <th>name</th>
+                    <!-- {{ item }} -->
+                    <th>Name</th>
                     <th class="text-center">:</th>
                     <th>{{ item?.name ?? "N/A" }}</th>
                   </tr>
                   <tr>
-                    <th>email</th>
+                    <th>Email</th>
                     <th class="text-center">:</th>
                     <th>{{ item?.email ?? "N/A" }}</th>
                   </tr>
                   <tr>
-                    <th>phone number</th>
+                    <th>Phone Number</th>
                     <th class="text-center">:</th>
                     <th>{{ item?.phone_number ?? "N/A" }}</th>
                   </tr>
                   <tr>
-                    <th>whatsapp</th>
+                    <th>Role</th>
                     <th class="text-center">:</th>
-                    <th>{{ item?.whatsapp ?? "N/A" }}</th>
-                  </tr>
-                  <tr>
-                    <th>telegram</th>
-                    <th class="text-center">:</th>
-                    <th>{{ item?.telegram ?? "N/A" }}</th>
+                    <th>{{ item.role?.name ?? "N/A" }}</th>
                   </tr>
                   <tr>
                     <th>Department</th>
@@ -57,9 +53,9 @@
                   </tr>
 
                   <tr>
-                    <th>role</th>
+                    <th>Balence</th>
                     <th class="text-center">:</th>
-                    <th>{{ item.role?.name ?? "N/A" }}</th>
+                    <th>&#2547; 4000</th>
                   </tr>
                   <tr>
                     <th>image</th>
@@ -75,7 +71,7 @@
                   </tr>
 
                   <tr>
-                    <th>present address</th>
+                    <th>Present Address</th>
                     <th class="text-center">:</th>
                     <th v-html="item?.address ? item.address : 'N/A'"></th>
                   </tr>
@@ -129,19 +125,50 @@ export default {
   data: () => ({
     setup,
   }),
+
   created: async function () {
     let id = (this.param_id = this.$route.params.id);
+    // console.log('created',id);
     await this.get_data(id);
+    // await this.userCurrentBlance(id);
   },
+  
+   mounted: async function () {
+    let id = (this.param_id = this.$route.params.id);
+    await this.userCurrentBlance(id);
+  },
+
   methods: {
     ...mapActions(store, {
       details: "details",
     }),
     get_data: async function (slug) {
+      // console.log("slug", slug);
       this.item = {};
       await this.details(slug);
+      // console.log("item", this.item);
     },
+
+    userCurrentBlance: async function (id, month) {
+      try {
+        console.log('ok', id, month);
+        if (!month) {
+          const now = new Date();
+          const yyyy = now.getFullYear();
+          const mm = String(now.getMonth() + 1).padStart(2, "0");
+          month = `${yyyy}-${mm}`;
+        }
+
+        const response = await axios.get(`users/user-month-blance/${id}/${month}`);
+        this.item = response.data.data;
+        console.log('ok',this.item);
+      } catch (error) {
+        console.error("Error fetching user balance:", error);
+      }
+    }
   },
+
+  
   computed: {
     ...mapWritableState(store, {
       item: "item",

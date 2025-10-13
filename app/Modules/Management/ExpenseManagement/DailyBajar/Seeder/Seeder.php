@@ -25,7 +25,7 @@ class Seeder extends SeederClass
             'unit' => 'kg',
             'price' => 30,
             'total' => 60,
-            'bajar_date' => $faker->date,
+            'bajar_date' => $faker->date
         ]);
 
     }

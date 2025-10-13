@@ -32,10 +32,16 @@
     <!-- font awesome cdn  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"  />
     <!-- latest jquery-->
+    
     <script src="/plugins/js/sweet_alert.js" defer></script>
     <script src="/backend/assets/js/jquery.min.js"></script>
     <script src="{{ asset('backend/assets/plugins/summernote/dist/summernote-bs4.min.js') }}"></script>
     <script src="{{ asset('backend/assets/plugins/inputtags/js/bootstrap-tagsinput.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        window.modal = bootstrap.Modal;
+    </script>
     @vite(['resources/js/backend/Views/SuperAdmin/app.js'])
 </head>
 

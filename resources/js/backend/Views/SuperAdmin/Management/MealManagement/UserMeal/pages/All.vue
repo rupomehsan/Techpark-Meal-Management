@@ -6,14 +6,14 @@
           <div class="card-header">
             <div class="row align-items-center">
               <!-- Title Section -->
-              <div class="col-12 col-md-3 mb-2 mb-md-0">
+              <div class="col-12 col-md-2 mb-2 mb-md-0">
                 <h5 class="text-capitalize mb-0">
                   {{ setup.all_page_title }}
                 </h5>
               </div>
 
               <!-- Search Input -->
-              <div class="col-12 col-md-6 mb-2 mb-md-0">
+              <div class="col-12 col-md-4 mb-2 mb-md-0">
                 <input
                   class="form-control"
                   @keyup="(e) => set_search_key(e)"
@@ -21,8 +21,26 @@
                 />
               </div>
 
+              <div class="col-12 col-md-2 mb-2 mb-md-0">
+                <ul>
+                  <li>
+                    <router-link
+                      :to="{ 
+                          name: `ToDayMeal${setup.route_prefix}`,
+                          params: { 
+                            date: new Date().toISOString().slice(0, 10) 
+                          },
+                        }"
+                      class="btn btn-success btn-sm pull-right p-2"
+                    >
+                      Today Meal
+                    </router-link>
+                  </li>
+                </ul> 
+              </div>
+
               <!-- Sorting Button -->
-              <div class="col-12 col-md-3 text-md-right text-sm-left">
+              <div class="col-12 col-md-4 text-md-right text-sm-left">
                 <button
                   class="btn btn-outline-success btn-sm"
                   @click="set_show_filter_canvas"
@@ -58,6 +76,7 @@
                     <th>User Name</th>
                     <th>Quantity</th>
                     <th>Date</th>
+                    <th>Meal Status</th>
                     <!-- <th>Meal Rate</th> -->
                   </tr>
                 </thead>
@@ -165,8 +184,13 @@
                     </td>
                     <td>{{ index + 1 }}</td>
                     <td>{{ item?.user?.name ?? "N/A" }}</td>
-                    <td>{{ item?.quantity ?? "N/A " }}</td>
+                    <td :class="getQuantityClass(item.quantity)">
+                      {{ item?.quantity ?? 'N/A' }}
+                    </td>
                     <td>{{ item?.date ?? "N/A " }}</td>
+                    <td :class="item?.meal_status === 'on' ? 'meal-on' : (item?.meal_status === 'off' ? 'meal-off' : '')">
+                      {{ item?.meal_status ?? "N/A" }}
+                    </td>
                     <!-- <td>{{ item?.meal_rate?.meal_rate ?? "N/A " }}</td> -->
                   </tr>
                 </tbody>
@@ -488,6 +512,8 @@
   </div>
 </template>
 
+
+
 <script>
 /** plugins */
 import { mapActions, mapWritableState } from "pinia";
@@ -500,6 +526,8 @@ import debounce from "../helpers/debounce";
 
 export default {
   data: () => ({
+    mealData: [],
+    // all: [],
     setup,
     is_trashed_data: false,
     import_csv_modal_show: false,
@@ -531,6 +559,17 @@ export default {
       "set_status",
       "set_paginate",
     ]),
+
+     getQuantityClass(quantity) {
+      if (quantity == 0) {
+        return 'quantity-zero';
+      } else if (quantity > 0) {
+        return 'quantity-positive';
+      } else {
+        return '';
+      }
+    },
+
 
     truncateText(text, length) {
       if (!text) return 'N/A';
@@ -761,3 +800,24 @@ export default {
   },
 };
 </script>
+
+
+<style scoped>
+  .meal-on {
+    background-color: rgb(13, 156, 13);
+  }
+  .meal-off {
+    background-color: rgb(219, 48, 48);
+  }
+
+  .quantity-zero {
+    background-color: rgb(219, 48, 48); 
+    color: white;
+  }
+
+  .quantity-positive {
+    background-color: rgb(13, 156, 13); 
+    color: white;
+  }
+
+</style>

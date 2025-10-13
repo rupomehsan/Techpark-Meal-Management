@@ -43,23 +43,6 @@ class DataStoreValidation extends FormRequest
      
     public function rules(): array
     {
-        // $isUpdate = $this->method() === 'PUT' || $this->method() === 'PATCH';
-         
-        // return [
-        //     'name' => 'required | sometimes',
-        //     'email' => 'required | sometimes',
-        //     'password' => $isUpdate ? 'sometimes|nullable' : 'required',
-        //     'image' => 'required | sometimes',
-        //     'phone_number' => 'required | sometimes',
-        //     'whatsapp' => 'required | sometimes',
-        //     'telegram' => 'required | sometimes',
-        //     'batch_id' => 'required | sometimes',
-        //     'address' => 'required | sometimes',
-        //     'role_id' => 'required | sometimes',
-        //     'department' => 'required | sometimes',
-        //     'status' => ['sometimes', Rule::in(['active', 'inactive'])],
-        // ];
-
          return [
             'name' => 'sometimes|string',
             'email' => 'sometimes|email',
@@ -75,6 +58,34 @@ class DataStoreValidation extends FormRequest
         
     }
 
+    // public function rules(): array
+    // {
+    //     $rules = [
+    //         'name' => 'sometimes|string',
+    //         'email' => 'sometimes|email',
+    //         'image' => 'sometimes|image',
+    //         'phone_number' => 'sometimes|string',
+    //         'batch_id' => 'sometimes|integer',
+    //         'address' => 'sometimes|string',
+    //         'role_id' => 'sometimes|integer',
+    //         'department' => 'sometimes|string',
+    //         'status' => ['sometimes', Rule::in(['active', 'inactive'])],
+    //     ];
+
+    //     // Create হলে password required
+    //     if ($this->isMethod('post')) {
+    //         $rules['password'] = 'required|string|min:8';
+    //     } 
+    //     // Update হলে password optional
+    //     elseif ($this->isMethod('update')) {
+    //         $rules['password'] = 'sometimes|string|min:8';
+    //     }
+    //     // elseif ($this->isMethod('put') || $this->isMethod('update')) {
+    //     //     $rules['password'] = 'sometimes|string|min:8';
+    //     // }
+
+    //     return $rules;
+    // }
     
 
 }

@@ -25,7 +25,8 @@ class GetAllData
             if (request()->has('search') && request()->input('search')) {
                 $searchKey = request()->input('search');
                 $data = $data->where(function ($q) use ($searchKey) {
-                $q->where('batch_name', 'like', '%' . $searchKey . '%');              
+                $q->where('batch_name', 'like', '%' . $searchKey . '%')              
+                ->orWhere('department_id', 'like', '%' . $searchKey . '%');              
 
                 });
             }

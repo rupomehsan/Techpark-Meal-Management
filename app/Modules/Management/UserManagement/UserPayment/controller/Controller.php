@@ -32,9 +32,9 @@ class Controller extends ControllersController{
         return $data;
     }
 
-    public function show($slug)
+    public function show($id)
     {
-        $data = GetSingleData::execute($slug);
+        $data = GetSingleData::execute($id);
         return $data;
     }
 

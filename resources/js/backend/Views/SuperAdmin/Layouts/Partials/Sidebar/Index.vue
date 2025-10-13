@@ -13,6 +13,7 @@
         />
         <h5 class="logo-text">Super Admin Panel</h5>
       </router-link>
+      
       <div class="close-btn">
         <i class="zmdi zmdi-close" @click="toggle_menu"></i>
       </div>
@@ -88,8 +89,8 @@
             icon: `zmdi zmdi-dot-circle-alt`,
           },
           {
-            route_name: `AllMealMenus`,
-            title: `Meal Menus`,
+            route_name: `AllOffMeals`,
+            title: `Off Meal`,
             icon: `zmdi zmdi-dot-circle-alt`,
           }
 
@@ -119,6 +120,35 @@
             title: `All Expense`,
             icon: `zmdi zmdi-dot-circle-alt`,
           },
+          {
+            route_name: `AllCookSallary`,
+            title: `All Cook Salary`,
+            icon: `zmdi zmdi-dot-circle-alt`,
+          },
+        ]"
+      />
+
+      <!-- ReportManagement -->
+            <!-- route_name: `ReportManagement`, -->
+      <side-bar-drop-down-menus
+        :icon="`fa fa-plus`"
+        :menu_title="`Report Management`"
+        :menus="[
+          {
+            route_name: `DailyReportMeal`,
+            title: `Daily Report`,
+            icon: `zmdi zmdi-dot-circle-alt`,
+          },
+          {
+            route_name: `MonthlyReportMeal`,
+            title: `Monthly Report`,
+            icon: `zmdi zmdi-dot-circle-alt`,
+          },
+          {
+            route_name: `UserReportMeal`,
+            title: `User Report`,
+            icon: `zmdi zmdi-dot-circle-alt`,
+          }
         ]"
       />
 

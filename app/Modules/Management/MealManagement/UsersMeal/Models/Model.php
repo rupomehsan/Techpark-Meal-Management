@@ -52,8 +52,11 @@ class Model extends EloquentModel
     {
         return $this->belongsTo(self::$userModel);
     }
+
     public function mealRate()
     {
         return $this->belongsTo(self::$mealRateModel);
     }
+
+    
 }

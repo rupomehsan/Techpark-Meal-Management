@@ -13,6 +13,8 @@ import destroy from "./async_actions/destroy";
 import bulk_action from "./async_actions/bulk_action";
 import import_data from "./async_actions/import_data";
 
+import paymentHistory from "../../User/store/async_actions/paymentHistory";
+
 /** actions */
 import set_filter_criteria from "./actions/set_filter_criteria";
 import set_item from "./actions/set_item";
@@ -40,6 +42,7 @@ export const store = defineStore(setup.store_prefix, {
         destroy: destroy,
         bulk_action: bulk_action,
         import_data: import_data,
+        paymentHistory: paymentHistory,
 
         /* actions */
         set_page,

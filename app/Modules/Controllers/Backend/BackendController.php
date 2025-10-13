@@ -31,4 +31,12 @@ class BackendController extends Controller
     {
         return view('backend.admin-dashboard');
     }
+    public function EmployeePanel()
+    {
+        return view('backend.employee-dashboard');
+    }
+    public function StudentPanel()
+    {
+        return view('backend.studentPanel-dashboard');
+    }
 }

@@ -10,7 +10,30 @@ class UpdateData
 
     public static function execute($request, $slug)
     {
-        // dd($request->all());
+        
+        // try {
+
+        //     if (!$data = self::$model::query()->where('slug', $slug)->first()) {
+        //         return messageResponse('Data not found...', $data, 404, 'error');
+        //     }
+
+        //     $requestData = $request->validated();
+
+        //     if ($request->hasFile('image')) {
+        //         $image = $request->file('image');
+        //         $requestData['image'] = uploader($image, 'uploads/users');
+        //     }
+            
+        //     $requestData['password'] = Hash::make($requestData['password']);
+            
+        //     $data->update($requestData);
+
+        //     return messageResponse('Item updated successfully', $data, 201);
+
+        // } catch (\Exception $e) {
+        //     return messageResponse($e->getMessage(), [], 500, 'server_error');
+        // }
+
         try {
 
             if (!$data = self::$model::query()->where('slug', $slug)->first()) {
@@ -19,13 +42,19 @@ class UpdateData
 
             $requestData = $request->validated();
 
+            // Image upload
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $requestData['image'] = uploader($image, 'uploads/users');
             }
-            
-            $requestData['password'] = Hash::make($requestData['password']);
-            
+
+            // Password update only if provided
+            if (!empty($requestData['password'])) {
+                $requestData['password'] = Hash::make($requestData['password']);
+            } else {
+                unset($requestData['password']); 
+            }
+
             $data->update($requestData);
 
             return messageResponse('Item updated successfully', $data, 201);
@@ -33,5 +62,7 @@ class UpdateData
         } catch (\Exception $e) {
             return messageResponse($e->getMessage(), [], 500, 'server_error');
         }
+
+
     }
 }

@@ -17,8 +17,13 @@ Route::prefix('v1')->group(function () {
 
         Route::post('import', [Controller::class, 'import']);
         Route::post('bulk-action', [Controller::class, 'bulkAction']);
+
         // route for date wise data
         Route::get('date-wise-data/{date}', [Controller::class, 'dateWiseData']);
+
+        // route daily cook salary
+        // Route::post('cook-salary/store', [Controller::class, 'store']);
+        Route::post('cook-salary/store', [Controller::class, 'cookSalaryStore']);
 
         // route for date wise total expense
         Route::get('expense-date', [Controller::class, 'expenseData']);
