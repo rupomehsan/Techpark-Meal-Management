@@ -313,13 +313,6 @@
       console.log('super admin caeated called..');
       await this.superAdminDashboardStats();
     },
-    
-    mounted: async function() {
-      // console.log('super admin mounted called..');
-      // await this.superAdminDashboardStats();
-    },
-
-
 
     methods: {
       // get_all_dashboard_data: async function () {
@@ -330,19 +323,18 @@
       // },
 
       superAdminDashboardStats: async function () {
-        console.log('superAdmin');
+        // console.log('superAdmin');
         let response = await axios.get("user-meals/super-admin-dashboard-stats");
         const res = response?.data?.data || {};
         // console.log('res', res);
-        this.previous_month_balance = Number(res.previous_month_balance || 0);
-        // console.log('previous', this.previous_month_balance);
-        this.current_month_user_payment = Number(res.current_month_user_payment || 0);
-        this.current_month_Bajar_expense = Number(res.current_month_Bajar_expense || 0);
+        this.previous_month_balance = Number(res.previousMonthAllUserBalance || 0);
+        this.current_month_user_payment = Number(res.currentMonthAllUserPayments || 0);
+        this.current_month_Bajar_expense = Number(res.currentMonthBazarExpenses || 0);
         this.balance = Number(res.balance || 0);
-        this.current_month_cook_salary = Number(res.current_month_cook_salary || 0);
-        this.current_month_total_meal = Number(res.current_month_total_meal || 0);
-        this.tomorrow_total_meal = Number(res.tomorrow_total_meal || 0);
-        this.current_month_meal_rate = Number(res.current_month_meal_rate || 0);
+        this.current_month_cook_salary = Number(res.currentMonthCookSalary || 0);
+        this.current_month_total_meal = Number(res.currentMonthTotalMeal || 0);
+        this.tomorrow_total_meal = Number(res.tomorrowTotalMeal || 0);
+        this.current_month_meal_rate = Number(res.currentMonthPerMealRate || 0);
         
         
       },

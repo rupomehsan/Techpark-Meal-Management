@@ -408,7 +408,7 @@ export default {
       try {
         const response = await axios.get(`user-meals/dashboard-stats`);
         const res = response?.data?.data || {};
-        // console.log("employee response:", res);
+        console.log("employee response:", res);
         this.all_meal_quantity      = Number(res.all_meal_quantity || 0);
         this.month_meal_quantity    = Number(res.month_meal_quantity || 0);
         this.current_payable_month  = Number(res.current_payable_month || 0);
