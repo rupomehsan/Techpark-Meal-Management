@@ -11,6 +11,7 @@ class UserMealHistoryData{
         try {
 
             $data = self::$model::query()
+                ->where('meal_status', 'on')
                 ->where('user_id', $uid)
                 ->where('date', $date)
                 ->sum('quantity');

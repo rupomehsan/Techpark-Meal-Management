@@ -2,7 +2,6 @@ import setup from ".";
 import All from "../pages/All.vue";
 import Form from "../pages/Form.vue";
 import Details from "../pages/Details.vue";
-import CookSallaryHistory from "../pages/CookSallaryHistory.vue";
 import Layout from "../pages/Layout.vue";
 
 let route_prefix = setup.route_prefix;
@@ -31,12 +30,7 @@ const routes = {
             path: "edit/:id",
             name: "Edit" + route_prefix,
             component: Form,
-        },
-        // {
-        //     path: "cooksallaryhistory",
-        //     name: "CookSallaryHistory" + route_prefix,
-        //     component: CookSallaryHistory,
-        // },
+        }
     ],
 };
 

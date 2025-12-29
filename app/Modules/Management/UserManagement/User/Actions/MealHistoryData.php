@@ -13,9 +13,13 @@ class MealHistoryData
                 $start_date = request()->input('start_date');
                 $end_date = request()->input('end_date');
 
+                // $date = date('Y-m-d');
                 $query = self::$models::query()
                     ->where('user_id', $id)
-                    ->where('meal_status', 'on');
+                    ->where('meal_status', 'on')
+                    ->orderBy('date', 'desc');
+
+                // dd('here', $query);
 
                 if ($start_date && $end_date) {
                     if ($end_date > $start_date) {

@@ -158,6 +158,7 @@ export default {
     form_fields,
     param_id: null,
     salaryData: [],
+    cookDalaryData: 0,
 
     showSalaryHistory: false,
 
@@ -174,7 +175,13 @@ export default {
     if (id) {
       this.set_fields(id);
     }
+    // load salary history on page load
+    //await this.cookSallaryByDailyBajar();
   },
+
+  // mounted: async function () {
+  //    await this.cookSallaryByDailyBajar();
+  // },
 
   methods: {
     ...mapActions(store, {
@@ -185,6 +192,22 @@ export default {
       set_only_latest_data: "set_only_latest_data",
     }),
 
+    cookSallaryByDailyBajar: async function () {
+      try {
+        const response = await axios.get(
+          `cook-sallary/cook-salary-by-daily-bajar`
+        );
+        this.cookDalaryData = response.data.data || 0;
+        console.log("cookDalaryData", this.cookDalaryData);
+      } catch (error) {
+        this.cookDalaryData = 0;
+        console.error(
+          "Error fetching cook salary by daily bajar:",
+          error.response?.data?.message || error.message
+        );
+      }
+    },
+
     selectMonth: async function () {
       if (!this.form_fields.month) {
         this.showSalaryHistory = false;
@@ -193,7 +216,7 @@ export default {
 
       try {
         const response = await axios.get(
-          `/cook-sallary/cook-sallary-history/${this.form_fields.month}`
+          `cook-sallary/cook-sallary-history/${this.form_fields.month}`
         );
 
         if (response.data.status == "not_found") {

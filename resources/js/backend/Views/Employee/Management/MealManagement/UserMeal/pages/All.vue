@@ -26,14 +26,14 @@
                   <li>
                     <router-link
                       :to="{ 
-                          name: `ToDayMeal${setup.route_prefix}`,
+                          name: `MonthlyMeal${setup.route_prefix}`,
                           params: { 
-                            date: new Date().toISOString().slice(0, 10) 
+                            date: new Date().toISOString().slice(0, 7) 
                           },
                         }"
                       class="btn btn-success btn-sm pull-right p-2"
                     >
-                      Monthly All Meal History
+                      Monthly All Meals History
                     </router-link>
                   </li>
                 </ul> 

@@ -159,6 +159,7 @@ export default {
 
     get_all_user: async function(){
       let response = await axios.get('users');
+      // console.log('All users', response);
       this.all_users = response.data.data.data;
 
     },

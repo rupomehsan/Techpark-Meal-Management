@@ -13,7 +13,7 @@
         />
         <h5 class="logo-text">Employee Panel</h5>
       </router-link>
-      
+
       <div class="close-btn">
         <i class="zmdi zmdi-close" @click="toggle_menu"></i>
       </div>
@@ -56,75 +56,52 @@
           },
         ]"
       /> -->
-      <!-- Management start -->
-      <!-- <side-bar-drop-down-menus
+
+      <side-bar-drop-down-menus
         :icon="`fa fa-plus`"
-        :menu_title="`User Management`"
+        :menu_title="`Payment Management`"
         :menus="[
           {
-            route_name: `AllUser`,
-            title: `All User`,
+            route_name: `PaymentEmployeePayment`,
+            title: `All Payment History`,
             icon: `zmdi zmdi-dot-circle-alt`,
           },
-          {
-            route_name: `AllUserPayment`,
-            title: `All Users Payment`,
-            icon: `zmdi zmdi-dot-circle-alt`,
-          }
         ]"
-      /> -->
+      />
 
       <side-bar-drop-down-menus
         :icon="`fa fa-plus`"
         :menu_title="`Meal Management`"
         :menus="[
-          // {
-          //   route_name: `AllMonthlyMealRate`,
-          //   title: `Monthly Meal Rate`,
-          //   icon: `zmdi zmdi-dot-circle-alt`,
-          // },
           {
             route_name: `AllEmployeeMeal`,
             title: `Employee Meal`,
+            icon: `zmdi zmdi-dot-circle-alt`,
+          },
+          // {
+          //   // route_name: `paymentHistory`,
+          //   title: `All Payment History`,
+          //   icon: `zmdi zmdi-dot-circle-alt`,
+          // }
+        ]"
+      />
+
+      <!-- <side-bar-drop-down-menus
+        :icon="`fa fa-plus`"
+        :menu_title="`Payment History`"
+        :menus="[
+          {
+            // route_name: `paymentHistory`,
+            title: `All Payment History`,
             icon: `zmdi zmdi-dot-circle-alt`,
           }
 
         ]"
       />
-      
-      <!-- due list -->
-      <!-- <side-bar-drop-down-menus
-        :icon="`fa fa-plus`"
-        :menu_title="`DueList Management`"
-        :menus="[
-          {
-            route_name: `AllDuelist`,
-            title: `All Due List`,
-            icon: `zmdi zmdi-dot-circle-alt`,
-          },
-        ]"
-      /> -->
-      <!-- daily bajar -->
-            <!-- route_name: `ExpensedailyBajar`, -->
-      <!-- <side-bar-drop-down-menus
-        :icon="`fa fa-plus`"
-        :menu_title="`Expense Management`"
-        :menus="[
-          {
-            route_name: `ExpensedailyBajar`,
-            title: `All Expense`,
-            icon: `zmdi zmdi-dot-circle-alt`,
-          },
-          {
-            route_name: `AllCookSallary`,
-            title: `All Cook Salary`,
-            icon: `zmdi zmdi-dot-circle-alt`,
-          },
-        ]"
-      /> -->
+    -->
 
       <!-- ReportManagement -->
-            <!-- route_name: `ReportManagement`, -->
+      <!-- route_name: `ReportManagement`, -->
       <!-- <side-bar-drop-down-menus
         :icon="`fa fa-plus`"
         :menu_title="`Report Management`"

@@ -2,6 +2,8 @@
 
 namespace App\Modules\Management\UserManagement\UserPayment\Controller;
 
+use App\Modules\Management\UserManagement\UserPayment\Actions\EmployeePaymentHistory;
+use App\Modules\Management\UserManagement\UserPayment\Actions\StudentPaymentHistoryData;
 
 use App\Modules\Management\UserManagement\UserPayment\Actions\StoreData;
 use App\Modules\Management\UserManagement\UserPayment\Actions\GetAllData;
@@ -37,6 +39,7 @@ class Controller extends ControllersController{
         $data = GetSingleData::execute($id);
         return $data;
     }
+    
 
     public function update(DataStoreValidation $request, $slug)
     {
@@ -75,6 +78,19 @@ class Controller extends ControllersController{
         return $data;
     }
 
+    public function employeePaymentHistory()
+    {
+        
+        $data = EmployeePaymentHistory::execute();
+        return $data;
+    }
+    
+    public function studentPaymentHistory()
+    {
+        
+        $data = StudentPaymentHistoryData::execute();
+        return $data;
+    }
 
 
 }

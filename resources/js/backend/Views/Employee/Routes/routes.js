@@ -6,18 +6,8 @@ import Dashboard from "../Management/Dashboard/Dashboard.vue";
 import SettingsRoutes from "../Management/Settings/setup/routes.js";
 //routes
 
-// import UserRoutes from '../Management/UserManagement/User/setup/routes.js';
-// import UserPaymentsRoutes from '../Management/UserManagement/UserPayments/setup/routes.js';
-// import DueListRoutes from '../Management/DueListManagement/DueList/setup/routes.js';
-// import BatchRoutes from '../Management/BatchManagement/Batch/setup/routes.js';
-// import DailyBajarRoutes from '../Management/DailyBajarManagement/DailyBajar/setup/routes.js';
-// import CookSallaryRoutes from '../Management/DailyBajarManagement/CookSallary/setup/routes.js';
-
+import EmployeePaymentRoutes from '../Management/EmployeePayment/setup/routes.js';
 import UserMealRoutes from '../Management/MealManagement/UserMeal/setup/routes.js';
-// import MealMenusRoutes from '../Management/MealManagement/MealMenu/setup/routes.js';
-// import MonthlyMealRateRoutes from '../Management/MealManagement/MonthlyMealRate/setup/routes.js';
-
-// import ReportManagementRoutes from '../Management/ReportManagement/setup/routes.js';
 
 
 
@@ -30,19 +20,8 @@ const routes = {
             component: Dashboard,
             name: 'adminDashboard',
         },
-        //management routes
-        // BatchRoutes,
-        // UserRoutes,
-        // UserPaymentsRoutes,
-        // DueListRoutes,
-        // DailyBajarRoutes,
-        // CookSallaryRoutes,
-        
-        // MonthlyMealRateRoutes,
-        // MealMenusRoutes,
         UserMealRoutes,
-        // ReportManagementRoutes,
-        //settings
+        EmployeePaymentRoutes,
         SettingsRoutes,
     ],
 };

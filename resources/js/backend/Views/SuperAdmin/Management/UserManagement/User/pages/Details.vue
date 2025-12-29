@@ -53,10 +53,13 @@
                   </tr>
 
                   <tr>
-                    <th>Balence</th>
+                    <th>Current Balence</th>
                     <th class="text-center">:</th>
-                    <th>&#2547; 4000</th>
+                    <th>
+                      &#2547; {{ userMonthBalance ?? currentBalance(item.id) }}
+                    </th>
                   </tr>
+
                   <tr>
                     <th>image</th>
                     <th class="text-center">:</th>
@@ -124,6 +127,9 @@ import setup from "../setup";
 export default {
   data: () => ({
     setup,
+    userMonthBalance: null,
+    balanceList: [],
+    balanceMap: {},
   }),
 
   created: async function () {
@@ -132,8 +138,8 @@ export default {
     await this.get_data(id);
     // await this.userCurrentBlance(id);
   },
-  
-   mounted: async function () {
+
+  mounted: async function () {
     let id = (this.param_id = this.$route.params.id);
     await this.userCurrentBlance(id);
   },
@@ -149,26 +155,54 @@ export default {
       // console.log("item", this.item);
     },
 
+
     userCurrentBlance: async function (id, month) {
       try {
-        console.log('ok', id, month);
         if (!month) {
           const now = new Date();
           const yyyy = now.getFullYear();
           const mm = String(now.getMonth() + 1).padStart(2, "0");
           month = `${yyyy}-${mm}`;
         }
+        const response = await axios.get(
+          `users/user-current-month-blance/${month}`
+        );
+        const balances = response.data?.data || [];
+        console.log("Fetched balances all:", balances);
+        this.balanceList = balances;
 
-        const response = await axios.get(`users/user-month-blance/${id}/${month}`);
-        this.item = response.data.data;
-        console.log('ok',this.item);
+        this.balanceMap = {};
+        balances.forEach((b) => {
+          const uid = b.user_id ?? b.id ?? (b.user && b.user.id) ?? null;
+          const val = b.current_balance ?? b.balance ?? b.total ?? 0;
+          if (uid !== null && uid !== undefined) this.balanceMap[uid] = val;
+        });
       } catch (error) {
         console.error("Error fetching user balance:", error);
       }
-    }
+    },
+
+    
+    currentBalance: function (id) {
+      if (!id) return 0;
+      if (this.balanceMap && this.balanceMap[id] !== undefined)
+        return this.balanceMap[id];
+      if (Array.isArray(this.balanceList)) {
+        const u = this.balanceList.find(
+          (x) => (x.user_id ?? x.id ?? (x.user && x.user.id)) === id
+        );
+        if (u) {
+          const raw = u.current_balance ?? u.balance ?? u.total ?? 0;
+          const num = Number(raw) || 0;
+          console.log("found balance for user :", num);
+          return Math.round(num);
+        }
+      }
+      return 0;
+    },
+
   },
 
-  
   computed: {
     ...mapWritableState(store, {
       item: "item",

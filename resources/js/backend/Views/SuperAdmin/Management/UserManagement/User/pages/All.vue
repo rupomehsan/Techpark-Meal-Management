@@ -58,8 +58,8 @@
                     <th>name</th>
                     <th>email</th>
                     <th>Phone</th>
+                    <th>Department Name</th>
                     <th>Batch Name</th>
-                    <!-- <th>Department Name</th> -->
                     <th>Balence</th>
                     <!-- <th>designation</th> -->
                     <!-- <th>image</th> -->
@@ -208,6 +208,7 @@
                     <td>{{ item?.name ?? "N/A" }}</td>
                     <td>{{ item?.email ?? "N/A" }}</td>
                     <td>{{ item?.phone_number ?? "N/A" }}</td>
+                    <td>{{ item?.department ?? "N/A" }}</td>
                     <td>{{ item?.batch?.batch_name ?? "N/A" }}</td>
                     <td>&#2547; {{ currentBalance(item.id) }}</td>
                     <!--                     
@@ -593,6 +594,7 @@ export default {
     user_id: null,
     balance: 0,
     item: [],
+    balanceList: [],
     balanceMap: {},
     setup,
     is_trashed_data: false,
@@ -608,7 +610,7 @@ export default {
 
   mounted: async function () {
     // await this.get_all();
-    await this.userBlance();
+    await this.userCurrentMonthBlance();
   },
 
   methods: {
@@ -663,7 +665,7 @@ export default {
       this.user_id = user_id;
     },
 
-    userBlance: async function (month) {
+    userCurrentMonthBlance: async function (month) {
       try {
         if (!month) {
           const now = new Date();
@@ -675,7 +677,8 @@ export default {
           `users/user-current-month-blance/${month}`
         );
         const balances = response.data?.data || [];
-        this.item = balances;
+        console.log("Fetched balances all:", balances);
+        this.balanceList = balances;
 
         this.balanceMap = {};
         balances.forEach((b) => {
@@ -692,16 +695,14 @@ export default {
       if (!id) return 0;
       if (this.balanceMap && this.balanceMap[id] !== undefined)
         return this.balanceMap[id];
-      if (Array.isArray(this.item)) {
-        const u = this.item.find(
+      if (Array.isArray(this.balanceList)) {
+        const u = this.balanceList.find(
           (x) => (x.user_id ?? x.id ?? (x.user && x.user.id)) === id
         );
         if (u) {
           const raw = u.current_balance ?? u.balance ?? u.total ?? 0;
           const num = Number(raw) || 0;
           return Math.round(num);
-          // const num = Math.round(Number(raw) || 0);
-          // return num;
         }
       }
       return 0;
@@ -723,6 +724,7 @@ export default {
         }
       }
     },
+
     softDelete: async function (item) {
       let con = await window.s_confirm("Are you sure want to delete ?");
       if (con) {
@@ -739,6 +741,7 @@ export default {
         }
       }
     },
+
     restore_data: async function (item) {
       let con = await window.s_confirm("Restore");
       if (con) {
@@ -770,6 +773,7 @@ export default {
         }
       }
     },
+
     change_status: function (status = "active") {
       if (status == "trased") {
         this.is_trashed_data = true;
@@ -782,6 +786,7 @@ export default {
       this.get_all();
       this.set_only_latest_data(true);
     },
+
     set_page_data: function (link) {
       try {
         let url = new URL(link.url);
@@ -790,6 +795,7 @@ export default {
         this.get_all();
       } catch (error) {}
     },
+
     set_per_page_limit: function () {
       this.set_paginate(event.target.value);
       this.get_all();
@@ -809,6 +815,7 @@ export default {
       }
       this.selected = [...selectedItems];
     },
+
     isSelected(item) {
       return this.selected.some((selectedItem) => selectedItem.id === item.id);
     },
@@ -857,6 +864,7 @@ export default {
       this.only_latest_data = false;
     }, 500),
   },
+
   computed: {
     ...mapWritableState(data_store, [
       "all",

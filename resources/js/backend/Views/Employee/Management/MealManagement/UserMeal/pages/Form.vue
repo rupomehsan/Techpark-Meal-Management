@@ -32,81 +32,72 @@
         <div class="card-body card_body_fixed_height">
           <div class="row">
             <div class="col-md-12">
-              <div class="col-md-6 pull-left">
-                <!-- <input type="text" name="user_id" :value="user_id" /> -->
-              
-                 <div class="mb-3">
-                  <label for="quantity" class="form-label">Quantity</label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    v-model="form_fields.quantity"
-                    class="form-control"
-                    id="quantity"
-                    min="1"
-                  />
-                  <div v-if="meal_quantity > 0">
-                    <strong :class="meal_qty">
-                      Your Meal Already Exist On Date:
-                      {{ form_fields.date }} with Quantity: {{ meal_quantity }}
-                      <span :style="{ color: 'white' }">
-                        ( If you want, you can just update the quantity. )
-                      </span>
-                    </strong>
+              <div
+                v-for="(item, index) in form_fields"
+                :key="index"
+                class="row mb-2"
+              >
+                <div class="col-md-4 pull-left">
+                  <div class="mb-2">
+                    <label class="form-label">Quantity</label>
+                    <input
+                      type="number"
+                      v-model="item.quantity"
+                      name="quantity"
+                      class="form-control"
+                      min="1"
+                    />
                   </div>
                 </div>
 
-              </div>
+                <div class="col-md-4 pull-left">
+                  <div class="mb-2">
+                    <label class="form-label">Date</label>
+                    <input
+                      type="date"
+                      name="date"
+                      v-model="item.date"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
 
-              <div class="col-md-6 pull-right">
-                 <div class="mb-3">
-                  <label for="date" class="form-label">Date</label>
-                  <input
-                    type="date"
-                    name="date"
-                    v-model="form_fields.date"
-                    class="form-control"
-                    @change="selectDate"
-                    id="date"
-                  />
-
-                  <div v-if="showOffMealMessage">
-                    <strong class="text-danger">
-                      To Day Meal is Off On by Date : {{ offMealDate.off_date }}
-                    </strong>
+                <div class="col-md-4 pull-left" v-if="!param_id">
+                  <div class="mb-2 mt-4">
+                    <input
+                      type="checkbox"
+                      v-model="item.checked"
+                      class=""
+                      @change="storeEmployeeMeal(item, index)"
+                    />
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
         <div class="card-footer">
           <!-- <button
-            type="submit"
+            v-if="param_id"
+            type="button"
             class="btn btn-light btn-square px-5"
+            @click="employeeMealUpdate(item)"
+            :disabled="isMealUpdateDisabled(item?.date)"
           >
             <i class="icon-lock"></i>
-            {{ param_id ? `Update` : `Submit` }}
+            Update
           </button> -->
 
           <button
-            v-if="offMealDate && offMealDate.off_date"
+            v-if="param_id"
             type="button"
             class="btn btn-light btn-square px-5"
-            @mouseenter="showOffMealAlert"
-            :style="{
-              cursor: 'not-allowed',
-              opacity: 0.6,
-              pointerEvents: 'auto',
-            }"
+            @click="employeeMealUpdate"
+            :disabled="isMealUpdateDisabled(form_fields[0]?.date)"
           >
             <i class="icon-lock"></i>
-            {{ param_id ? "Update" : "Submit" }}
-          </button>
-
-          <button v-else type="submit" class="btn btn-light btn-square px-5">
-            <i class="icon-lock"></i>
-            {{ param_id ? `Update` : `Submit` }}
+            Update
           </button>
         </div>
       </div>
@@ -125,33 +116,38 @@ export default {
   data: () => ({
     // user_id: window.auth_user?.id || null,
     setup,
-    form_fields,
     param_id: null,
     all_user: [],
     user_id: null,
     filteredUsers: [],
     all_meals: [],
+    res: null,
     meal_quantity: "",
     offMealDate: "",
     error: "",
     off_date: null,
-    form_fields: {
-      // user_type: "",
-      // user_id: "",
-      quantity: "",
-      date: "",
-    },
 
+    form_fields: [],
   }),
 
   created: async function () {
-    // this.get_all_users();
-    this.get_all_meals();
+    // this.get_all_meals();
     let id = (this.param_id = this.$route.params.id);
     // console.log("route id", id);
     if (id) {
       this.set_fields(id);
     }
+
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+
+    this.form_fields = this.getDatesOfMonth(year, month);
+    this.form_fields = this.form_fields.map((date) => ({
+      quantity: 1,
+      date: date,
+      checked: false,
+    }));
   },
 
   methods: {
@@ -163,117 +159,123 @@ export default {
       set_only_latest_data: "set_only_latest_data",
     }),
 
-    selectDate: async function () {
-      if(!this.form_fields.date) {
-          alert("Please select date.");
+
+    storeEmployeeMeal: async function (item) {
+      const now = new Date();
+      const hour = now.getHours();
+      const minute = now.getMinutes();
+
+      const current = hour * 60 + minute;
+      const start = 7 * 60;
+      const end = 9 * 60;
+
+      const today = now.toISOString().substr(0, 10);
+
+      // Prevent creating meals for past dates
+      if (item.date) {
+        if (item.date < today) {
+          item.checked = false;
+          window.s_alert("You cannot create meal for past dates");
           return;
-      }
-
-      // check user meal history
-      try {
-        let res = await axios.get(
-          `user-meals/users-meal-history`,
-          {
-            params: { 
-              date: this.form_fields.date 
-            }
-          }
-        );
-        console.log("meal history response", res);
-        this.meal_quantity = res.data.data;
-        this.meal_date = res.data.data.date;
-        console.log("meal history", this.meal_quantity, this.meal_date);
-      } catch (error) {
-        console.error("Error fetching meal history:", error);
-      }
-
-      // check off meal
-      try {
-        let response = await axios.get(
-          `user-meals/off-meals/${this.form_fields.date}`
-        );
-
-        if (response.data.status == "not_found") {
-          this.offMealDate = null;
-          // this.showOffMealMessage = false;
-        } else if (response.data.status == "success") {
-          this.offMealDate = response.data.data;
-          // this.showOffMealMessage = true;
-        } else {
-          console.log("response", response);
-          this.offMealDate = null;
-          // this.showOffMealMessage = false;
         }
-      } catch (error) {
-        console.error("Error fetching off meal info:", error);
-        this.offMealDate = null;
-        this.showOffMealMessage = false;
+      }
+
+      if (item.date === today) {
+        if (current < start || current > end) {
+          item.checked = false;
+          window.s_alert("Your time is over now!");
+          // window.s_alert("আজকের meal দিতে পারবেন সকাল 7টা থেকে 10টার মধ্যে!");
+          return;
+        }
+      }
+
+      if (item.checked) {
+        if (!item.date) {
+          console.warn("Date missing. Cannot submit to API.");
+          item.checked = false;
+          return;
+        }
+
+        // ✔ Push item (if needed)
+        this.form_fields.push({
+          quantity: item.quantity || 1,
+          date: item.date || "",
+          checked: item.checked || false,
+        });
+
+        try {
+          let res = await axios.post(
+            `user-meals/employee-store-meal/${item.date}`,
+            {
+              quantity: item.quantity,
+              date: item.date,
+              checked: item.checked,
+            }
+          );
+
+          window.s_alert("Data successfully created");
+
+          this.$router.push({
+            name: `All${this.setup.route_prefix}`,
+          });
+
+          console.log("employee meal response", res.data);
+        } catch (error) {
+          console.error("API error:", error.response?.data || error);
+        }
       }
     },
 
-    showOffMealAlert() {
-      alert("Meal entry not allowed. To Day Meal is OFF for this date.");
+    getDatesOfMonth() {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth();
+
+      let date = new Date(year, month);
+      let dates = [];
+
+      while (date.getMonth() === month) {
+        const yyyy = date.getFullYear();
+        const mm = String(date.getMonth() + 1).padStart(2, "0");
+        const dd = String(date.getDate()).padStart(2, "0");
+
+        dates.push(`${yyyy}-${mm}-${dd}`);
+        date.setDate(date.getDate() + 1);
+      }
+
+      return dates;
     },
 
     set_fields: async function (id) {
       this.param_id = id;
       // console.log("set_field", this.param_id);
       await this.details(id);
-    
+
       if (this.item) {
-        // set the user type first, load users for that role, then set user_id
-        this.form_fields.user_type = this.item.user?.role_id || "";
-        
-        // ensure the user list is loaded for the role before assigning user_id
-        await this.ChangeUserName(this.form_fields.user_type);
+        // this.form_fields.quantity = this.item.quantity;
+        // this.form_fields.date = this.item.date;
 
-        const userId = this.item.user_id;
-        // only set the user_id if it exists in the fetched list
-        if (
-          userId &&
-          this.all_user &&
-          this.all_user.find((u) => u.id == userId)
-        ) {
-          this.form_fields.user_id = userId;
-        } else {
-          this.form_fields.user_id = "";
-        }
-
-        this.form_fields.quantity = this.item.quantity;
-        this.form_fields.date = this.item.date;
+        this.form_fields = [
+          {
+            id: this.item.id,
+            quantity: this.item.quantity,
+            date: this.item.date,
+            checked: this.item.checked || false,
+          },
+        ];
       }
     },
 
-    ChangeUserName: async function () {
-      try {
-        const name = this.form_fields.user_type;
-        const response = await axios.get(`/user-meals/role-by-username/${name}`);
-        this.all_user = response.data.data;
-        // console.log("All Users:", this.all_user);
+    // get_all_meals: async function () {
+    //   try {
+    //     const response = await axios.get("monthly-meal-rates");
+    //     this.all_meals = response.data.data.data;
+    //   } catch (error) {
+    //     console.error("Error fetching users:", error);
+    //     this.all_meals = [];
+    //   }
+    // },
 
-        if (this.form_fields.user_id) {
-          let exists = this.all_user.find(
-            (u) => u.id == this.form_fields.user_id
-          );
-
-          if (!exists) {
-            this.form_fields.user_id = "";
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching role:", error);
-      }
-    },
-
-    get_all_meals: async function () {
-      try {
-        const response = await axios.get("monthly-meal-rates");
-        this.all_meals = response.data.data.data;
-      } catch (error) {
-        console.error("Error fetching users:", error);
-        this.all_meals = [];
-      }
-    },
 
     submitHandler: async function ($event) {
       this.set_only_latest_data(true);
@@ -299,22 +301,24 @@ export default {
     },
   },
 
+  
+
   computed: {
     ...mapState(store, {
       item: "item",
     }),
-
-    meal_qty() {
-      return this.meal_quantity > 0 ? "text-danger" : "";
-    },
-
-    showOffMealMessage() {
-      return (
-        this.offMealDate && this.offMealDate.off_date === this.form_fields.date
-      );
-    },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.tooltip-text {
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+button:disabled .tooltip-text {
+  opacity: 1;
+}
+</style>

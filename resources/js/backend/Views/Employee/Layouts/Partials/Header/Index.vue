@@ -206,7 +206,7 @@ export default {
   }),
 
   created: async function () {
-    await this.get_all_pending_expense();
+    // await this.get_all_pending_expense();
   },
 
   methods: {

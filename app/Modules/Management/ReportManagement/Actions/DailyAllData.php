@@ -140,6 +140,14 @@ public static function execute()
                 ->where('date', $d)
                 ->where('meal_status', 'on')
                 ->sum('quantity');
+            
+                $today = date('Y-m-d');
+
+                $todayMeals = DB::table('users_meals')
+                    ->where('date', $today)
+                    ->where('meal_status', 'on')
+                    ->get();
+            // dd('to day', $mealQty);
 
             $cookSalary = DB::table('daliy_cook_salary')
                 ->where('salary_date', $d)

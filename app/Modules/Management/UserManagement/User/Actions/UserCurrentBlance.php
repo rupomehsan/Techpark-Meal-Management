@@ -31,6 +31,8 @@
                         ->whereYear('created_at', $currentYear)
                         ->sum('quantity');
                     
+                        // dd('totalMeals', $totalMeals);
+                    
                     $totalPayments = self::$paymentModel::where('user_id', $id)
                         ->whereMonth('created_at', $currentMonth)
                         ->whereYear('created_at', $currentYear)

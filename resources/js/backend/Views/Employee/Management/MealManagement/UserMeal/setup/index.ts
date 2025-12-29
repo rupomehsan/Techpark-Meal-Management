@@ -40,7 +40,7 @@ const setup: setup_type = {
   details_page_title: "Details " + prefix,
   create_page_title: "Create " + prefix,
   edit_page_title: "Edit " + prefix,
-  to_day_meal_page_title: "To Day " + prefix,
+  monthly_meal_page_title: "Monthly " + prefix,
 
 };
 

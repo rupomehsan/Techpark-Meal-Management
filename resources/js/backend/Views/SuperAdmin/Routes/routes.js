@@ -25,12 +25,14 @@ import ReportManagementRoutes from '../Management/ReportManagement/setup/routes.
 const routes = {
     path: '',
     component: Layout,
+
     children: [
         {
             path: 'dashboard',
             component: Dashboard,
             name: 'adminDashboard',
         },
+        
         //management routes
         BatchRoutes,
         UserRoutes,

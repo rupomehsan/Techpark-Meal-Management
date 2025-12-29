@@ -43,9 +43,9 @@ class GetAllData
 
             if ($start_date && $end_date) {
                  if ($end_date > $start_date) {
-                    $data->whereBetween('created_at', [$start_date . ' 00:00:00', $end_date . ' 23:59:59']);
+                    $data->whereBetween('date', [$start_date . ' 00:00:00', $end_date . ' 23:59:59']);
                 } elseif ($end_date == $start_date) {
-                    $data->whereDate('created_at', $start_date);
+                    $data->whereDate('date', $start_date);
                 }
             }
 
@@ -79,6 +79,10 @@ class GetAllData
                     ->orderBy($orderByColumn, $orderByType)
                     ->paginate($pageLimit);
             }
+
+
+
+            // dd('ok', $data);
 
 
 

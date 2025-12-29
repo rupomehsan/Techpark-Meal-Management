@@ -37,6 +37,6 @@ class BackendController extends Controller
     }
     public function StudentPanel()
     {
-        return view('backend.studentPanel-dashboard');
+        return view('backend.student-dashboard');
     }
 }

@@ -81,7 +81,7 @@
                   >
                     <td>{{ index + 1 }}</td>
                     <td>{{ items.quantity ?? "N/A " }}</td>
-                    <td>{{ items.created_at ? items.created_at.slice(0, 10) : "N/A" }}</td>
+                    <td>{{ items.date ? items.date.slice(0, 10) : "N/A" }}</td>
                   </tr>
 
                   <tr v-else>

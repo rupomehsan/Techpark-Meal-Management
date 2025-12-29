@@ -13,6 +13,7 @@ class UpdateData{
             if (!$data = self::$model::query()->where('slug', $slug)->first()) {
                 return messageResponse('Data not  found...', $data, 404, 'error');
             }
+            // dd('ok', $data);
             $data->update($requestData);
             return messageResponse('Data Updated Successfully', [], 201, 'success');
         }catch(\Exception $e){

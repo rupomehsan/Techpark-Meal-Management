@@ -15,7 +15,7 @@
                 <!-- <div class="progress-bar" style="width: 55%"></div> -->
               </div>
               <p class="mb-0 text-white small-font">
-                <h5> 0 </h5>
+                <h5> {{ previous_month_balance }} </h5>
                 <br>
                 Previous Month Balance
                 <span class="float-right">
@@ -34,7 +34,7 @@
                 <!-- <div class="progress-bar" style="width: 55%"></div> -->
               </div>
               <p class="mb-0 text-white small-font">
-                <h5> 0 </h5>
+                <h5> {{ current_month_user_payment }} </h5>
                 <br>
                 Current month User Payment
                 <span class="float-right">
@@ -53,7 +53,7 @@
                 <!-- <div class="progress-bar" style="width: 55%"></div> -->
               </div>
               <p class="mb-0 text-white small-font">
-                <h5> 0 </h5>
+                <h5> {{ current_month_Bajar_expense }} </h5>
                 <br>
                 Current month Bajar Expense
                 <span class="float-right">
@@ -72,7 +72,7 @@
                 <!-- <div class="progress-bar" style="width: 55%"></div> -->
               </div>
               <p class="mb-0 text-white small-font">
-                <h5> 0 </h5>
+                <h5> {{ balance }} </h5>
                 <br>
                 Balance
                 <span class="float-right">
@@ -98,7 +98,7 @@
                 <!-- <div class="progress-bar" style="width: 55%"></div> -->
               </div>
               <p class="mb-0 text-white small-font">
-                <h5> 0 <span class="ml-2 text-bg-info">Paid</span>
+                <h5> {{ current_month_cook_salary }} <span class="ml-2 text-bg-info">Paid</span>
                 </h5>
                 <!-- <h5>Paid</h5> -->
                 <br>
@@ -138,7 +138,7 @@
                 <!-- <div class="progress-bar" style="width: 55%"></div> -->
               </div>
               <p class="mb-0 text-white small-font">
-                <h5> 0 </h5>
+                <h5> {{ current_month_total_meal }} </h5>
                 <br>
                 Current Month Total Meal
                 <span class="float-right">
@@ -158,7 +158,7 @@
                 <!-- <div class="progress-bar" style="width: 55%"></div> -->
               </div>
               <p class="mb-0 text-white small-font">
-                <h5> 0 </h5>
+                <h5> {{ tomorrow_total_meal }} </h5>
                 <br>
                 Tomorrow Total meal
                 <span class="float-right">
@@ -184,7 +184,7 @@
                 <!-- <div class="progress-bar" style="width: 55%"></div> -->
               </div>
               <p class="mb-0 text-white small-font">
-                <h5> 0 </h5>
+                <h5> {{ current_month_meal_rate }} </h5>
                 <br>
                   Current month meal rate
                 <span class="float-right">
@@ -292,22 +292,64 @@
 </template>
 
 <script>
-export default {
-  data: () => ({
-    data: {},
-  }),
-  created: async function () {
-    await this.get_all_dashboard_data();
-  },
-  methods: {
-    get_all_dashboard_data: async function () {
-      let response = await axios.get("get-all-dashboard-data");
-      if (response.status == 200) {
-        this.data = response.data.data;
-      }
+  export default {
+    data: () => ({
+      data: {},
+      // data: 0,
+      previous_month_balance: 0,
+      current_month_user_payment: 0,
+      current_month_Bajar_expense: 0,
+      balance: 0,
+      current_month_cook_salary: 0,
+      cash_in_hand: 0,
+      current_month_total_meal: 0,
+      tomorrow_total_meal: 0,
+      current_month_meal_rate: 0,
+    }),
+    
+    created: async function () {
+      // alert('ok');
+      // await this.get_all_dashboard_data();
+      console.log('super admin caeated called..');
+      await this.superAdminDashboardStats();
     },
-  },
-};
+    
+    mounted: async function() {
+      // console.log('super admin mounted called..');
+      // await this.superAdminDashboardStats();
+    },
+
+
+
+    methods: {
+      // get_all_dashboard_data: async function () {
+      //   let response = await axios.get("get-all-dashboard-data");
+      //   if (response.status == 200) {
+      //     this.data = response.data.data;
+      //   }
+      // },
+
+      superAdminDashboardStats: async function () {
+        console.log('superAdmin');
+        let response = await axios.get("user-meals/super-admin-dashboard-stats");
+        const res = response?.data?.data || {};
+        // console.log('res', res);
+        this.previous_month_balance = Number(res.previous_month_balance || 0);
+        // console.log('previous', this.previous_month_balance);
+        this.current_month_user_payment = Number(res.current_month_user_payment || 0);
+        this.current_month_Bajar_expense = Number(res.current_month_Bajar_expense || 0);
+        this.balance = Number(res.balance || 0);
+        this.current_month_cook_salary = Number(res.current_month_cook_salary || 0);
+        this.current_month_total_meal = Number(res.current_month_total_meal || 0);
+        this.tomorrow_total_meal = Number(res.tomorrow_total_meal || 0);
+        this.current_month_meal_rate = Number(res.current_month_meal_rate || 0);
+        
+        
+      },
+
+    },
+  };
+
 </script>
 
 <style></style>

@@ -14,7 +14,10 @@ Route::prefix( 'v1')->group(function () {
         Route::post('restore', [Controller::class, 'restore']);
         Route::post('destroy/{slug}', [Controller::class, 'destroy']);
         // new route for cook sallary history
-        route::get('cook-sallary-history/{month}', [Controller::class,'cookSallaryHistory']);
+        Route::get('cook-sallary-history/{month}', [Controller::class,'cookSallaryHistory']);
+
+        Route::get('cook-salary-by-daily-bajar', [Controller::class,'cookSallaryByDailyBajar']);
+
 
         Route::post('import', [Controller::class,'import']);
         Route::post('bulk-action', [Controller::class, 'bulkAction']);
