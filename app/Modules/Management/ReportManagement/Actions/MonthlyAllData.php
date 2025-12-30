@@ -2,6 +2,7 @@
 
 namespace App\Modules\Management\ReportManagement\Actions;
 use DB;
+use Carbon\Carbon;
 
 class MonthlyAllData
 {
@@ -13,13 +14,37 @@ class MonthlyAllData
 
                 $start_month = request()->input('start_month');
                 $end_month = request()->input('end_month');
+                $today = Carbon::today();
+                $currentMonth = $today->format('Y-m');
+
+                // $meals = DB::table('users_meals')
+                //     ->selectRaw("DATE_FORMAT(date, '%Y-%m') as month, SUM(quantity) as total_meals")
+                //     ->where('meal_status', 'on')
+                //     ->groupBy('month')
+                //     ->get()
+                //     ->keyBy('month');
 
                 $meals = DB::table('users_meals')
-                    ->selectRaw("DATE_FORMAT(date, '%Y-%m') as month, SUM(quantity) as total_meals")
-                    ->where('meal_status', 'on')
-                    ->groupBy('month')
-                    ->get()
-                    ->keyBy('month');
+                        ->selectRaw("
+                            DATE_FORMAT(date, '%Y-%m') as month,
+                            SUM(quantity) as total_meals
+                        ")
+                        ->where('meal_status', 'on')
+                        ->where(function ($query) use ($currentMonth, $today) {
+                            $query
+                                // Previous months → full month
+                                ->whereRaw("DATE_FORMAT(date, '%Y-%m') < ?", [$currentMonth])
+                                // Current month → only till today
+                                ->orWhere(function ($q) use ($currentMonth, $today) {
+                                    $q->whereRaw("DATE_FORMAT(date, '%Y-%m') = ?", [$currentMonth])
+                                    ->whereDate('date', '<=', $today);
+                                });
+                        })
+                        ->groupBy('month')
+                        ->orderBy('month')
+                        ->get()
+                        ->keyBy('month');
+                // dd('meals', $meals);
 
                 $cooks = DB::table('daliy_cook_salary')
                     ->selectRaw("DATE_FORMAT(salary_date, '%Y-%m') as month, SUM(cook_salary) as total_salary")

@@ -1,6 +1,7 @@
 <?php
 namespace App\Modules\Management\MealManagement\UsersMeal\Actions;
 use DB;
+use Carbon\Carbon;
 
 class SuperAdminDashboardStats
 {
@@ -41,10 +42,18 @@ class SuperAdminDashboardStats
                                         ->sum('total');
             // dd('bazar expenses', $currentMonthBazarExpenses);
 
+            // current month cook salaries
             $currentMonthCookSalaries = DB::table('daliy_cook_salary')->whereMonth('salary_date', $currentMonth)
                                         ->whereYear('salary_date', $currentYear)
                                         ->sum('cook_salary');
             // dd('cook salaries', $currentMonthCookSalaries);
+
+            // paid cook salaries
+            $currentMonths = Carbon::now()->format('Y-m');
+            $paidCookSalaries = self::$cookSalaryModel::where('month', $currentMonths)
+                            ->where('sallary_status', 'paid')
+                            ->sum('amount');
+            // dd('paid cook salaries', $paidCookSalaries);
 
             // balance calculation
             $balance = ($previousMonthAllUserBalance + $currentMonthAllUserPayments) - $currentMonthBazarExpenses;
@@ -52,8 +61,14 @@ class SuperAdminDashboardStats
             // dd('balance', $balance);
 
             // current month total meal quantity
-            $currentMonthTotalMeal = self::$mealModel::whereMonth('date', $currentMonth)
-                                    ->whereYear('date', $currentYear)
+            // $currentMonthTotalMeal = self::$mealModel::whereMonth('date', $currentMonth)
+            //                         ->whereYear('date', $currentYear)
+            //                         ->where('meal_status', 'on')
+            //                         ->sum('quantity');
+
+            $startDate = Carbon::now()->startOfMonth(); 
+            $endDate   = Carbon::today();               
+            $currentMonthTotalMeal = self::$mealModel::whereBetween('date', [$startDate, $endDate])
                                     ->where('meal_status', 'on')
                                     ->sum('quantity');
             // dd('total meal', $currentMonthTotalMeal);
@@ -77,7 +92,8 @@ class SuperAdminDashboardStats
                 'previousMonthAllUserBalance' => $previousMonthAllUserBalance,
                 'currentMonthAllUserPayments' => $currentMonthAllUserPayments,
                 'currentMonthBazarExpenses' => $currentMonthBazarExpenses,
-                'currentMonthCookSalary' => $currentMonthCookSalaries,
+                // 'currentMonthCookSalary' => $currentMonthCookSalaries,
+                'paidCookSalaries' => $paidCookSalaries,
                 'balance' => $balance,
                 'currentMonthTotalMeal' => $currentMonthTotalMeal,
                 'tomorrowTotalMeal' => $tomorrowTotalMeal,

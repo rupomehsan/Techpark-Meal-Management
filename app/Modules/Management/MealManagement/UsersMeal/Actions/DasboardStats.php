@@ -26,12 +26,21 @@ class DasboardStats
                 ->sum('quantity');
 
             // employee month meal quantity
+            // $employeeMonthMealQunatity = self::$model::with('user')
+            //     ->where('user_id', Auth::id())
+            //     ->whereYear('date', $currentYear)
+            //     ->whereMonth('date', $currentMonth)
+            //     ->where('meal_status', 'on')
+            //     ->sum('quantity');
+            
+            $startDate = Carbon::now()->startOfMonth(); 
+            $endDate   = Carbon::today();               
             $employeeMonthMealQunatity = self::$model::with('user')
                 ->where('user_id', Auth::id())
-                ->whereYear('date', $currentYear)
-                ->whereMonth('date', $currentMonth)
+                ->whereBetween('date', [$startDate, $endDate])
                 ->where('meal_status', 'on')
                 ->sum('quantity');
+            // dd('employee month meal', $employeeMonthMealQunatity);
 
             // employee total payable
             $employeeTotalBalance = self::$UserPayment::with('user')
@@ -47,13 +56,11 @@ class DasboardStats
                 
 
             $user = Auth::user();
-
             if (! $user) {
                 return messageResponse('User not authenticated', [], 401, 'error');
             }
 
             $userId = $user->id;
-
             $currentMonth = date('m');
             $currentYear  = date('Y');
 
@@ -67,6 +74,7 @@ class DasboardStats
                 ->whereYear('date', $currentYear)
                 ->whereMonth('date', $currentMonth)
                 ->sum('quantity');
+            // dd('total meal', $totalMeals);
 
             /**
              * ==============================
@@ -170,7 +178,7 @@ class DasboardStats
 
             $data = [
                 'all_meal_quantity'     => $employeeAllMealQunatity,
-                'month_meal_quantity'   => $employeeMonthMealQunatity,
+                'monthly_meal_quantity'   => $employeeMonthMealQunatity,
                 'total_payable'         => $employeeTotalBalance,
                 'current_payable_month' => $employeeBalance,
 

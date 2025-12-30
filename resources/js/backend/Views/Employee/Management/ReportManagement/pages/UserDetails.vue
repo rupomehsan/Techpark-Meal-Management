@@ -181,6 +181,7 @@
                       }}
                     </th>
                   </tr>
+                  
                   <tr>
                     <th>Total Cost</th>
                     <th class="text-center">:</th>
@@ -319,8 +320,6 @@ export default {
       // await this.usersReport(id);
     },
 
-
-    
     // downloadPDF: async function () {
     //   const doc = new jsPDF();
     //   doc.setFont("helvetica", "normal");
@@ -388,8 +387,6 @@ export default {
     //   doc.save(`user_details_report_${safeName}${safeMonth}.pdf`);
     // },
 
-
-    
     downloadPDF: async function () {
       const doc = new jsPDF();
       doc.setFont("helvetica", "normal");
@@ -431,7 +428,6 @@ export default {
         `user_details_report_${this.item.user_name}_${this.item.month}.pdf`
       );
     },
-
 
     UserReport: async function (id, month) {
       try {

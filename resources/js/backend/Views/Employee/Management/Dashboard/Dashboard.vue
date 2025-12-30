@@ -35,7 +35,7 @@
                 <!-- <div class="progress-bar" style="width: 55%"></div> -->
               </div>
               <p class="mb-0 text-white small-font">
-                <h5> {{ month_meal_quantity }} </h5>
+                <h5> {{ monthly_meal_quantity }} </h5>
                 <br>
                 Monthly Total Meals
                 <span class="float-right">
@@ -370,7 +370,7 @@ export default {
   data: () => ({
     data: {},
     all_meal_quantity: 0,
-    month_meal_quantity: 0,
+    monthly_meal_quantity: 0,
     current_payable_month: 0,
     current_balance: 0,
     total_meal_cost: 0,
@@ -410,7 +410,8 @@ export default {
         const res = response?.data?.data || {};
         console.log("employee response:", res);
         this.all_meal_quantity      = Number(res.all_meal_quantity || 0);
-        this.month_meal_quantity    = Number(res.month_meal_quantity || 0);
+        this.monthly_meal_quantity    = Number(res.monthly_meal_quantity || 0);
+        // console.log('monthy meal quantity', this.monthly_meal_quantity);
         this.current_payable_month  = Number(res.current_payable_month || 0);
         this.current_balance        = Number(res.current_balance || 0);
         // console.log('current balance', this.current_balance);

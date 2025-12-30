@@ -98,7 +98,7 @@
                 <!-- <div class="progress-bar" style="width: 55%"></div> -->
               </div>
               <p class="mb-0 text-white small-font">
-                <h5> {{ current_month_cook_salary }} <span class="ml-2 text-bg-info">Paid</span>
+                <h5> {{ paid_cook_salaries }} <span class="ml-2 text-bg-info">Paid</span>
                 </h5>
                 <!-- <h5>Paid</h5> -->
                 <br>
@@ -300,7 +300,8 @@
       current_month_user_payment: 0,
       current_month_Bajar_expense: 0,
       balance: 0,
-      current_month_cook_salary: 0,
+      // current_month_cook_salary: 0,
+      paid_cook_salaries: 0,
       cash_in_hand: 0,
       current_month_total_meal: 0,
       tomorrow_total_meal: 0,
@@ -332,6 +333,7 @@
         this.current_month_Bajar_expense = Number(res.currentMonthBazarExpenses || 0);
         this.balance = Number(res.balance || 0);
         this.current_month_cook_salary = Number(res.currentMonthCookSalary || 0);
+        this.paid_cook_salaries = Number(res.paidCookSalaries || 0);
         this.current_month_total_meal = Number(res.currentMonthTotalMeal || 0);
         this.tomorrow_total_meal = Number(res.tomorrowTotalMeal || 0);
         this.current_month_meal_rate = Number(res.currentMonthPerMealRate || 0);

@@ -32,6 +32,12 @@
 
         <div class="card-body card_body_fixed_height">
           <div class="row">
+            <div style="margin-left: 2%;">
+              Monthly Cook Salary: 8000 <br />
+              Total Daily Cook Salary: {{ totalCookSalary }} <br />
+              Remaining Due: {{ calculatedDue }}<br/><br/>
+            </div>
+           
             <div class="col-md-12">
               <div class="col-md-6 pull-left">
                 <div class="mb-3">
@@ -158,7 +164,8 @@ export default {
     form_fields,
     param_id: null,
     salaryData: [],
-    cookDalaryData: 0,
+    totalCookSalary: 0,
+    monthlyCookSalary: 8000,
 
     showSalaryHistory: false,
 
@@ -176,12 +183,9 @@ export default {
       this.set_fields(id);
     }
     // load salary history on page load
-    //await this.cookSallaryByDailyBajar();
+    await this.cookSallaryByDailyBajar();
   },
 
-  // mounted: async function () {
-  //    await this.cookSallaryByDailyBajar();
-  // },
 
   methods: {
     ...mapActions(store, {
@@ -194,13 +198,17 @@ export default {
 
     cookSallaryByDailyBajar: async function () {
       try {
-        const response = await axios.get(
-          `cook-sallary/cook-salary-by-daily-bajar`
-        );
-        this.cookDalaryData = response.data.data || 0;
-        console.log("cookDalaryData", this.cookDalaryData);
-      } catch (error) {
-        this.cookDalaryData = 0;
+        const response = await axios.get(`cook-sallary/cook-salary-by-daily-bajar`);
+        // console.log("response", response);
+        const res = response.data.data || 0;
+        this.totalCookSalary = Number(res.total_cook_salary || 0);
+        // console.log("total salary", this.totalCookSalary);
+        // auto calculate amount & due
+        const remaining = this.monthlyCookSalary - this.totalCookSalary;
+        this.form_fields.amount = remaining > 0 ? remaining : 0;
+        this.form_fields.due_amount = remaining > 0 ? remaining : 0;
+      }catch (error) {
+        this.totalCookSalary = 0;
         console.error(
           "Error fetching cook salary by daily bajar:",
           error.response?.data?.message || error.message
@@ -288,6 +296,15 @@ export default {
     ...mapState(store, {
       item: "item",
     }),
+    calculatedDue() {
+      // totalCookSalary = daily paid salary
+      // monthlyCookSalary = fixed monthly salary
+      const monthlyCookSalary = 8000; // fixed monthly salary
+      const amount = Number(this.form_fields.amount) || 0;
+
+      const due = monthlyCookSalary - this.totalCookSalary - amount;
+      return due >= 0 ? due : 0;
+    },
   },
 
   watch: {
@@ -297,6 +314,10 @@ export default {
       } else if (newVal === "unpaid") {
         this.UnpaidImage();
       }
+    },
+
+    "form_fields.amount"(newVal) {
+      this.form_fields.due_amount = this.calculatedDue;
     },
   },
 };

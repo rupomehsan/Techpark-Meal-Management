@@ -14,6 +14,7 @@ use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\StoreData;
 use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\UpdateData;
 use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\UpdateStatus;
 use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\AddCookSalary;
+// use App\Modules\Management\ExpenseManagement\DailyBajar\Actions\DailyCookSalary;
 
 use App\Modules\Management\ExpenseManagement\DailyBajar\Validations\BulkActionsValidation;
 use App\Modules\Management\ExpenseManagement\DailyBajar\Validations\DataStoreValidation;
@@ -91,6 +92,11 @@ class Controller extends ControllersController
         $data = AddCookSalary::execute($request);
         return $data;
     }
+    // public function dailyCookSalaryData()
+    // {
+    //     $data = DailyCookSalary::execute();
+    //     return $data;
+    // }
 
     
 }

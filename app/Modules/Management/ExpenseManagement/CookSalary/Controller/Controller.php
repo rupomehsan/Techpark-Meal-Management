@@ -10,6 +10,7 @@ use App\Modules\Management\ExpenseManagement\CookSalary\Actions\BulkActions;
 use App\Modules\Management\ExpenseManagement\CookSalary\Actions\DestroyData;
 use App\Modules\Management\ExpenseManagement\CookSalary\Actions\CookSallaryHistoryData;
 use App\Modules\Management\ExpenseManagement\CookSalary\Actions\CookSallaryByDailyBajar;
+// use App\Modules\Management\ExpenseManagement\CookSalary\Actions\DailyCookSalary;
 
 use App\Modules\Management\ExpenseManagement\CookSalary\Actions\RestoreData;
 use App\Modules\Management\ExpenseManagement\CookSalary\Actions\UpdateStatus;
@@ -75,6 +76,7 @@ class Controller extends ControllersController{
         $data = CookSallaryByDailyBajar::execute();
         return $data;
     }
+
    
 
 }

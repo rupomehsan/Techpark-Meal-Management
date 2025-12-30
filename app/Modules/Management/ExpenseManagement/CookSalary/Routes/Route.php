@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix( 'v1')->group(function () {
     Route::prefix('cook-sallary')->group(function () {
+        Route::get('cook-salary-by-daily-bajar', [Controller::class,'cookSallaryByDailyBajar']);
         Route::get('', [Controller::class, 'index']);
         Route::get('{slug}', [Controller::class, 'show']);
         Route::post('store', [Controller::class, 'store']);
@@ -16,7 +17,6 @@ Route::prefix( 'v1')->group(function () {
         // new route for cook sallary history
         Route::get('cook-sallary-history/{month}', [Controller::class,'cookSallaryHistory']);
 
-        Route::get('cook-salary-by-daily-bajar', [Controller::class,'cookSallaryByDailyBajar']);
 
 
         Route::post('import', [Controller::class,'import']);
