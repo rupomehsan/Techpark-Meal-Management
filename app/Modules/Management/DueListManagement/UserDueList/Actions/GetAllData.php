@@ -2,6 +2,7 @@
 
 namespace App\Modules\Management\DueListManagement\UserDueList\Actions;
 
+
 class GetAllData
 {
     static $model = \App\Modules\Management\DueListManagement\UserDueList\Models\Model::class;
@@ -9,6 +10,7 @@ class GetAllData
     public static function execute()
     {
         try {
+           
 
             $pageLimit = request()->input('limit') ?? 10;
             $orderByColumn = request()->input('sort_by_col') ?? 'id';
@@ -29,6 +31,7 @@ class GetAllData
                     // ->orWhere('amount', 'like', '%' . $searchkey . '%');
                 });
             }
+
 
             if ($start_date && $end_date) {
                  if ($end_date > $start_date) {

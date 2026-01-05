@@ -2,6 +2,7 @@ import setup from ".";
 import All from "../pages/All.vue";
 import Form from "../pages/Form.vue";
 import Details from "../pages/Details.vue";
+import DueList from "../pages/DueList.vue";
 import Layout from "../pages/Layout.vue";
 
 let route_prefix = setup.route_prefix;
@@ -11,10 +12,16 @@ const routes = {
     path: route_path,
     component: Layout,
     children: [
+        // {
+        //     path: "all",
+        //     name: "All" + route_prefix,
+        //     component: All,
+        // },
+        
         {
             path: "all",
-            name: "All" + route_prefix,
-            component: All,
+            name: "Employee" + route_prefix,
+            component: DueList,
         },
         {
             path: "create",

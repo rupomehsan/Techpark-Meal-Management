@@ -78,11 +78,11 @@
         :icon="`fa fa-plus`"
         :menu_title="`Meal Management`"
         :menus="[
-          {
-            route_name: `AllMonthlyMealRate`,
-            title: `Monthly Meal Rate`,
-            icon: `zmdi zmdi-dot-circle-alt`,
-          },
+          // {
+          //   route_name: `AllMonthlyMealRate`,
+          //   title: `Monthly Meal Rate`,
+          //   icon: `zmdi zmdi-dot-circle-alt`,
+          // },
           {
             route_name: `AllUserMeal`,
             title: `User Meal`,
@@ -103,7 +103,7 @@
         :menu_title="`DueList Management`"
         :menus="[
           {
-            route_name: `AllDuelist`,
+            route_name: `EmployeeDuelist`,
             title: `All Due List`,
             icon: `zmdi zmdi-dot-circle-alt`,
           },
